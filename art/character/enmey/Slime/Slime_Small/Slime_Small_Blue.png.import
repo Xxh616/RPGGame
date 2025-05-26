@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccdriy8emh6l8"
-path="res://.godot/imported/Pig_01.png-3b4655beddb0c554f216cc44a095c5ab.ctex"
+uid="uid://bf2y3twxftu5f"
+path="res://.godot/imported/Slime_Small_Blue.png-2db59b24cac41a76bb7ba957592cb5c3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map_resources/animal/Pig_01.png"
-dest_files=["res://.godot/imported/Pig_01.png-3b4655beddb0c554f216cc44a095c5ab.ctex"]
+source_file="res://art/character/enmey/Slime/Slime_Small/Slime_Small_Blue.png"
+dest_files=["res://.godot/imported/Slime_Small_Blue.png-2db59b24cac41a76bb7ba957592cb5c3.ctex"]
 
 [params]
 

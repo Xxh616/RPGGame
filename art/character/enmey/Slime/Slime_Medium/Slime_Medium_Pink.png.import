@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr27rrlaoi24a"
-path="res://.godot/imported/Slime_Small_Yellow.png-f95d9f6c7e390f876d644bdf19d6227c.ctex"
+uid="uid://dah1a3ecahg15"
+path="res://.godot/imported/Slime_Medium_Pink.png-1172b61a8971629b96e63f844cfa714f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map_resources/Enemy/slime/Slime_Small_Yellow.png"
-dest_files=["res://.godot/imported/Slime_Small_Yellow.png-f95d9f6c7e390f876d644bdf19d6227c.ctex"]
+source_file="res://art/character/enmey/Slime/Slime_Medium/Slime_Medium_Pink.png"
+dest_files=["res://.godot/imported/Slime_Medium_Pink.png-1172b61a8971629b96e63f844cfa714f.ctex"]
 
 [params]
 

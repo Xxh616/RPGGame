@@ -1,11 +1,10 @@
 extends Node
-
 # 🧍‍♂️ 玩家状态
 var player_health: int = 100
 var player_max_health: int = 100
 var player_alive: bool = true
 var player_current_attack: bool = false
-var player_regen_rate: int = 20
+var player_regen_rate: int = 5
 var player_regen_interval: float = 3.0
 
 # 🌍 场景管理

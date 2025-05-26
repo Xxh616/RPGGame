@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://cq7tv82of2oo"]
 
-[ext_resource type="Script" uid="uid://caqcby8qifayo" path="res://scripts/slime_new.gd" id="1_kb7k8"]
+[ext_resource type="Script" uid="uid://caqcby8qifayo" path="res://scripts/slimebase.gd" id="1_kb7k8"]
 [ext_resource type="Texture2D" uid="uid://cboso2xmwnwl7" path="res://art/character/slime.png" id="2_rt36t"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2gj0"]
@@ -189,7 +189,7 @@ radius = 15.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_40yws"]
 radius = 7.0
 
-[node name="Slime_new" type="CharacterBody2D"]
+[node name="SlimeBase" type="CharacterBody2D"]
 position = Vector2(0, -3)
 script = ExtResource("1_kb7k8")
 attack_trigger_range = 140.0
@@ -232,6 +232,7 @@ show_percentage = false
 
 [node name="enemy_damage_timer" type="Timer" parent="."]
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_frame_changed"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="cooldown_timer" to="." method="_on_cooldown_timer_timeout"]

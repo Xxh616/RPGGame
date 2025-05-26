@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="RPGGamePractice"
+config/name="RPGGameTest"
 run/main_scene="uid://dfl5wqpwtc00h"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"

@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://cpf61poerbvql"]
+
+[ext_resource type="Texture2D" uid="uid://bboxypgm004wx" path="res://art/Inventory/UI_Premade.png" id="1_qw0r6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psafj"]
+atlas = ExtResource("1_qw0r6")
+region = Rect2(256, 0, 256, 256)
+
+[node name="Inventory" type="Node2D"]
+
+[node name="InventoryBackGround" type="TextureRect" parent="."]
+offset_right = 256.0
+offset_bottom = 256.0
+texture = SubResource("AtlasTexture_psafj")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="GridContainer" type="GridContainer" parent="Control"]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 30.0
+offset_right = 227.0
+offset_bottom = 148.0
+
+[node name="TextureButton" type="TextureButton" parent="Control/GridContainer"]
+layout_mode = 2
+
+[node name="TextureButton2" type="TextureButton" parent="Control/GridContainer"]
+layout_mode = 2
+
+[node name="TextureButton3" type="TextureButton" parent="Control/GridContainer"]
+layout_mode = 2
+
+[node name="TextureButton4" type="TextureButton" parent="Control/GridContainer"]
+layout_mode = 2

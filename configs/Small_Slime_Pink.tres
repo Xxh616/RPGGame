@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SlimeConfig" load_steps=2 format=3 uid="uid://dfwxkv1laxa25"]
+
+[ext_resource type="Script" uid="uid://ckevrb113s5qv" path="res://scripts/SlimeConfig.gd" id="1_nne3f"]
+
+[resource]
+script = ExtResource("1_nne3f")
+sprite_scale = Vector2(1, 1)
+sprite_modulate = Color(1, 1, 1, 1)
+jump_speed = 80.0
+damage_amount = 10
+attack_anim_time = 0.5
+attack_cooldown_time = 1.0
+attack_landing_frame = 5
+attack_hit_range = 20.0
+skills = Array[PackedScene]([])
+metadata/_custom_type_script = "uid://ckevrb113s5qv"

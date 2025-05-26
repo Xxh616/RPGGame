@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bgi1i3nrtw4ho" path="res://art/map_resources/grass.png" id="2_k0juu"]
 [ext_resource type="Texture2D" uid="uid://dchlescektrow" path="res://art/map_resources/objects.png" id="3_71j4m"]
 [ext_resource type="PackedScene" uid="uid://bb0yoc2888fyf" path="res://scenes/player.tscn" id="4_k0juu"]
-[ext_resource type="PackedScene" uid="uid://cq7tv82of2oo" path="res://scenes/slime_new.tscn" id="6_qfnet"]
+[ext_resource type="PackedScene" uid="uid://cq7tv82of2oo" path="res://scenes/slime_base.tscn" id="6_qfnet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4wyf3"]
 texture = ExtResource("2_k0juu")
@@ -96,7 +96,7 @@ layer_2/tile_data = PackedInt32Array(65540, 4, 5, 131081, 4, 5, 65551, 4, 5, 655
 
 [node name="player" parent="." instance=ExtResource("4_k0juu")]
 z_index = 1
-position = Vector2(194, 24)
+position = Vector2(197, 23)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -105,6 +105,7 @@ position = Vector2(-1, 0)
 polygon = PackedVector2Array(61, -2, 167, 0, 166, -32, 235, -31, 234, -2, 360, 1, 359, 15, 358, 23, 358, 29, 372, 31, 372, 42, 372, 46, 376, 46, 464, 46, 465, 224, 0, 224, 1, -31, -94, 58, -94, 127, -99, 155, -80, 207, -30, 278, 62, 283, 200, 277, 273, 275, 447, 285, 543, 220, 579, 25, 546, -39, 480, -87, 358, -126, 246, -135, 107, -153, 42, -99, 29, -44, 12, -18, 7, -1)
 
 [node name="transition_point" type="Area2D" parent="."]
+position = Vector2(0, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="transition_point"]
 position = Vector2(199.5, -15.5)
@@ -112,6 +113,15 @@ shape = SubResource("RectangleShape2D_i7141")
 
 [node name="Slime" parent="." instance=ExtResource("6_qfnet")]
 position = Vector2(318, 89)
+jump_speed = 80.0
+damage_amount = 10
+attack_anim_time = 0.5
+attack_cooldown_time = 1.0
+attack_landing_frame = 5
+attack_hit_range = 20.0
+move_speed = 60.0
+max_health = 100
+attack_range = 20.0
 
 [connection signal="body_entered" from="transition_point" to="." method="_on_transition_point_body_entered"]
 [connection signal="body_exited" from="transition_point" to="." method="_on_transition_point_body_exited"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmr4sigotg4w3"
-path="res://.godot/imported/Chicken_Coop.png-57259d874be0eaa1c75f3ca47bb2b73d.ctex"
+uid="uid://bfle5jd8j1b8v"
+path="res://.godot/imported/Slime_Medium_Blue.png-2b4444d5820a5d2e700d9de583ee368a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map_resources/animal/Chicken_Coop.png"
-dest_files=["res://.godot/imported/Chicken_Coop.png-57259d874be0eaa1c75f3ca47bb2b73d.ctex"]
+source_file="res://art/character/enmey/Slime/Slime_Medium/Slime_Medium_Blue.png"
+dest_files=["res://.godot/imported/Slime_Medium_Blue.png-2b4444d5820a5d2e700d9de583ee368a.ctex"]
 
 [params]
 

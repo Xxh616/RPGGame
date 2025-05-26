@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0dwrtwpd00tq"
-path="res://.godot/imported/Cow_03.png-ebf4c7f78295b66719660e4ed5f49550.ctex"
+uid="uid://dsyypx86vobx3"
+path="res://.godot/imported/Slime_Big_Pink.png-499bbdae3711374c495f3cd5b9f622a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map_resources/animal/Cow_03.png"
-dest_files=["res://.godot/imported/Cow_03.png-ebf4c7f78295b66719660e4ed5f49550.ctex"]
+source_file="res://art/character/enmey/Slime/Slime_Big/Slime_Big_Pink.png"
+dest_files=["res://.godot/imported/Slime_Big_Pink.png-499bbdae3711374c495f3cd5b9f622a3.ctex"]
 
 [params]
 

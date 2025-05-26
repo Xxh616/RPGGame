@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://8v5gxq603vv"
-path="res://.godot/imported/Shoes_Brown_Attack.png-41fddc2f0bcd5cd24a30637bcda2d1ef.ctex"
+uid="uid://dokbad65r435n"
+path="res://.godot/imported/Slime_Medium_Red.png-10d753f29adcff911672a5d199435724.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/character/player/Clothes/shoose/Shoes_Brown_Attack.png"
-dest_files=["res://.godot/imported/Shoes_Brown_Attack.png-41fddc2f0bcd5cd24a30637bcda2d1ef.ctex"]
+source_file="res://art/character/enmey/Slime/Slime_Medium/Slime_Medium_Red.png"
+dest_files=["res://.godot/imported/Slime_Medium_Red.png-10d753f29adcff911672a5d199435724.ctex"]
 
 [params]
 

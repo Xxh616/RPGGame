@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2ijvc4ar23o"
-path="res://.godot/imported/Angel_1.png-6fbf32ecab23734d841acc903f420b3d.ctex"
+uid="uid://pw1i74dxmcxw"
+path="res://.godot/imported/Slime_Small_Yellow.png-b422b9bb71d32eb5f5a00ff81ed25724.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map_resources/Enemy/Angel_1.png"
-dest_files=["res://.godot/imported/Angel_1.png-6fbf32ecab23734d841acc903f420b3d.ctex"]
+source_file="res://art/character/enmey/Slime/Slime_Small/Slime_Small_Yellow.png"
+dest_files=["res://.godot/imported/Slime_Small_Yellow.png-b422b9bb71d32eb5f5a00ff81ed25724.ctex"]
 
 [params]
 

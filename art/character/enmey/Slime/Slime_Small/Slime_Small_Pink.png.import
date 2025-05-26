@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxy7oqn3p3ntj"
-path="res://.godot/imported/Chicken_01.png-387d1c12cfbab1aa32b4050259de9538.ctex"
+uid="uid://dnausvqmgc5m3"
+path="res://.godot/imported/Slime_Small_Pink.png-7a1cded50e47db73d7a22b597758fa1d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/map_resources/animal/Chicken_01.png"
-dest_files=["res://.godot/imported/Chicken_01.png-387d1c12cfbab1aa32b4050259de9538.ctex"]
+source_file="res://art/character/enmey/Slime/Slime_Small/Slime_Small_Pink.png"
+dest_files=["res://.godot/imported/Slime_Small_Pink.png-7a1cded50e47db73d7a22b597758fa1d.ctex"]
 
 [params]
 
