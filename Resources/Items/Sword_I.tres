@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cw43gl6i5avjx"]
+
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="1_5ex07"]
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_usud5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsdqo"]
+atlas = ExtResource("1_usud5")
+region = Rect2(1, 114, 13, 13)
+
+[resource]
+script = ExtResource("1_5ex07")
+id = "Sword_I"
+name = "Sword I"
+icon = SubResource("AtlasTexture_bsdqo")
+max_stack = 1
+description = "\"增加20点攻击力\""
+type = 0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfl5wqpwtc00h"]
 
-[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://Tilemap/hometown.tres" id="1_7xnwq"]
+[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/hometown.tres" id="1_7xnwq"]
 [ext_resource type="PackedScene" uid="uid://blcnr3nrtnd0o" path="res://scenes/spawner.tscn" id="3_lor3b"]
 [ext_resource type="PackedScene" uid="uid://bb0yoc2888fyf" path="res://scenes/player.tscn" id="13_uhdvq"]
 
@@ -25,9 +25,9 @@ position = Vector2(959, 270)
 [node name="Spawner" parent="." instance=ExtResource("3_lor3b")]
 position = Vector2(308, 509)
 spawn_area_node = NodePath("../SpawnArea")
-initial_count = 10
-max_count = 20
-resume_count = 10
+initial_count = 8
+max_count = 16
+resume_count = 6
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

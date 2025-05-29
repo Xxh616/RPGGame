@@ -120,7 +120,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_khoj4")
 }],
 "loop": true,
-"name": &"die",
+"name": &"death",
 "speed": 5.0
 }, {
 "frames": [{

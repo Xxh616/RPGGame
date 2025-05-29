@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc8sweooy18si"]
+
+[ext_resource type="PackedScene" uid="uid://ctdo62uf6pa7e" path="res://scenes/Inventory/item_slot.tscn" id="1_bfobu"]
+[ext_resource type="Script" uid="uid://c0dg5bp83854n" path="res://scripts/Inventory/equip_slot.gd" id="2_xd11g"]
+
+[node name="EquipSlotMargin" instance=ExtResource("1_bfobu")]
+script = ExtResource("2_xd11g")
+slot_index = null

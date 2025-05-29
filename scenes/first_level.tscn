@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://g86qtkaces83"]
 
-[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://Tilemap/FirtLevel.tres" id="1_tqy6i"]
+[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/hometown.tres" id="1_tqy6i"]
 
 [node name="FirstLevel" type="Node2D"]
 

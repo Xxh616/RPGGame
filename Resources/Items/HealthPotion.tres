@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dnl1wsbhxsj6h"]
+
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="1_o30qj"]
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_sqehs"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1db67"]
+atlas = ExtResource("1_sqehs")
+region = Rect2(178, 64, 13, 16)
+
+[resource]
+script = ExtResource("1_o30qj")
+id = "health_potion"
+name = "Health Potion"
+icon = SubResource("AtlasTexture_1db67")
+max_stack = 2
+description = "恢复 50 点生命。"
+type = 1
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bxm8qfjv7fd7w"]
+
+[ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_rr6ai"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_tveey"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ky64l"]
+atlas = ExtResource("1_rr6ai")
+region = Rect2(209, 114, 13, 13)
+
+[resource]
+script = ExtResource("2_tveey")
+id = "empty_slot"
+name = "empty_weapon"
+icon = SubResource("AtlasTexture_ky64l")
+max_stack = 0
+description = ""
+type = 3
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

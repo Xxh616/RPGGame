@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctdo62uf6pa7e"]
+
+[ext_resource type="Script" uid="uid://fwqr3u4bhkf0" path="res://scripts/Inventory/item_slot.gd" id="1_ekslp"]
+[ext_resource type="Texture2D" uid="uid://bboxypgm004wx" path="res://art/Inventory/UI_Premade.png" id="2_q8wyl"]
+[ext_resource type="PackedScene" uid="uid://qqn7tpo5agc2" path="res://scenes/Inventory/ItemTile.tscn" id="3_rynie"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7v0y0"]
+atlas = ExtResource("2_q8wyl")
+region = Rect2(205, 125, 18, 18)
+
+[node name="ItemSlotMargin" type="MarginContainer"]
+script = ExtResource("1_ekslp")
+
+[node name="ItemSlotBackGround" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = SubResource("AtlasTexture_7v0y0")
+
+[node name="IconMargin" parent="." instance=ExtResource("3_rynie")]
+layout_mode = 2

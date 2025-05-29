@@ -1,0 +1,317 @@
+[gd_scene load_steps=22 format=3 uid="uid://cc3pjfk4qvxry"]
+
+[ext_resource type="Script" uid="uid://r6swolrforau" path="res://scenes/Inventory/inventory_ui.gd" id="1_e3oc6"]
+[ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_irya2"]
+[ext_resource type="Resource" uid="uid://bxm8qfjv7fd7w" path="res://Resources/Items/empty_icon.tres" id="2_0hb5n"]
+[ext_resource type="Texture2D" uid="uid://b7k2q7k8d8ete" path="res://art/Inventory/UI_Ribbons.png" id="2_e3oc6"]
+[ext_resource type="Texture2D" uid="uid://ds2k6hkw2g7du" path="res://art/Inventory/UI_Icons.png" id="3_8faus"]
+[ext_resource type="PackedScene" uid="uid://dc8sweooy18si" path="res://scenes/Inventory/equip_slot_margin.tscn" id="4_0hb5n"]
+[ext_resource type="Texture2D" uid="uid://b3mgx3b7gv4dk" path="res://art/Inventory/UI_Sliders.png" id="5_y258h"]
+[ext_resource type="PackedScene" uid="uid://ctdo62uf6pa7e" path="res://scenes/Inventory/item_slot.tscn" id="6_3uau8"]
+[ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="7_2s2pa"]
+[ext_resource type="Script" uid="uid://c8cy5sdyl0ex2" path="res://scripts/Inventory/inventory.gd" id="9_8faus"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uwj4j"]
+atlas = ExtResource("1_irya2")
+region = Rect2(54, 51, 36, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1dxi5"]
+atlas = ExtResource("2_e3oc6")
+region = Rect2(8, 0, 65, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqfnd"]
+atlas = ExtResource("3_8faus")
+region = Rect2(145, 81, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ngbl7"]
+content_margin_left = 46.0
+texture = SubResource("AtlasTexture_dqfnd")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wyaw"]
+atlas = ExtResource("1_irya2")
+region = Rect2(113, 67, 4, 4)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rg5pf"]
+atlas = ExtResource("5_y258h")
+region = Rect2(111, 163, 34, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmxcj"]
+atlas = ExtResource("3_8faus")
+region = Rect2(177, 17, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iradw"]
+atlas = ExtResource("3_8faus")
+region = Rect2(162, 17, 12, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eifbp"]
+atlas = ExtResource("3_8faus")
+region = Rect2(49, 1, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ngbl7"]
+atlas = ExtResource("7_2s2pa")
+region = Rect2(1, 33, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8wyaw"]
+content_margin_left = 30.0
+content_margin_top = 10.0
+content_margin_right = 30.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_ngbl7")
+
+[node name="InventoryUi" type="MarginContainer"]
+script = ExtResource("1_e3oc6")
+inventory_node = NodePath("Inventory")
+weapon_slot_node = NodePath("InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/WeaponMargin/EquipSlotMargin")
+item_slots_grid = NodePath("InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer")
+empty_item = ExtResource("2_0hb5n")
+
+[node name="Background" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+texture = SubResource("AtlasTexture_uwj4j")
+
+[node name="InventoryMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxSplit" type="VBoxContainer" parent="InventoryMargin"]
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit"]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="InventoryMargin/VBoxSplit/TopMargin"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_1dxi5")
+
+[node name="InventoryLabel" type="Label" parent="InventoryMargin/VBoxSplit/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.987616, 1, 0.986185, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="InventoryMargin/VBoxSplit/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_ngbl7")
+
+[node name="BottomMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxSplit" type="HBoxContainer" parent="InventoryMargin/VBoxSplit/BottomMargin"]
+layout_mode = 2
+
+[node name="LeftMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="LeftMarginBackG" type="NinePatchRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_8wyaw")
+
+[node name="LeftVBox" type="VBoxContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin"]
+layout_mode = 2
+
+[node name="WeaponMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox"]
+layout_mode = 2
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="EquipSlotMargin" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/WeaponMargin" instance=ExtResource("4_0hb5n")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AttributeMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox"]
+layout_mode = 2
+
+[node name="AttributeVBox" type="VBoxContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin"]
+layout_mode = 2
+
+[node name="AttackMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="AttackBackG" type="NinePatchRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_rg5pf")
+
+[node name="TextureRect" type="TextureRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin"]
+custom_minimum_size = Vector2(80, 85)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_rmxcj")
+
+[node name="DefenseMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="AttackBackG" type="NinePatchRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = SubResource("AtlasTexture_rg5pf")
+
+[node name="TextureRect" type="TextureRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin"]
+custom_minimum_size = Vector2(80, 85)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_iradw")
+
+[node name="StatPointsMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="AttackBackG" type="NinePatchRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/StatPointsMargin"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+texture = SubResource("AtlasTexture_rg5pf")
+
+[node name="TextureRect" type="TextureRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/StatPointsMargin"]
+custom_minimum_size = Vector2(80, 85)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = SubResource("AtlasTexture_eifbp")
+
+[node name="RightMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightMarginBackG" type="NinePatchRect" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_8wyaw")
+
+[node name="RightVBox" type="VBoxContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin"]
+layout_mode = 2
+
+[node name="ItemMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox"]
+custom_minimum_size = Vector2(745, 505)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+
+[node name="GridContainer" type="GridContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin"]
+layout_mode = 2
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 3
+columns = 6
+
+[node name="ItemSllotMargin" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin2" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin3" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin4" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin5" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin6" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin7" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin8" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin9" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin10" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin11" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin12" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin13" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin14" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin15" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin16" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin17" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin18" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin19" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin20" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin21" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin22" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin23" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="ItemSllotMargin24" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer" instance=ExtResource("6_3uau8")]
+layout_mode = 2
+
+[node name="FunctionButtonMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 150
+
+[node name="ButtonSplit" type="HBoxContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin"]
+layout_mode = 2
+
+[node name="Discard" type="Button" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin/ButtonSplit"]
+layout_mode = 2
+size_flags_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.960784, 0.956863, 0.988235, 0.988235)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_8wyaw")
+text = "Discard
+"
+
+[node name="Organize" type="Button" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin/ButtonSplit"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.960784, 0.956863, 0.988235, 0.988235)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxTexture_8wyaw")
+text = "Organize"
+
+[node name="ContextMenu" type="PopupMenu" parent="."]
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("9_8faus")
