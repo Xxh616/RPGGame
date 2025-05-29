@@ -81,8 +81,13 @@ func _on_context_menu_id_pressed(id: int) -> void:
 		2:
 			inventory.use_item_by_slot(last_slot_idx)
 		3:
-			var cnt = inventory.get_count_by_slot(last_slot_idx)
-			inventory.remove_item_by_slot(last_slot_idx, cnt)
+			if last_slot_idx < 0:
+				# 装备槽 → 真正丢弃，不放回背包
+				inventory.discard_equip_slot(0)
+			else:
+				# 背包格 → 按原来逻辑丢弃
+				var cnt = inventory.get_count_by_slot(last_slot_idx)
+				inventory.remove_item_by_slot(last_slot_idx, cnt)
 	_refresh_ui()
 
 

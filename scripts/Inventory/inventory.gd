@@ -8,7 +8,7 @@ signal item_removed(item_id: String, slot_idx: int)
 signal item_equipped(item_id: String, equip_idx: int)
 signal item_unequipped(item_id: String, equip_idx: int)
 signal item_used(item_id: String, slot_idx: int)
-
+signal item_discarded(item_id: String, equip_idx: int)
 # —— 配置 —— 
 @export var max_slots: int = 20
 
@@ -119,7 +119,16 @@ func remove_item_by_slot(slot_idx: int, count: int = 1) -> bool:
 		add_item_by_id(slots[slot_idx].item_id, count - remaining)
 		return false
 	return true
-
+func discard_equip_slot(equip_idx: int) -> bool:
+	if equip_idx < 0 or equip_idx >= equipment.size():
+		return false
+	var id = equipment[equip_idx]
+	if id == "":
+		return false
+	# 直接清空，不放回背包
+	equipment[equip_idx] = ""
+	emit_signal("item_discarded", id, equip_idx)
+	return true
 # —— 使用（消耗）道具 —— 
 func use_item_by_slot(slot_idx: int) -> bool:
 	var e = slots[slot_idx]
