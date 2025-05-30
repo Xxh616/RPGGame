@@ -125,7 +125,7 @@ theme_override_font_sizes/font_size = 25
 text = "Inventory"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="InventoryMargin/VBoxSplit/TopMargin"]
+[node name="CloseButton" type="Button" parent="InventoryMargin/VBoxSplit/TopMargin"]
 layout_mode = 2
 size_flags_horizontal = 8
 focus_mode = 0
@@ -336,3 +336,5 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_8wyaw")
 text = "Organize"
 
 [node name="ContextMenu" type="PopupMenu" parent="."]
+
+[connection signal="pressed" from="InventoryMargin/VBoxSplit/TopMargin/CloseButton" to="." method="_on_close_button_pressed"]

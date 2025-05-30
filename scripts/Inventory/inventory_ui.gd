@@ -2,11 +2,16 @@
 extends MarginContainer
 class_name InventoryUI
 var last_slot_idx: int = -1
+
+
+
 # —— Inspector 配置 —— 
 @onready var inventory = inventory_autoload
 @export var weapon_slot_node: NodePath
 @export var item_slots_grid: NodePath
 @export var empty_item:        Resource    # 在 Inspector 里拖入一个 .tres，里面只定义好一个空图标
+@export var drop_scene: PackedScene = preload("res://scenes/item_drop.tscn")
+@export var player_node: NodePath      # Inspector 拖入你的 “Player” 节点
 # —— 运行时引用 —— 
 @onready var weapon_slot = get_node(weapon_slot_node) as ItemSlot
 @onready var grid        = get_node(item_slots_grid) as GridContainer
@@ -80,16 +85,38 @@ func _on_context_menu_id_pressed(id: int) -> void:
 		2:
 			inventory.use_item_by_slot(last_slot_idx)
 		3:
+			# 区分装备槽（-1）和背包槽（>=0）
 			if last_slot_idx < 0:
-				# 装备槽 → 真正丢弃，不放回背包
-				inventory.discard_equip_slot(0)
+				# 装备槽 → 真正丢弃
+				var eid = inventory.equipment[0]
+				inventory.unequip_slot(0)
+				_spawn_drop(eid, 1)
 			else:
-				# 背包格 → 按原来逻辑丢弃
+				# 背包槽 → 按数量丢弃
+				var sid = inventory.get_slot_id(last_slot_idx)
 				var cnt = inventory.get_count_by_slot(last_slot_idx)
 				inventory.remove_item_by_slot(last_slot_idx, cnt)
+				_spawn_drop(sid, cnt)
 	_refresh_ui()
+func _spawn_drop(item_id: String, count: int) -> void:
+	# 1) 实例化掉落场景
+	var drop = drop_scene.instantiate() as Node2D
+	drop.item_id = item_id
+	drop.count   = count
 
+	# 2) 找到“世界”节点，而不是 UI 节点
+	#    假设你的世界场景节点叫 World，挂在根节点下：
+	var world = get_tree().current_scene as Node2D
+	# —— 或者如果你在 Inspector 里 export 了一个 world_node: NodePath，就用它：
+	# var world = get_node(world_node) as Node2D
 
+	world.add_child(drop)
+
+	# 3) 放到玩家当前位置
+	var p = get_node(player_node) as Node2D
+	print(p.global_position)
+	drop.global_position = p.global_position
+	
 # —— 信号回调 —— 
 func _on_item_slot_right_clicked(idx: int) -> void:
 	# 记录当前右键的是哪个槽
@@ -143,3 +170,7 @@ func _refresh_ui() -> void:
 			slot.set_item(sid, it.icon, cnt)
 		else:
 			slot.clear_item()
+
+
+func _on_close_button_pressed() -> void:
+	hide()

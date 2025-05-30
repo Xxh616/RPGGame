@@ -5,7 +5,9 @@ var queued_charge := false  # 是否等待进入蓄力
 var charge_time := 0.0
 @export var max_charge_time := 1.5  # 最大蓄力时间（秒）
 
-
+@onready var pickup_area = $PickupArea as Area2D
+var nearby_drops := []   # 存当前范围内的 drop 引用
+var itemselect: ItemDrop = null
 @export var charge_move_speed := 30  # 蓄力时移动速度
 @export var speed := 100
 @export var attack_radius := 60
@@ -31,6 +33,8 @@ func _ready():
 	$charge_bar.visible = false
 	$charge_bar.max_value = 100
 	$charge_bar.value = 0
+	pickup_area.connect("area_entered", Callable(self, "_on_pickup_area_entered"))
+	pickup_area.connect("area_exited",  Callable(self, "_on_pickup_area_exited"))
 
 func _process(delta):
 	if is_charging:
@@ -53,7 +57,43 @@ func start_charge():
 	charge_time = 0.0
 	$charge_bar.visible = true
 	$charge_bar.value = 0
+func _on_pickup_area_entered(area: Area2D) -> void:
+	# area 应该是掉落物场景里的那个子 Area2D
+	var drop = area.get_parent()
+	if drop is ItemDrop:
+		nearby_drops.append(drop)
+		
 
+func _on_pickup_area_exited(area: Area2D) -> void:
+	var drop = area.get_parent()
+	if drop is ItemDrop:
+		nearby_drops.erase(drop)
+		drop.show_label(false)
+		itemselect=null
+func _unhandled_input(event):
+	if event.is_action_pressed("pickup_item"):
+		print(itemselect)
+	if event.is_action_pressed("pickup_item") and itemselect!=null:
+		itemselect.pickup()
+		nearby_drops.erase(itemselect)
+		itemselect.show_label(false)
+		itemselect=null
+func _refresh_drop_labels():
+	if nearby_drops.size() == 0:
+		itemselect = null
+		return
+	# 找到最近的一个
+	var nearest = nearby_drops[0]
+	var best_d2 = (nearest.global_position - global_position).length_squared()
+	for d in nearby_drops:
+		var d2 = (d.global_position - global_position).length_squared()
+		if d2 < best_d2:
+			best_d2 = d2
+			nearest = d
+	# 只让最近的显示名称
+	for d in nearby_drops:
+		d.show_label(d == nearest)
+	itemselect=nearest
 func release_charge():
 	is_charging = false
 	$charge_bar.visible = false
@@ -70,9 +110,10 @@ func perform_heavy_attack():
 func _physics_process(delta):
 	handle_movement()
 	move_and_slide()
+	_refresh_drop_labels()
 	update_health_bar()
 	current_camera()
-
+	
 	if global.player_health <= 0:
 		global.player_alive = false
 		global.player_health = 0

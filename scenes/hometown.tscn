@@ -32,6 +32,7 @@ position = Vector2(959, 270)
 visible = false
 offset_right = 1152.0
 offset_bottom = 650.0
+player_node = NodePath("../../player")
 
 [node name="Spawner" parent="." instance=ExtResource("3_lor3b")]
 position = Vector2(308, 509)

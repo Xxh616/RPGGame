@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7eqlrcjj8o8o"]
+
+[ext_resource type="Script" uid="uid://0gso7d0132ok" path="res://scripts/item_drop.gd" id="1_gvv6n"]
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="2_xsgl2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ai4ee"]
+atlas = ExtResource("2_xsgl2")
+region = Rect2(1, 114, 13, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4kxy2"]
+radius = 17.0
+
+[node name="ItemDrop" type="Node2D"]
+script = ExtResource("1_gvv6n")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_ai4ee")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -12.0
+offset_top = -21.0
+offset_right = 16.0
+offset_bottom = -7.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 10
+text = "nihao"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_4kxy2")
