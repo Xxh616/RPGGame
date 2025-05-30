@@ -3,12 +3,11 @@ extends MarginContainer
 class_name InventoryUI
 var last_slot_idx: int = -1
 # —— Inspector 配置 —— 
-@export var inventory_node: NodePath
+@onready var inventory = inventory_autoload
 @export var weapon_slot_node: NodePath
 @export var item_slots_grid: NodePath
 @export var empty_item:        Resource    # 在 Inspector 里拖入一个 .tres，里面只定义好一个空图标
 # —— 运行时引用 —— 
-@onready var inventory   = get_node(inventory_node) as Inventory
 @onready var weapon_slot = get_node(weapon_slot_node) as ItemSlot
 @onready var grid        = get_node(item_slots_grid) as GridContainer
 @onready var context_menu = $ContextMenu as PopupMenu

@@ -1,6 +1,6 @@
-[gd_scene load_steps=22 format=3 uid="uid://cc3pjfk4qvxry"]
+[gd_scene load_steps=30 format=3 uid="uid://cc3pjfk4qvxry"]
 
-[ext_resource type="Script" uid="uid://r6swolrforau" path="res://scenes/Inventory/inventory_ui.gd" id="1_e3oc6"]
+[ext_resource type="Script" uid="uid://r6swolrforau" path="res://scripts/Inventory/inventory_ui.gd" id="1_e3oc6"]
 [ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_irya2"]
 [ext_resource type="Resource" uid="uid://bxm8qfjv7fd7w" path="res://Resources/Items/empty_icon.tres" id="2_0hb5n"]
 [ext_resource type="Texture2D" uid="uid://b7k2q7k8d8ete" path="res://art/Inventory/UI_Ribbons.png" id="2_e3oc6"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://b3mgx3b7gv4dk" path="res://art/Inventory/UI_Sliders.png" id="5_y258h"]
 [ext_resource type="PackedScene" uid="uid://ctdo62uf6pa7e" path="res://scenes/Inventory/item_slot.tscn" id="6_3uau8"]
 [ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="7_2s2pa"]
-[ext_resource type="Script" uid="uid://c8cy5sdyl0ex2" path="res://scripts/Inventory/inventory.gd" id="9_8faus"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uwj4j"]
 atlas = ExtResource("1_irya2")
@@ -19,9 +18,23 @@ region = Rect2(54, 51, 36, 39)
 atlas = ExtResource("2_e3oc6")
 region = Rect2(8, 0, 65, 21)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hb5n"]
+atlas = ExtResource("3_8faus")
+region = Rect2(177, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y258h"]
+texture = SubResource("AtlasTexture_0hb5n")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uau8"]
+atlas = ExtResource("3_8faus")
+region = Rect2(161, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2s2pa"]
+texture = SubResource("AtlasTexture_3uau8")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqfnd"]
 atlas = ExtResource("3_8faus")
-region = Rect2(145, 81, 14, 14)
+region = Rect2(145, 81, 14, 15)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ngbl7"]
 content_margin_left = 46.0
@@ -47,6 +60,23 @@ region = Rect2(162, 17, 12, 14)
 atlas = ExtResource("3_8faus")
 region = Rect2(49, 1, 14, 14)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_y258h"]
+atlas = ExtResource("7_2s2pa")
+region = Rect2(65, 33, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3uau8"]
+texture = SubResource("AtlasTexture_y258h")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2s2pa"]
+atlas = ExtResource("7_2s2pa")
+region = Rect2(33, 33, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_043bo"]
+texture = SubResource("AtlasTexture_2s2pa")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_y4t5h"]
+texture = SubResource("AtlasTexture_y258h")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ngbl7"]
 atlas = ExtResource("7_2s2pa")
 region = Rect2(1, 33, 30, 14)
@@ -60,7 +90,6 @@ texture = SubResource("AtlasTexture_ngbl7")
 
 [node name="InventoryUi" type="MarginContainer"]
 script = ExtResource("1_e3oc6")
-inventory_node = NodePath("Inventory")
 weapon_slot_node = NodePath("InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/WeaponMargin/EquipSlotMargin")
 item_slots_grid = NodePath("InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/ItemMargin/GridContainer")
 empty_item = ExtResource("2_0hb5n")
@@ -99,7 +128,12 @@ horizontal_alignment = 1
 [node name="Button" type="Button" parent="InventoryMargin/VBoxSplit/TopMargin"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_y258h")
+theme_override_styles/hover = SubResource("StyleBoxTexture_2s2pa")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y258h")
 theme_override_styles/normal = SubResource("StyleBoxTexture_ngbl7")
+icon_alignment = 1
 
 [node name="BottomMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit"]
 layout_mode = 2
@@ -287,31 +321,18 @@ theme_override_constants/margin_left = 150
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 150
 
-[node name="ButtonSplit" type="HBoxContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin"]
+[node name="Organize" type="Button" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin"]
 layout_mode = 2
-
-[node name="Discard" type="Button" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin/ButtonSplit"]
-layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 6
+focus_mode = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0.960784, 0.956863, 0.988235, 0.988235)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
-theme_override_styles/normal = SubResource("StyleBoxTexture_8wyaw")
-text = "Discard
-"
-
-[node name="Organize" type="Button" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin/ButtonSplit"]
-layout_mode = 2
-size_flags_horizontal = 10
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_colors/font_color = Color(0.960784, 0.956863, 0.988235, 0.988235)
-theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 25
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_3uau8")
+theme_override_styles/hover = SubResource("StyleBoxTexture_043bo")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_y4t5h")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8wyaw")
 text = "Organize"
 
 [node name="ContextMenu" type="PopupMenu" parent="."]
-
-[node name="Inventory" type="Node" parent="."]
-script = ExtResource("9_8faus")
