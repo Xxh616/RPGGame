@@ -18,3 +18,6 @@ enum ItemType {
 # （可选）其它属性，比如描述、价值、类型、效果脚本……
 @export var description: String = ""
 @export var type: ItemType = ItemType.Misc
+@export var attack:int=0
+@export var defense:int=0
+@export var buff_duration: float = 10.0

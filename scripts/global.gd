@@ -6,7 +6,9 @@ var player_alive: bool = true
 var player_current_attack: bool = false
 var player_regen_rate: int = 5
 var player_regen_interval: float = 3.0
-
+var player_attack:int =1
+var player_defense:int=1
+var player_status:int=5
 # 🌍 场景管理
 var current_scene: String = "world"
 var transition_scene: bool = false

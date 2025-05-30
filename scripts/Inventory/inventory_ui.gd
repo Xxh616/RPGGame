@@ -2,9 +2,6 @@
 extends MarginContainer
 class_name InventoryUI
 var last_slot_idx: int = -1
-
-
-
 # —— Inspector 配置 —— 
 @onready var inventory = inventory_autoload
 @export var weapon_slot_node: NodePath
@@ -16,7 +13,11 @@ var last_slot_idx: int = -1
 @onready var weapon_slot = get_node(weapon_slot_node) as ItemSlot
 @onready var grid        = get_node(item_slots_grid) as GridContainer
 @onready var context_menu = $ContextMenu as PopupMenu
-
+@onready var attack_label  = $InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin/AttackLabel   as Label
+@onready var statpoints_label  = $InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/StatPointsMargin/StatPointsLabel   as Label
+@onready var defense_label = $InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin/DefenseLabel  as Label
+@onready var attack_add_button= $InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin/AttackAddButton as Button
+@onready var defense_add_button=$InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin/DefenseAddButton as Button
 var item_slots := []  # 存所有背包格实例
 
 func _ready() -> void:
@@ -79,10 +80,25 @@ func _show_context_menu_at_mouse(slot_idx: int) -> void:
 func _on_context_menu_id_pressed(id: int) -> void:
 	match id:
 		0:
+			var wid = inventory.equipment[0]
+			if wid != "":
+				var w = inventory.get_item_resource(wid)
+				global.player_attack  -= w.attack
+				global.player_defense -= w.defense
 			inventory.unequip_slot(0)
+			
 		1:
+			var sid = inventory.get_slot_id(last_slot_idx)
+			var w   = inventory.get_item_resource(sid)
+			global.player_attack  += w.attack
+			global.player_defense += w.defense
 			inventory.equip_slot(0, last_slot_idx)
 		2:
+			var sid = inventory.get_slot_id(last_slot_idx)
+			if sid != "":
+				var itm = inventory.get_item_resource(sid)
+				if itm and itm.id == "health_potion":
+					_apply_attack_potion_buff(itm)
 			inventory.use_item_by_slot(last_slot_idx)
 		3:
 			# 区分装备槽（-1）和背包槽（>=0）
@@ -97,6 +113,7 @@ func _on_context_menu_id_pressed(id: int) -> void:
 				var cnt = inventory.get_count_by_slot(last_slot_idx)
 				inventory.remove_item_by_slot(last_slot_idx, cnt)
 				_spawn_drop(sid, cnt)
+	
 	_refresh_ui()
 func _spawn_drop(item_id: String, count: int) -> void:
 	# 1) 实例化掉落场景
@@ -134,12 +151,25 @@ func _on_item_slot_clicked(slot_idx: int) -> void:
 		push_error("InventoryUI: 未找到物品资源，id=" + sid)
 		return
 	if itm.type == Item.ItemType.Weapon:
+		# 装备
+		global.player_attack  += itm.attack
+		global.player_defense += itm.defense
 		inventory.equip_slot(0, slot_idx)
+		
 	elif itm.type == Item.ItemType.Consumable:
+		
 		inventory.use_item_by_slot(slot_idx)
+		if itm.id == "health_potion":
+			#global.player_health = min(global.player_health + 20, global.player_max_health)
+			_apply_attack_potion_buff(itm)
 	_refresh_ui()
 
 func _on_weapon_slot_clicked(_idx: int) -> void:
+	var wid = inventory.equipment[0]
+	if wid != "":
+		var w = inventory.get_item_resource(wid)
+		global.player_attack  -= w.attack
+		global.player_defense -= w.defense
 	inventory.unequip_slot(0)
 	_refresh_ui()
 func _on_inventory_changed(item_id: String, index: int)-> void:
@@ -150,7 +180,16 @@ func _on_weapon_slot_right_clicked(_idx: int) -> void:
 # —— 刷新界面 —— 
 
 func _refresh_ui() -> void:
-	# —— 装备槽 —— 
+	if global.player_status <= 0:
+		attack_add_button.disabled=true
+		defense_add_button.disabled=true
+	else:
+		attack_add_button.disabled=false
+		defense_add_button.disabled=false
+	attack_label.text  = "%d"%global.player_attack
+	defense_label.text = "%d"%global.player_defense
+	statpoints_label.text="%d"%global.player_status
+	# —— 装备槽
 	var id = inventory.equipment[0]
 	if id != "":
 		var it = inventory.get_item_resource(id)
@@ -170,7 +209,40 @@ func _refresh_ui() -> void:
 			slot.set_item(sid, it.icon, cnt)
 		else:
 			slot.clear_item()
-
+func _update_player_stats() -> void:
+	var wid = inventory.equipment[0]
+	if wid != "":
+		var w = inventory.get_item_resource(wid)
+		global.player_attack  += w.attack
+		global.player_defense += w.defense
 
 func _on_close_button_pressed() -> void:
 	hide()
+
+
+func _on_attack_add_button_pressed() -> void:
+	if global.player_status>0:
+		global.player_attack+=1
+		global.player_status-=1
+		_refresh_ui()
+
+
+func _on_defense_add_button_pressed() -> void:
+	if global.player_status>0:
+		global.player_defense+=1
+		global.player_status-=1
+		_refresh_ui()
+func _apply_attack_potion_buff(itm: Item) -> void:
+	var bonus   = itm.attack
+	var duration = itm.buff_duration
+
+	# 1) 立即加上
+	global.player_attack += bonus
+	_refresh_ui()
+
+	# 2) 异步等待
+	await get_tree().create_timer(duration).timeout
+
+	# 3) 到时撤销增益
+	global.player_attack -= bonus
+	_refresh_ui()

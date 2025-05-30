@@ -15,4 +15,7 @@ icon = SubResource("AtlasTexture_1db67")
 max_stack = 2
 description = "恢复 50 点生命。"
 type = 1
+attack = 100
+defense = 0
+buff_duration = 10.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

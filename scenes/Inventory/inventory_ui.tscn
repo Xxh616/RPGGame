@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cc3pjfk4qvxry"]
+[gd_scene load_steps=37 format=3 uid="uid://cc3pjfk4qvxry"]
 
 [ext_resource type="Script" uid="uid://r6swolrforau" path="res://scripts/Inventory/inventory_ui.gd" id="1_e3oc6"]
 [ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_irya2"]
@@ -51,6 +51,34 @@ region = Rect2(111, 163, 34, 10)
 [sub_resource type="AtlasTexture" id="AtlasTexture_rmxcj"]
 atlas = ExtResource("3_8faus")
 region = Rect2(177, 17, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4t5h"]
+atlas = ExtResource("3_8faus")
+region = Rect2(130, 82, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ljgg"]
+texture = SubResource("AtlasTexture_y4t5h")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8faus"]
+atlas = ExtResource("3_8faus")
+region = Rect2(114, 82, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0hb5n"]
+texture = SubResource("AtlasTexture_8faus")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lmqty"]
+texture = SubResource("AtlasTexture_y4t5h")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_043bo"]
+atlas = ExtResource("3_8faus")
+region = Rect2(98, 82, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q133r"]
+content_margin_left = 30.0
+content_margin_top = 30.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+texture = SubResource("AtlasTexture_043bo")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iradw"]
 atlas = ExtResource("3_8faus")
@@ -189,6 +217,24 @@ layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_rmxcj")
 
+[node name="AttackLabel" type="Label" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 30
+text = "256"
+
+[node name="AttackAddButton" type="Button" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_8ljgg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_0hb5n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lmqty")
+theme_override_styles/normal = SubResource("StyleBoxTexture_q133r")
+
 [node name="DefenseMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -205,6 +251,24 @@ layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_iradw")
 
+[node name="DefenseLabel" type="Label" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 30
+text = "256"
+
+[node name="DefenseAddButton" type="Button" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_8ljgg")
+theme_override_styles/hover = SubResource("StyleBoxTexture_0hb5n")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_lmqty")
+theme_override_styles/normal = SubResource("StyleBoxTexture_q133r")
+
 [node name="StatPointsMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
@@ -219,6 +283,14 @@ custom_minimum_size = Vector2(80, 85)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = SubResource("AtlasTexture_eifbp")
+
+[node name="StatPointsLabel" type="Label" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/StatPointsMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 30
+text = "256"
 
 [node name="RightMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit"]
 layout_mode = 2
@@ -338,3 +410,5 @@ text = "Organize"
 [node name="ContextMenu" type="PopupMenu" parent="."]
 
 [connection signal="pressed" from="InventoryMargin/VBoxSplit/TopMargin/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin/AttackAddButton" to="." method="_on_attack_add_button_pressed"]
+[connection signal="pressed" from="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin/DefenseAddButton" to="." method="_on_defense_add_button_pressed"]
