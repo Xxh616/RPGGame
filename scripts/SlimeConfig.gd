@@ -16,5 +16,8 @@ class_name SlimeConfig
 @export var attack_hit_range:     float = 20.0
 
 @export_group("额外技能")
-# 额外技能场景（每个 PackedScene 实例应是继承 SlimeBase 或单独脚本的“技能”节点）
 @export var skills: Array[PackedScene] = []
+
+@export_group("掉落表")
+# —— 这里 drops 数组里存 DropInfo 资源 —— 
+@export var drops: Array[DropInfo] = []

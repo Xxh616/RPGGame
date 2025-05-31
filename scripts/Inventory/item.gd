@@ -5,6 +5,7 @@ enum ItemType {
 	Weapon,
 	Consumable,
 	Armor,
+	Matertial,
 	Misc
 }
 # 物品的唯一标识

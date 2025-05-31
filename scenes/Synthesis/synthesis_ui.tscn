@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://f7nap1ru2r03"]
+
+[node name="Synthesis_UI" type="MarginContainer"]
+offset_right = 40.0
+offset_bottom = 40.0

@@ -18,9 +18,9 @@ scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_ai4ee")
 
 [node name="NameLabel" type="Label" parent="."]
-offset_left = -12.0
+offset_left = -14.0
 offset_top = -21.0
-offset_right = 16.0
+offset_right = 14.0
 offset_bottom = -7.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 1

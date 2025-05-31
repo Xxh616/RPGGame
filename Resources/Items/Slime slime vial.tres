@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://d1hb43tc8oh7d"]
+
+[ext_resource type="Texture2D" uid="uid://sxj2kc62wpy0" path="res://art/item/potions.png" id="1_btd2f"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_27xy0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mti1d"]
+atlas = ExtResource("1_btd2f")
+region = Rect2(2, 2, 12, 12)
+
+[resource]
+script = ExtResource("2_27xy0")
+id = "Slime vial"
+name = "Slime vial"
+icon = SubResource("AtlasTexture_mti1d")
+max_stack = 1
+description = ""
+type = 3
+attack = 0
+defense = 0
+buff_duration = 10.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

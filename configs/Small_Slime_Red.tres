@@ -1,7 +1,17 @@
-[gd_resource type="Resource" script_class="SlimeConfig" load_steps=22 format=3 uid="uid://ddmflwowmfsmo"]
+[gd_resource type="Resource" script_class="SlimeConfig" load_steps=25 format=3 uid="uid://ddmflwowmfsmo"]
 
+[ext_resource type="Script" uid="uid://b7wpnrky14xwa" path="res://scripts/DropInfo.gd" id="1_hrqlh"]
 [ext_resource type="Script" uid="uid://ckevrb113s5qv" path="res://scripts/SlimeConfig.gd" id="1_mvmem"]
+[ext_resource type="Resource" uid="uid://d1hb43tc8oh7d" path="res://Resources/Items/Slime slime vial.tres" id="2_22jrv"]
 [ext_resource type="Texture2D" uid="uid://do0ppkft4l4uw" path="res://art/character/enmey/Slime/Slime_Small/Slime_Small_Red.png" id="2_axsko"]
+
+[sub_resource type="Resource" id="Resource_3f5mo"]
+script = ExtResource("1_hrqlh")
+item = ExtResource("2_22jrv")
+chance = 1.0
+count = 1
+offset = Vector2(0, 0)
+metadata/_custom_type_script = "uid://b7wpnrky14xwa"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_aiqus"]
 atlas = ExtResource("2_axsko")
@@ -164,4 +174,5 @@ attack_cooldown_time = 1.0
 attack_landing_frame = 6
 attack_hit_range = 10.0
 skills = Array[PackedScene]([])
+drops = Array[ExtResource("1_hrqlh")]([SubResource("Resource_3f5mo")])
 metadata/_custom_type_script = "uid://ckevrb113s5qv"
