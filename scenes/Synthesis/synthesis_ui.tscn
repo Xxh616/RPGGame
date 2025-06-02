@@ -1,5 +1,267 @@
-[gd_scene format=3 uid="uid://f7nap1ru2r03"]
+[gd_scene load_steps=22 format=3 uid="uid://f7nap1ru2r03"]
+
+[ext_resource type="Script" uid="uid://c5wll4u6ajkan" path="res://scripts/synthesis_ui.gd" id="1_cv31b"]
+[ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_pq8ws"]
+[ext_resource type="Texture2D" uid="uid://b7k2q7k8d8ete" path="res://art/Inventory/UI_Ribbons.png" id="2_tidid"]
+[ext_resource type="Texture2D" uid="uid://ds2k6hkw2g7du" path="res://art/Inventory/UI_Icons.png" id="3_cv31b"]
+[ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="4_a0q36"]
+[ext_resource type="PackedScene" uid="uid://dble4r6wqwie0" path="res://item_detail.tscn" id="5_pq8ws"]
+[ext_resource type="Texture2D" uid="uid://bljrxkc58kxgr" path="res://art/Inventory/UI_ALL.png" id="6_tidid"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_awyyq"]
+atlas = ExtResource("1_pq8ws")
+region = Rect2(53, 50, 38, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5djht"]
+atlas = ExtResource("2_tidid")
+region = Rect2(8, 0, 65, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hb5n"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(177, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pt8nn"]
+texture = SubResource("AtlasTexture_0hb5n")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uau8"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(161, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mrsas"]
+texture = SubResource("AtlasTexture_3uau8")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqfnd"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(145, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4w4cn"]
+content_margin_left = 46.0
+texture = SubResource("AtlasTexture_dqfnd")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amj3r"]
+atlas = ExtResource("4_a0q36")
+region = Rect2(1, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2dxrj"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 20.0
+texture = SubResource("AtlasTexture_amj3r")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv31b"]
+atlas = ExtResource("6_tidid")
+region = Rect2(100, 194, 7, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a0q36"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = SubResource("AtlasTexture_cv31b")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7ayp"]
+atlas = ExtResource("6_tidid")
+region = Rect2(149, 194, 7, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_awyyq"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+texture = SubResource("AtlasTexture_u7ayp")
 
 [node name="Synthesis_UI" type="MarginContainer"]
+custom_minimum_size = Vector2(1152, 648)
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_cv31b")
+recipes_base_path = null
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 2
+texture = SubResource("AtlasTexture_awyyq")
+
+[node name="TopButtonVBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="TopButtonVBox"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TopButtonVBox/TopMargin"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_5djht")
+
+[node name="InventoryLabel" type="Label" parent="TopButtonVBox/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.987616, 1, 0.986185, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Inventory"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="TopButtonVBox/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_pt8nn")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mrsas")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_pt8nn")
+theme_override_styles/normal = SubResource("StyleBoxTexture_4w4cn")
+icon_alignment = 1
+
+[node name="ButtomMargin" type="MarginContainer" parent="TopButtonVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopButtonVBox/ButtomMargin"]
+layout_mode = 2
+
+[node name="LeftMargin" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 380
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+texture = ExtResource("1_pq8ws")
+region_rect = Rect2(63, 15, 18, 19)
+
+[node name="LeftVBox" type="VBoxContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_2dxrj")
+text = "Weapon"
+
+[node name="MarginContainer2" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_2dxrj")
+text = "Consumable"
+
+[node name="MarginContainer3" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxTexture_2dxrj")
+text = "Special props"
+
+[node name="RightMargin" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 30
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin"]
+layout_mode = 2
+texture = ExtResource("1_pq8ws")
+region_rect = Rect2(63, 15, 18, 18)
+patch_margin_left = 1
+patch_margin_top = 3
+patch_margin_right = 1
+patch_margin_bottom = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin"]
+layout_mode = 2
+
+[node name="ItemDetail" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer" instance=ExtResource("5_pq8ws")]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemDetail2" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer" instance=ExtResource("5_pq8ws")]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemDetail3" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer" instance=ExtResource("5_pq8ws")]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemDetail4" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer" instance=ExtResource("5_pq8ws")]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ItemDetail5" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer" instance=ExtResource("5_pq8ws")]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_a0q36")
+
+[node name="MarginContainer2" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PageLabel" type="Label" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "1"
+
+[node name="MarginContainer3" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_awyyq")
+
+[connection signal="pressed" from="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer/Button" to="." method="_on_weapon_button_pressed"]
+[connection signal="pressed" from="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer2/Button" to="." method="_on_consumable_button_pressed"]
+[connection signal="pressed" from="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer3/Button" to="." method="_on_special_button_pressed"]

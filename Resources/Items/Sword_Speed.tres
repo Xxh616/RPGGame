@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cv4pabnj04hkv"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_h5sj6"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_wipnd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqlhh"]
+atlas = ExtResource("1_h5sj6")
+region = Rect2(17, 128, 15, 15)
+
+[resource]
+script = ExtResource("2_wipnd")
+id = "Sword_Power"
+name = "Power Sword"
+icon = SubResource("AtlasTexture_uqlhh")
+max_stack = 1
+description = ""
+type = 0
+attack = 0
+defense = 0
+buff_duration = 10.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

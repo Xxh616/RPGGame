@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dndbmwxuvxdoc"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_qc027"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_tat3q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqlhh"]
+atlas = ExtResource("1_qc027")
+region = Rect2(192, 112, 16, 16)
+
+[resource]
+script = ExtResource("2_tat3q")
+id = "Sword_Ultimate"
+name = "Ultimate Sword"
+icon = SubResource("AtlasTexture_uqlhh")
+max_stack = 1
+description = ""
+type = 0
+attack = 90
+defense = 0
+buff_duration = 10.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

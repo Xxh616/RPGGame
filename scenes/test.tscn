@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c66fqdo4xu4kh"]
+
+[ext_resource type="PackedScene" uid="uid://f7nap1ru2r03" path="res://scenes/Synthesis/synthesis_ui.tscn" id="1_errlg"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Synthesis_UI" parent="." instance=ExtResource("1_errlg")]
+recipes_base_path = null

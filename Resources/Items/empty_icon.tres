@@ -15,4 +15,7 @@ icon = SubResource("AtlasTexture_ky64l")
 max_stack = 0
 description = ""
 type = 3
+attack = 0
+defense = 0
+buff_duration = 10.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

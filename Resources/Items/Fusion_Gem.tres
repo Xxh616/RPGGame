@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dt6p730liw2o0"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_bhct6"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_3k08d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4je2"]
+atlas = ExtResource("1_bhct6")
+region = Rect2(80, 50, 15, 13)
+
+[resource]
+script = ExtResource("2_3k08d")
+id = "Fusion_Gem"
+name = "Fusion Gem"
+icon = SubResource("AtlasTexture_x4je2")
+max_stack = 1
+description = ""
+type = 3
+attack = 0
+defense = 0
+buff_duration = 0.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

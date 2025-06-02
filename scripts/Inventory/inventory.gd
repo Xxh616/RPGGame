@@ -53,6 +53,7 @@ func get_count_by_slot(slot_idx: int) -> int:
 	var e = slots[slot_idx]
 	return  0 if e == null else e.count
 
+
 # —— 添加物品 —— 
 func add_item_by_id(item_id: String, count: int = 1) -> bool:
 	if not item_db.has(item_id):
@@ -183,3 +184,22 @@ func get_slot_of(item_id: String) -> int:
 		if slots[i] and slots[i].item_id == item_id:
 			return i
 	return -1
+
+func has_item(item_id: String, need_count: int) -> bool:
+	var total = get_count_by_id(item_id)
+	return total >= need_count
+func remove_item(item_id: String, count: int) -> bool:
+	# 调用现有的 remove_item_by_slot 来实现。先找一个槽包含该 id，然后从那个槽开始扣
+	var slot_idx = get_slot_of(item_id)
+	if slot_idx < 0:
+		return false
+	return remove_item_by_slot(slot_idx, count)
+func add_item(item_id: String, count: int) -> bool:
+	return add_item_by_id(item_id, count)
+func get_count_by_id(item_id: String) -> int:
+	var sum = 0
+	for i in slots.size():
+		var e = slots[i]
+		if e and e.item_id == item_id:
+			sum += int(e.count)
+	return sum

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dknilxfg0ef74"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_ifv6f"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_pfuyl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2nkm"]
+atlas = ExtResource("1_ifv6f")
+region = Rect2(65, 50, 13, 13)
+
+[resource]
+script = ExtResource("2_pfuyl")
+id = "Defense_Gem"
+name = "Defense Gem"
+icon = SubResource("AtlasTexture_j2nkm")
+max_stack = 1
+description = ""
+type = 3
+attack = 0
+defense = 0
+buff_duration = 0.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

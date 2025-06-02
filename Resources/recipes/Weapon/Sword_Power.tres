@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CraftRecipe" load_steps=2 format=3 uid="uid://ch3dtnn3gu3cf"]
+
+[ext_resource type="Script" uid="uid://bshgtc407b4ld" path="res://scripts/CraftRecipe.gd" id="1_lack0"]
+
+[resource]
+script = ExtResource("1_lack0")
+result_id = "Sword_Power"
+needs = {
+"Power_gem": 1,
+"Sword_III": 1,
+"Third-grade ore": 30
+}
+category = "Weapon"
+metadata/_custom_type_script = "uid://bshgtc407b4ld"

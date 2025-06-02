@@ -17,4 +17,5 @@ description = "\"增加5点攻击力\""
 type = 0
 attack = 5
 defense = 0
+buff_duration = 10.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

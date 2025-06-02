@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CraftRecipe" load_steps=2 format=3 uid="uid://d0qx51ln7jf1k"]
+
+[ext_resource type="Script" uid="uid://bshgtc407b4ld" path="res://scripts/CraftRecipe.gd" id="1_gigxe"]
+
+[resource]
+script = ExtResource("1_gigxe")
+result_id = "Sword_Speed"
+needs = {
+"Speed_Gem": 1,
+"Sword_III": 1,
+"Third-grade ore": 30
+}
+category = "Weapon"
+metadata/_custom_type_script = "uid://bshgtc407b4ld"

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CraftRecipe" load_steps=2 format=3 uid="uid://egqc3j6dd2yo"]
+
+[ext_resource type="Script" uid="uid://bshgtc407b4ld" path="res://scripts/CraftRecipe.gd" id="1_l3tvp"]
+
+[resource]
+script = ExtResource("1_l3tvp")
+result_id = "Sword_II"
+needs = {
+"Second-grade ore": 12,
+"Sword_I": 1
+}
+category = "Weapon"
+metadata/_custom_type_script = "uid://bshgtc407b4ld"
