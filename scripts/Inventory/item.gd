@@ -4,8 +4,8 @@ class_name Item
 enum ItemType {
 	Weapon,
 	Consumable,
-	Armor,
-	Matertial,
+	Material,
+	Special,
 	Misc
 }
 # 物品的唯一标识

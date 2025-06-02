@@ -5,16 +5,16 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j2nkm"]
 atlas = ExtResource("1_gw8ru")
-region = Rect2(65, 50, 13, 13)
+region = Rect2(18, 49, 11, 14)
 
 [resource]
 script = ExtResource("2_jfsa4")
-id = "Defense_Gem"
-name = "Defense Gem"
+id = "Speed_Gem"
+name = "Speed Gem"
 icon = SubResource("AtlasTexture_j2nkm")
 max_stack = 1
 description = ""
-type = 3
+type = 2
 attack = 0
 defense = 0
 buff_duration = 0.0

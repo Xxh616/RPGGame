@@ -5,16 +5,16 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7mx1s"]
 atlas = ExtResource("1_dbycr")
-region = Rect2(32, 82, 15, 13)
+region = Rect2(96, 82, 15, 13)
 
 [resource]
 script = ExtResource("2_lycr5")
-id = "First-grade ore"
-name = "Ore I"
+id = "Second-grade ore"
+name = "Ore II"
 icon = SubResource("AtlasTexture_7mx1s")
-max_stack = 1
+max_stack = 2
 description = ""
-type = 4
+type = 2
 attack = 0
 defense = 0
 buff_duration = 10.0

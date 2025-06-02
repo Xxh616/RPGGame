@@ -1,0 +1,548 @@
+[gd_scene load_steps=49 format=3 uid="uid://cbwxpl1ykiqax"]
+
+[ext_resource type="Script" uid="uid://nvhki4tff7qo" path="res://scripts/storage_ui.gd" id="1_gmwuy"]
+[ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_il841"]
+[ext_resource type="Texture2D" uid="uid://b7k2q7k8d8ete" path="res://art/Inventory/UI_Ribbons.png" id="2_gmwuy"]
+[ext_resource type="Texture2D" uid="uid://ds2k6hkw2g7du" path="res://art/Inventory/UI_Icons.png" id="3_7rr1a"]
+[ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="4_f17uf"]
+[ext_resource type="PackedScene" uid="uid://bgp5whb1adrol" path="res://storage_slot.tscn" id="5_m67tv"]
+[ext_resource type="Texture2D" uid="uid://bljrxkc58kxgr" path="res://art/Inventory/UI_ALL.png" id="6_be87y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7nnq"]
+atlas = ExtResource("1_il841")
+region = Rect2(52, 49, 40, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_77d8p"]
+atlas = ExtResource("2_gmwuy")
+region = Rect2(8, 0, 65, 21)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hb5n"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(177, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r2s6j"]
+texture = SubResource("AtlasTexture_0hb5n")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uau8"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(161, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iwo6j"]
+texture = SubResource("AtlasTexture_3uau8")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqfnd"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(145, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5p6ai"]
+content_margin_left = 46.0
+texture = SubResource("AtlasTexture_dqfnd")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m67tv"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(65, 113, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_n7nnq"]
+texture = SubResource("AtlasTexture_m67tv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwo6j"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(33, 113, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5jdyh"]
+texture = SubResource("AtlasTexture_iwo6j")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_opohf"]
+texture = SubResource("AtlasTexture_m67tv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bsh1f"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(1, 113, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iertm"]
+content_margin_left = 40.0
+content_margin_top = 20.0
+content_margin_right = 40.0
+content_margin_bottom = 20.0
+texture = SubResource("AtlasTexture_bsh1f")
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kbaiy"]
+texture = SubResource("AtlasTexture_m67tv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fycx5"]
+texture = SubResource("AtlasTexture_iwo6j")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iyyb5"]
+texture = SubResource("AtlasTexture_m67tv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5jdyh"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(1, 113, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3dfuw"]
+content_margin_left = 40.0
+content_margin_top = 20.0
+content_margin_right = 40.0
+content_margin_bottom = 20.0
+texture = SubResource("AtlasTexture_5jdyh")
+expand_margin_bottom = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r2s6j"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(65, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bsh1f"]
+texture = SubResource("AtlasTexture_r2s6j")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rr1a"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(33, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_be87y"]
+texture = SubResource("AtlasTexture_7rr1a")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opohf"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(1, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ed8f"]
+content_margin_left = 30.0
+content_margin_top = 20.0
+content_margin_right = 30.0
+content_margin_bottom = 30.0
+texture = SubResource("AtlasTexture_opohf")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmwuy"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(100, 162, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7rr1a"]
+content_margin_left = 18.0
+content_margin_top = 5.0
+content_margin_right = 14.0
+content_margin_bottom = 5.0
+texture = SubResource("AtlasTexture_gmwuy")
+modulate_color = Color(0.393086, 0.393086, 0.393085, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cv31b"]
+atlas = ExtResource("6_be87y")
+region = Rect2(100, 194, 7, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2vd7v"]
+content_margin_left = 18.0
+content_margin_top = 5.0
+content_margin_right = 14.0
+content_margin_bottom = 5.0
+texture = SubResource("AtlasTexture_cv31b")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f17uf"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(149, 162, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m67tv"]
+content_margin_left = 18.0
+content_margin_right = 14.0
+texture = SubResource("AtlasTexture_f17uf")
+modulate_color = Color(0.393086, 0.393086, 0.393085, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7ayp"]
+atlas = ExtResource("6_be87y")
+region = Rect2(149, 194, 7, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_df4qe"]
+content_margin_left = 18.0
+content_margin_right = 14.0
+texture = SubResource("AtlasTexture_u7ayp")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kr36s"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(65, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_21w0a"]
+content_margin_left = 40.0
+content_margin_top = 20.0
+content_margin_right = 40.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_kr36s")
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1whwe"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(33, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s6lfi"]
+content_margin_left = 40.0
+content_margin_top = 20.0
+content_margin_right = 40.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_1whwe")
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s1eky"]
+content_margin_left = 40.0
+content_margin_top = 20.0
+content_margin_right = 40.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_kr36s")
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbaiy"]
+atlas = ExtResource("4_f17uf")
+region = Rect2(1, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8bn5r"]
+content_margin_left = 40.0
+content_margin_top = 20.0
+content_margin_right = 40.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_kbaiy")
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 15.0
+
+[node name="Storage_UI" type="MarginContainer"]
+custom_minimum_size = Vector2(40, 40)
+script = ExtResource("1_gmwuy")
+
+[node name="UI_Background" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 2
+texture = SubResource("AtlasTexture_n7nnq")
+region_rect = Rect2(5, 6, 29, 31)
+
+[node name="TopBottomMargin" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="TopBottomMargin"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TopBottomMargin/TopMargin"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = SubResource("AtlasTexture_77d8p")
+
+[node name="InventoryLabel" type="Label" parent="TopBottomMargin/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.987616, 1, 0.986185, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 25
+text = "Storage"
+horizontal_alignment = 1
+
+[node name="CloseButton" type="Button" parent="TopBottomMargin/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_r2s6j")
+theme_override_styles/hover = SubResource("StyleBoxTexture_iwo6j")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_r2s6j")
+theme_override_styles/normal = SubResource("StyleBoxTexture_5p6ai")
+icon_alignment = 1
+
+[node name="BottomMargin" type="MarginContainer" parent="TopBottomMargin"]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TopBottomMargin/BottomMargin"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="TopBottomMargin/BottomMargin"]
+layout_mode = 2
+
+[node name="UISelectButtonMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/UISelectButtonMargin"]
+layout_mode = 2
+
+[node name="StorageMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/UISelectButtonMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectStorageButton" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/UISelectButtonMargin/HBoxContainer/StorageMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+focus_mode = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_n7nnq")
+theme_override_styles/hover = SubResource("StyleBoxTexture_5jdyh")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_opohf")
+theme_override_styles/normal = SubResource("StyleBoxTexture_iertm")
+text = "Storage"
+
+[node name="InventoryMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/UISelectButtonMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SelectInventoryButton" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/UISelectButtonMargin/HBoxContainer/InventoryMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_kbaiy")
+theme_override_styles/hover = SubResource("StyleBoxTexture_fycx5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_iyyb5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3dfuw")
+text = "Inventory"
+
+[node name="ButtonIdentifyContainer" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 90
+theme_override_constants/margin_right = 90
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer"]
+layout_mode = 2
+
+[node name="WeaponMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeaponButton" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/WeaponMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_be87y")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ed8f")
+text = "Weapon"
+
+[node name="ConsumableMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ConsumableButton" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/ConsumableMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_be87y")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ed8f")
+text = "Consumable"
+
+[node name="MaterialMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MaterialButton" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/MaterialMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_be87y")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ed8f")
+text = "Material"
+
+[node name="SpecialMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SpecialButton" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/SpecialMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+theme_override_font_sizes/font_size = 25
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_be87y")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_bsh1f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ed8f")
+text = "Special
+"
+
+[node name="SlotMargin" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin"]
+layout_mode = 2
+texture = ExtResource("1_il841")
+region_rect = Rect2(63, 20.0022, 18, 12.9978)
+patch_margin_left = 5
+patch_margin_right = 3
+patch_margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin"]
+layout_mode = 2
+columns = 7
+
+[node name="StorageSlot" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot2" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot3" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot4" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot5" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot6" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot7" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot8" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot9" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot10" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot11" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot12" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot13" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="StorageSlot14" parent="TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer" instance=ExtResource("5_m67tv")]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/disabled = SubResource("StyleBoxTexture_7rr1a")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2vd7v")
+
+[node name="MarginContainer2" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="PageLabel" type="Label" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "1"
+
+[node name="MarginContainer3" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer3"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+theme_override_styles/disabled = SubResource("StyleBoxTexture_m67tv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_df4qe")
+
+[node name="MarginContainer4" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer4"]
+layout_mode = 2
+focus_mode = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_21w0a")
+theme_override_styles/hover = SubResource("StyleBoxTexture_s6lfi")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_s1eky")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8bn5r")
+text = "Get"
+
+[connection signal="pressed" from="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/WeaponMargin/WeaponButton" to="." method="_on_weapon_button_pressed"]
+[connection signal="pressed" from="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/ConsumableMargin/ConsumableButton" to="." method="_on_consumable_button_pressed"]
+[connection signal="pressed" from="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/MaterialMargin/MaterialButton" to="." method="_on_material_button_pressed"]
+[connection signal="pressed" from="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/SpecialMargin/SpecialButton" to="." method="_on_special_button_pressed"]

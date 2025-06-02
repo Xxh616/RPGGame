@@ -16,27 +16,27 @@ region = Rect2(53, 50, 38, 41)
 atlas = ExtResource("2_tidid")
 region = Rect2(8, 0, 65, 21)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0hb5n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a0q36"]
 atlas = ExtResource("3_cv31b")
 region = Rect2(177, 81, 14, 15)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pt8nn"]
-texture = SubResource("AtlasTexture_0hb5n")
+texture = SubResource("AtlasTexture_a0q36")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3uau8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pt8nn"]
 atlas = ExtResource("3_cv31b")
 region = Rect2(161, 81, 14, 15)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mrsas"]
-texture = SubResource("AtlasTexture_3uau8")
+texture = SubResource("AtlasTexture_pt8nn")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dqfnd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_mrsas"]
 atlas = ExtResource("3_cv31b")
 region = Rect2(145, 81, 14, 15)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4w4cn"]
 content_margin_left = 46.0
-texture = SubResource("AtlasTexture_dqfnd")
+texture = SubResource("AtlasTexture_mrsas")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_amj3r"]
 atlas = ExtResource("4_a0q36")
@@ -88,7 +88,7 @@ layout_mode = 2
 size_flags_vertical = 0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="TopButtonVBox/TopMargin"]
-custom_minimum_size = Vector2(300, 50)
+custom_minimum_size = Vector2(370, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = SubResource("AtlasTexture_5djht")
@@ -101,7 +101,7 @@ theme_override_colors/font_color = Color(0.987616, 1, 0.986185, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 25
-text = "Inventory"
+text = "Synthetic table"
 horizontal_alignment = 1
 
 [node name="CloseButton" type="Button" parent="TopButtonVBox/TopMargin"]

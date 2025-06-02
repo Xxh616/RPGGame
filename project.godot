@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="RPGGameTest"
-run/main_scene="uid://c66fqdo4xu4kh"
+run/main_scene="uid://1y50rfruw8l5"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 global="*res://scripts/global.gd"
 inventory_autoload="*res://scripts/Inventory/inventory.gd"
+StorageAutoload="*res://scripts/Storage.gd"
 
 [input]
 

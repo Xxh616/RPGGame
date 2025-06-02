@@ -1,0 +1,197 @@
+[gd_scene load_steps=20 format=3 uid="uid://bgp5whb1adrol"]
+
+[ext_resource type="Script" uid="uid://cgsmjrxgdvtvi" path="res://scripts/storage_slot.gd" id="1_24i6p"]
+[ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_wl56q"]
+[ext_resource type="Texture2D" uid="uid://bljrxkc58kxgr" path="res://art/Inventory/UI_ALL.png" id="2_jtkpd"]
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="3_24i6p"]
+[ext_resource type="StyleBox" uid="uid://b23dax2nbloa6" path="res://Resources/ButtonItem/empty.tres" id="4_axemd"]
+[ext_resource type="Texture2D" uid="uid://ds2k6hkw2g7du" path="res://art/Inventory/UI_Icons.png" id="5_opme6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x07g"]
+atlas = ExtResource("1_wl56q")
+region = Rect2(247, 7, 34, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opme6"]
+atlas = ExtResource("2_jtkpd")
+region = Rect2(369, 99, 14, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_24i6p"]
+atlas = ExtResource("2_jtkpd")
+region = Rect2(188, 116, 10, 10)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_opme6"]
+texture = SubResource("AtlasTexture_24i6p")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nj1lx"]
+atlas = ExtResource("3_24i6p")
+region = Rect2(178, 64, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxq4i"]
+atlas = ExtResource("5_opme6")
+region = Rect2(97, 22, 14, 7)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1t47m"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+texture = SubResource("AtlasTexture_gxq4i")
+modulate_color = Color(0.393086, 0.393086, 0.393085, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kquo"]
+atlas = ExtResource("2_jtkpd")
+region = Rect2(193, 54, 14, 7)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gxq4i"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 8.0
+content_margin_bottom = 3.0
+texture = SubResource("AtlasTexture_3kquo")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cj2qb"]
+atlas = ExtResource("5_opme6")
+region = Rect2(98, 66, 12, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nj1lx"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_cj2qb")
+modulate_color = Color(0.393086, 0.393086, 0.393085, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1t47m"]
+atlas = ExtResource("2_jtkpd")
+region = Rect2(145, 81, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_s5b3i"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_1t47m")
+
+[node name="StorageSlot" type="MarginContainer"]
+script = ExtResource("1_24i6p")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = SubResource("AtlasTexture_1x07g")
+region_rect = Rect2(0, 0, 34, 34)
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 4
+patch_margin_bottom = 6
+
+[node name="SlotVBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="SelectMargin" type="MarginContainer" parent="SlotVBox"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SlotVBox/SelectMargin"]
+custom_minimum_size = Vector2(20, 18)
+layout_mode = 2
+texture = SubResource("AtlasTexture_opme6")
+
+[node name="SelectButton" type="Button" parent="SlotVBox/SelectMargin"]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/disabled = SubResource("StyleBoxTexture_opme6")
+theme_override_styles/normal = ExtResource("4_axemd")
+
+[node name="IconMargin" type="MarginContainer" parent="SlotVBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Icon" type="TextureRect" parent="SlotVBox/IconMargin"]
+custom_minimum_size = Vector2(40, 43)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_nj1lx")
+
+[node name="Label" type="Label" parent="SlotVBox/IconMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "12"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="NameMargin" type="MarginContainer" parent="SlotVBox"]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="SlotVBox/NameMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 18
+text = "HealthPotion"
+
+[node name="CountSelectMargin" type="MarginContainer" parent="SlotVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SlotVBox/CountSelectMargin"]
+layout_mode = 2
+
+[node name="MinusMargin" type="MarginContainer" parent="SlotVBox/CountSelectMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+
+[node name="MinusButton" type="Button" parent="SlotVBox/CountSelectMargin/HBoxContainer/MinusMargin"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 5
+theme_override_styles/disabled = SubResource("StyleBoxTexture_1t47m")
+theme_override_styles/normal = SubResource("StyleBoxTexture_gxq4i")
+
+[node name="CountMargin" type="MarginContainer" parent="SlotVBox/CountSelectMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="SlotVBox/CountSelectMargin/HBoxContainer/CountMargin"]
+custom_minimum_size = Vector2(50, 6)
+layout_mode = 2
+texture = ExtResource("1_wl56q")
+region_rect = Rect2(189, 147, 22, 10)
+patch_margin_left = 4
+patch_margin_top = 3
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="CountLabel" type="Label" parent="SlotVBox/CountSelectMargin/HBoxContainer/CountMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 20
+text = "12"
+
+[node name="AddMargin" type="MarginContainer" parent="SlotVBox/CountSelectMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="AddButton" type="Button" parent="SlotVBox/CountSelectMargin/HBoxContainer/AddMargin"]
+layout_mode = 2
+theme_override_styles/disabled = SubResource("StyleBoxTexture_nj1lx")
+theme_override_styles/normal = SubResource("StyleBoxTexture_s5b3i")

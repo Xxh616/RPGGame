@@ -203,3 +203,25 @@ func get_count_by_id(item_id: String) -> int:
 		if e and e.item_id == item_id:
 			sum += int(e.count)
 	return sum
+func get_items_by_type(t: int) -> Array:
+	var result : Array = []
+	for id in item_db.keys():
+		var res = item_db[id]
+		if res.type != t:
+			continue
+		var total_in_backpack : int = 0
+		for i in range(slots.size()):
+			var entry = slots[i]
+			if entry != null and entry.has("item_id") and entry.item_id == id:
+				total_in_backpack += int(entry.count)
+
+		if total_in_backpack <= 0:
+			continue
+		result.append({
+			"item_id": id,
+			"count": total_in_backpack,
+			"icon": res.icon,
+			"name": res.name
+		})
+		print("get_items_by_type(", t, ") → ", result)
+	return result

@@ -1,15 +1,21 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://dsc50sk733qfi"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dsc50sk733qfi"]
 
 [ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="1_o6nvt"]
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_q1f24"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3wwfe"]
+atlas = ExtResource("1_q1f24")
+region = Rect2(49, 49, 14, 14)
 
 [resource]
 script = ExtResource("1_o6nvt")
-id = ""
-name = ""
+id = "Power_Gem"
+name = "Power Gem"
+icon = SubResource("AtlasTexture_3wwfe")
 max_stack = 1
 description = ""
-type = 4
+type = 2
 attack = 0
 defense = 0
-buff_duration = 10.0
+buff_duration = 0.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

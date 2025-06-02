@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dble4r6wqwie0"]
+[gd_scene load_steps=18 format=3 uid="uid://dble4r6wqwie0"]
 
 [ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_4v4lx"]
 [ext_resource type="Script" uid="uid://cwprl6y00glen" path="res://scripts/item_detail.gd" id="1_r4opd"]
@@ -20,6 +20,45 @@ content_margin_top = 0.0
 content_margin_right = 10.0
 content_margin_bottom = 0.0
 texture = SubResource("AtlasTexture_iqvu1")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shp6i"]
+atlas = ExtResource("2_sbljv")
+region = Rect2(65, 67, 30, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iqvu1"]
+content_margin_left = 40.0
+content_margin_top = 15.0
+content_margin_right = 40.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_shp6i")
+expand_margin_bottom = 10.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64ojw"]
+atlas = ExtResource("2_sbljv")
+region = Rect2(65, 211, 30, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_242qt"]
+texture = SubResource("AtlasTexture_64ojw")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ouv5m"]
+atlas = ExtResource("2_sbljv")
+region = Rect2(65, 211, 30, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ti611"]
+content_margin_left = 40.0
+content_margin_top = 15.0
+content_margin_right = 40.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_ouv5m")
+expand_margin_bottom = 10.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i4vke"]
+content_margin_left = 40.0
+content_margin_top = 15.0
+content_margin_right = 40.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_64ojw")
+expand_margin_bottom = 10.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mbf6i"]
 atlas = ExtResource("2_sbljv")
@@ -121,9 +160,14 @@ theme_override_constants/margin_bottom = 25
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
+focus_mode = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 20
+theme_override_styles/disabled = SubResource("StyleBoxTexture_iqvu1")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_242qt")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ti611")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_i4vke")
 theme_override_styles/normal = SubResource("StyleBoxTexture_0p6ab")
 text = "合成
 "
