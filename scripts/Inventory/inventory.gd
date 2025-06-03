@@ -91,8 +91,17 @@ func add_item_by_id(item_id: String, count: int = 1) -> bool:
 
 # —— 移除物品（按槽位） —— 
 func remove_item_by_slot(slot_idx: int, count: int = 1) -> bool:
-	var remaining = count
-	# 从指定槽开始向后移除
+	# 如果索引不合法，或该槽位本来就为空，则直接返回 false
+	if slot_idx < 0 or slot_idx >= slots.size():
+		return false
+	if slots[slot_idx] == null:
+		return false
+
+	# 1) 记录“要取出的物品 ID”，作为后续遍历的目标
+	var target_id: String = slots[slot_idx].item_id
+	var remaining := count
+
+	# 2) 从指定槽开始取
 	var e = slots[slot_idx]
 	if e and e.count > 0:
 		var to_remove = min(e.count, remaining)
@@ -100,26 +109,36 @@ func remove_item_by_slot(slot_idx: int, count: int = 1) -> bool:
 		remaining -= to_remove
 		emit_signal("item_removed", e.item_id, slot_idx)
 		if e.count == 0:
+			# 把这一格清空
 			slots[slot_idx] = null
 		if remaining == 0:
 			return true
-	# 如果还没移完，则再遍历后续槽
+
+
+	# 3) 如果还没取完，就继续往后找“同样 ID 的槽”取
 	for i in range(slot_idx + 1, slots.size()):
 		if remaining == 0:
 			break
 		e = slots[i]
-		if e and e.item_id == slots[slot_idx].item_id:
-			var to_remove = min(e.count, remaining)
-			e.count -= to_remove
-			remaining -= to_remove
+		# 这里改成用 target_id 比较，而不是 slots[slot_idx].item_id
+		if e != null and e.item_id == target_id:
+			var to_remove2 = min(e.count, remaining)
+			e.count -= to_remove2
+			remaining -= to_remove2
 			emit_signal("item_removed", e.item_id, i)
 			if e.count == 0:
 				slots[i] = null
+	
+
+	# 4) 如果最终还有剩余没拿完，就回滚之前已经删除掉的那部分
 	if remaining > 0:
-		# 回滚已删部分
-		add_item_by_id(slots[slot_idx].item_id, count - remaining)
+		# 用之前记录的 target_id 回滚
+		add_item_by_id(target_id, count - remaining)
 		return false
+
 	return true
+
+
 func discard_equip_slot(equip_idx: int) -> bool:
 	if equip_idx < 0 or equip_idx >= equipment.size():
 		return false

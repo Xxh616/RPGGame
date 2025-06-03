@@ -31,15 +31,12 @@ var max_pages := 1
 var page_items : Array = []
 
 func _ready() -> void:
-	print_debug("StorageAutoload is: ", StorageAutoload)
-	print_debug("InventoryAutoload is: ", inventory_autoload)
 	# 1) 找到 GridContainer 里的每个 StorageSlot，并存到 slot_nodes 数组里
 	slot_nodes.clear()
 	for chi in slot_container.get_children():
 		if chi is StorageSlot:
 			slot_nodes.append(chi)
 	# slot_nodes 应该就是 SLOTS_PER_PAGE 个 StorageSlot 实例
-	print_debug(">>> Found slot_nodes count = ", slot_nodes.size())  # 应该等于 SLOTS_PER_PAGE
 	# 2) 连接“Storage/Inventory”切换按钮
 	select_storage_btn.connect("pressed", Callable(self, "_on_storage_button_pressed"))
 	select_inventory_btn.connect("pressed", Callable(self, "_on_inventory_button_pressed"))
@@ -63,7 +60,7 @@ func _ready() -> void:
 	StorageAutoload.add_item_by_id("Sword_Power", 1)
 	StorageAutoload.add_item_by_id("Slime vial", 5)
 	inventory_autoload.add_item_by_id("health_potion", 3)
-	inventory_autoload.add_item_by_id("First-grade_ore", 10)
+	inventory_autoload.add_item_by_id("First-grade ore", 10)
 	# 7) 初始化：默认选“取出模式”+“武器分类”
 	_update_mode_buttons()
 	_select_mode(true)    # true = storage 模式
@@ -123,6 +120,7 @@ func _on_slot_amount_changed(item_id: String, new_amount: int) -> void:
 #—————— GetButton 被按下 —— 真正执行转移动作 ——————
 func _on_get_pressed() -> void:
 	for slot in slot_nodes:
+		print("slot_id=%s"%slot.item_id)
 		var id = slot.item_id
 		var amt = slot.select_amount
 		if id == "" or amt <= 0:
@@ -135,10 +133,20 @@ func _on_get_pressed() -> void:
 				push_warning("StorageUI: 无法从储藏箱取出 %s × %d" % [id, amt])
 		else:
 			# 从背包取出 amt 件，存到储藏箱里
-			if inventory_autoload.remove_item_by_id(id, amt):
+			if inventory_autoload.remove_item(id, amt):
 				StorageAutoload.add_item_by_id(id, amt)
 			else:
 				push_warning("StorageUI: 背包中无法移出 %s × %d" % [id, amt])
+	var store_list = StorageAutoload.get_items_by_type(current_category)
+	print_debug(">>> 操作后，仓库里 “类别 %s” 下的物品列表：" % str(current_category))
+	for d in store_list:
+		print_debug("    %s  × %d" % [d["item_id"], d["count"]])
+
+	# 2) 打印当前“背包”里所有物品
+	var inv_list = inventory_autoload.get_items_by_type(current_category)
+	print_debug(">>> 操作后，背包里 “类别 %s” 下的物品列表：" % str(current_category))
+	for d in inv_list:
+		print_debug("    %s  × %d" % [d["item_id"], d["count"]])
 	# 转移完毕 → 刷新界面
 	_refresh_page()
 

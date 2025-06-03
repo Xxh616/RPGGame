@@ -74,7 +74,6 @@ custom_minimum_size = Vector2(1152, 648)
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_cv31b")
-recipes_base_path = null
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 2

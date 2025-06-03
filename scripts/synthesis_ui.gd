@@ -36,7 +36,6 @@ var max_pages := 1
 func _ready() -> void:
 	# 1) 先把 recipes 目录下的所有 .tres 资源 load 进来
 	_load_all_recipes()
-
 	# 2) 绑定翻页按钮
 	prev_page_btn.connect("pressed", Callable(self, "_on_PrevPage_pressed"))
 	next_page_btn.connect("pressed", Callable(self, "_on_NextPage_pressed"))

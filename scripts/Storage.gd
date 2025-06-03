@@ -268,12 +268,7 @@ func get_items_by_type(t: int) -> Array:
 		
 
 		# 1) 取出仓库里这个 id 的总数量（可能为 0）
-		var total_in_storage := 0
-		if storage_counts.has(id):
-			total_in_storage = storage_counts[id]
-		else:
-			# 如果 storage_counts 里没有，就调用 get_total_count 作为后备
-			total_in_storage = get_total_count(id)
+		var total_in_storage := get_total_count(id)
 		
 
 		# 2) 不再过滤 total_in_storage == 0 的情况，直接 append

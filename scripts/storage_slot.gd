@@ -77,16 +77,6 @@ func set_slot(
 	select_button.visible  = true
 	select_button.disabled = (available_count <= 0)
 
-	# 根据 available_count 决定整格灰显或正常
-	
-	
-
-	# 根据 storage_mode 切换按钮文案
-	
-
-	# 3) 隐藏并禁用“加减”相关子节点（等选中后再打开/解锁）
-	
-
 	count_label.text = "0"
 	count_label.visible = true
 	minus_button.visible = true
@@ -105,7 +95,6 @@ func set_slot(
 # —— 清空本行所有显示状态 —— #
 func _clear_slot() -> void:
 	# 重置内部状态变量
-	item_id = ""
 	is_storage_mode = true
 	select_amount = 0
 
