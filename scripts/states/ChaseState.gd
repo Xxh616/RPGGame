@@ -12,6 +12,7 @@ func enter(prev_state: String) -> void:
 	owner.play_animation("walk")
 
 func physics_update(delta: float) -> void:
+	
 	if owner.is_player_in_attack_range():
 		owner.change_state(owner.States.ATTACK)
 		return
@@ -20,7 +21,7 @@ func physics_update(delta: float) -> void:
 		return
 
 	var dir_vec: Vector2 = (owner.player.global_position - owner.global_position).normalized()
-	owner.velocity = dir_vec * owner.run_speed   # 速度用 run_speed
+	owner.velocity = dir_vec * owner.config.run_speed   # 速度用 run_speed
 	owner.move_and_slide()
 	owner.play_animation("walk")  # 始终播放“走”动画，只是角色跑得更快
 

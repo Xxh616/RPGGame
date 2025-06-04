@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="EnemyConfig" load_steps=4 format=3 uid="uid://cm1rqc0of5yyb"]
+
+[ext_resource type="Script" uid="uid://b7wpnrky14xwa" path="res://scripts/DropInfo.gd" id="1_xund0"]
+[ext_resource type="Script" uid="uid://ck11jggb30c1f" path="res://scripts/EnemyConfig.gd" id="2_oqtok"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xund0"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("2_oqtok")
+enemy_name = "red slime"
+max_health = 60
+speed = 30.0
+run_speed = 40.0
+chase_range = 80.0
+attack_range = 20.0
+invincible_time = 0.8
+max_idle_time = 1.5
+initial_position = Vector2(0, 0)
+patrol_points = Array[Vector2]([])
+sprite_frames = SubResource("SpriteFrames_xund0")
+drops = Array[ExtResource("1_xund0")]([])
+metadata/_custom_type_script = "uid://ck11jggb30c1f"

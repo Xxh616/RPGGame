@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhqfqvinly15o"]
+
+[ext_resource type="PackedScene" uid="uid://cq7tv82of2oo" path="res://scenes/slime_base.tscn" id="1_4po3x"]
+[ext_resource type="Resource" uid="uid://ddmflwowmfsmo" path="res://configs/Small_Slime_Red.tres" id="2_ujpb0"]
+
+[node name="Small_red_slime" instance=ExtResource("1_4po3x")]
+config = ExtResource("2_ujpb0")

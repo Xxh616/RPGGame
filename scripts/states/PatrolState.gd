@@ -32,7 +32,7 @@ func physics_update(delta: float) -> void:
 	var dir: Vector2 = (target_pos - owner.global_position).normalized()
 
 	# 3. 应用移动
-	owner.velocity = dir * owner.speed
+	owner.velocity = dir * owner.config.speed
 	owner.move_and_slide()
 
 	# 4. 持续播放「走路」动画，并根据 velocity 自动切方向

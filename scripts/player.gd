@@ -58,6 +58,14 @@ var itemselect: ItemDrop = null
 @onready var hitbox_shape := $PlayerHitBox/HitCollision
 
 func _ready() -> void:
+	if global.next_spawn_posx != 0 or global.next_spawn_posy != 0:
+		global_position = Vector2(global.next_spawn_posx, global.next_spawn_posy)
+		if global.next_face_direction != "":
+			current_dir = global.next_face_direction
+			PlayAnim("idle_%s" % current_dir, true)
+		global.next_spawn_posx = 0
+		global.next_spawn_posy = 0
+		global.next_face_direction = ""
 	print(">>> Player.gd _ready() called")
 
 	# 1) 实例化各个状态并传入 self
@@ -96,7 +104,8 @@ func _ready() -> void:
 	change_state(States.IDLE)
 	print(">>> After change_state, current_state_type=", current_state_type)
 
-
+func player():
+	pass
 
 func _physics_process(delta: float) -> void:
 	# 由状态机接管：调用当前状态的 physics_update

@@ -15,6 +15,7 @@ func enter(prev_state:String) -> void:
 func physics_update(delta: float) -> void:
 	death_timer += delta
 	if death_timer >= death_duration:
+		owner._spawn_drops()
 		owner.queue_free()  # 播放完死亡动画后，销毁哥布林节点
 
 func process(delta: float) -> void:

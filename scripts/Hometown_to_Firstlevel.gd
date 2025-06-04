@@ -26,6 +26,7 @@ var player_in_area: bool = false
 var prompt_label: Label = null
 
 func _ready():
+	
 	# 如果 Inspector 填了 prompt_label_path，就把它缓存并隐藏
 	if prompt_label_path != null and has_node(prompt_label_path):
 		prompt_label = get_node(prompt_label_path)

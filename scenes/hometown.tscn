@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfl5wqpwtc00h"]
+[gd_scene load_steps=9 format=3 uid="uid://dfl5wqpwtc00h"]
 
-[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/hometown.tres" id="1_7xnwq"]
+[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/FirtLevel.tres" id="1_7xnwq"]
 [ext_resource type="Script" uid="uid://dd7y7cttda5ob" path="res://scripts/hometown.gd" id="1_bg7lc"]
-[ext_resource type="PackedScene" uid="uid://blcnr3nrtnd0o" path="res://scenes/spawner.tscn" id="3_lor3b"]
 [ext_resource type="PackedScene" uid="uid://cc3pjfk4qvxry" path="res://scenes/Inventory/inventory_ui.tscn" id="4_vd6oj"]
-[ext_resource type="Script" uid="uid://c2lfq18dq23vm" path="res://scenes/Hometwon_to_Home.gd" id="6_vd6oj"]
+[ext_resource type="Script" uid="uid://c2lfq18dq23vm" path="res://scripts/Hometwon_to_Home.gd" id="6_vd6oj"]
 [ext_resource type="Script" uid="uid://byjs6sxc7syc1" path="res://scripts/Hometown_to_Firstlevel.gd" id="7_hgxh7"]
 [ext_resource type="PackedScene" uid="uid://bb0yoc2888fyf" path="res://scenes/player.tscn" id="13_uhdvq"]
 
@@ -44,13 +43,6 @@ visible = false
 offset_right = 1152.0
 offset_bottom = 650.0
 player_node = NodePath("../../player")
-
-[node name="Spawner" parent="." instance=ExtResource("3_lor3b")]
-position = Vector2(308, 509)
-spawn_area_node = NodePath("../SpawnArea")
-initial_count = 8
-max_count = 16
-resume_count = 6
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 

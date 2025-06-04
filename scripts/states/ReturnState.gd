@@ -8,7 +8,7 @@ func physics_update(delta: float) -> void:
 	# 返回到最近的巡逻点或 idle 点
 	var return_target = owner.patrol_points[owner.patrol_index]
 	var dir = (return_target - owner.global_position).normalized()
-	owner.velocity = dir * owner.speed
+	owner.velocity = dir * owner.config.speed
 	owner.move_and_slide()
 
 	# 距离足够近后，回到巡逻状态
