@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b7k2q7k8d8ete" path="res://art/Inventory/UI_Ribbons.png" id="2_gmwuy"]
 [ext_resource type="Texture2D" uid="uid://ds2k6hkw2g7du" path="res://art/Inventory/UI_Icons.png" id="3_7rr1a"]
 [ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="4_f17uf"]
-[ext_resource type="PackedScene" uid="uid://bgp5whb1adrol" path="res://storage_slot.tscn" id="5_m67tv"]
+[ext_resource type="PackedScene" uid="uid://bgp5whb1adrol" path="res://scenes/storage_slot.tscn" id="5_m67tv"]
 [ext_resource type="Texture2D" uid="uid://bljrxkc58kxgr" path="res://art/Inventory/UI_ALL.png" id="6_be87y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n7nnq"]

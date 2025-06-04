@@ -184,4 +184,4 @@ layer_3/name = "Objects"
 layer_3/tile_data = PackedInt32Array(1245227, 5, 4, 1376299, 8, 0)
 
 [node name="player" parent="TileMap" instance=ExtResource("9_7lry3")]
-position = Vector2(64, 115)
+position = Vector2(66, 129)

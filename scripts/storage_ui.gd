@@ -55,12 +55,6 @@ func _ready() -> void:
 	# 6) 连接 GetButton
 	get_btn.connect("pressed", Callable(self, "_on_get_pressed"))
 	
-	inventory_autoload.add_item_by_id("Sword_I", 1)
-	StorageAutoload.add_item_by_id("Sword_I", 2)
-	StorageAutoload.add_item_by_id("Sword_Power", 1)
-	StorageAutoload.add_item_by_id("Slime vial", 5)
-	inventory_autoload.add_item_by_id("health_potion", 3)
-	inventory_autoload.add_item_by_id("First-grade ore", 10)
 	# 7) 初始化：默认选“取出模式”+“武器分类”
 	_update_mode_buttons()
 	_select_mode(true)    # true = storage 模式

@@ -21,8 +21,6 @@ var last_slot_idx: int = -1
 var item_slots := []  # 存所有背包格实例
 
 func _ready() -> void:
-	inventory.add_item_by_id("health_potion", 2)
-	inventory.add_item_by_id("Sword_I", 1)
 	var e = empty_item
 	weapon_slot.set_item(e.id, e.icon, 0)
 	_setup_weapon_slot()

@@ -174,7 +174,6 @@ text = "合成
 alignment = 0
 
 [node name="MaterialsPopup" type="PopupPanel" parent="."]
-visible = true
 
 [node name="PanelContainer" type="PanelContainer" parent="MaterialsPopup"]
 offset_left = 4.0

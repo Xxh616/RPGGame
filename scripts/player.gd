@@ -1,124 +1,163 @@
+# res://scripts/Player.gd
 extends CharacterBody2D
-#蓄力
-var is_charging := false
-var queued_charge := false  # 是否等待进入蓄力
-var charge_time := 0.0
-@export var max_charge_time := 1.5  # 最大蓄力时间（秒）
 
-@onready var pickup_area = $PickupArea as Area2D
-var nearby_drops := []   # 存当前范围内的 drop 引用
-var itemselect: ItemDrop = null
-@export var charge_move_speed := 30  # 蓄力时移动速度
+# —— 导出与外部引用 —— 
 @export var speed := 100
+@export var charge_move_speed := 30
+@export var max_charge_time := 1.5
 @export var attack_radius := 60
 @export var attack_angle_degrees := 90
-var move_speed := 0
-var current_dir := "down"
-var moving := false
-var attack_ip := false
-var attack_index := 0  # 0 = first, 1 = second
 
-@onready var sprite_groups := {
-	"idle": $idle,
-	"attack": $attack,
-	"run": $run
+# HitBox 的配置：偏移距离 + 矩形半宽半高（请根据自己美术图尺寸调节）
+@export var hitbox_offset := 12                  # 矩形中心距离角色中心的像素偏移
+@export var hitbox_halfsize := Vector2(23.5, 29)          # 矩形半宽(30)半高(40)，整块尺寸 = (60×80)
+
+# —— 枚举各个状态 ID —— 
+enum States {
+	IDLE,
+	MOVE,
+	CHARGE,
+	ATTACK,
+	HEAVY_ATTACK,
+	DEAD
 }
 
-func _ready():
-	$regen_timer.wait_time = global.player_regen_interval
-	$regen_timer.start()
-	update_health_bar()
-	$AnimPlayer.play("down_idle")
-	$AnimPlayer.connect("animation_finished", Callable(self, "_on_AnimPlayer_animation_finished"))
-	$charge_bar.visible = false
-	$charge_bar.max_value = 100
-	$charge_bar.value = 0
+var states := {}                  # 存放各状态实例
+var current_state                 # 当前 State 对象引用
+var current_state_type: int = -1   # 初始设为 -1，保证第一次 change_state(IDLE) 会真正进入 enter()
+
+var current_dir := "down"         # "up", "down", "left", "right"
+var moving := false
+
+# 蓄力与普通攻击相关
+var is_charging := false
+var charge_time := 0.0
+var attack_ip := false
+var attack_index := 0
+
+# 拾取相关
+var nearby_drops := []    # 当前碰到的掉落物引用列表
+var itemselect: ItemDrop = null
+
+# —— 缓存节点引用 —— 
+@onready var sprite_groups := {
+	"idle":   $idle,
+	"run":    $run,
+	"attack": $attack
+}
+@onready var anim_player   := $AnimPlayer
+@onready var charge_bar    := $charge_bar
+@onready var pickup_area   := $PickupArea as Area2D
+@onready var health_bar    := $healthBar
+
+# —— 新增：HitBox 相关引用 —— 
+# 场景里必须有：Player (CharacterBody2D)
+#    └─ HitBox (Area2D)
+#         └─ CollisionShape2D (RectangleShape2D)
+@onready var hitbox_area  := $PlayerHitBox           as Area2D
+@onready var hitbox_shape := $PlayerHitBox/HitCollision
+
+func _ready() -> void:
+	print(">>> Player.gd _ready() called")
+
+	# 1) 实例化各个状态并传入 self
+	states[States.IDLE]         = preload("res://scripts/playerstates/IdleState.gd").new(self)
+	states[States.MOVE]         = preload("res://scripts/playerstates/MoveState.gd").new(self)
+	states[States.CHARGE]       = preload("res://scripts/playerstates/ChargeState.gd").new(self)
+	states[States.ATTACK]       = preload("res://scripts/playerstates/AttackState.gd").new(self)
+	states[States.HEAVY_ATTACK] = preload("res://scripts/playerstates/AttackState.gd").new(self)
+	states[States.DEAD]         = preload("res://scripts/playerstates/DeadState.gd").new(self)
+
+	# 2) 初始化拾取区域信号
 	pickup_area.connect("area_entered", Callable(self, "_on_pickup_area_entered"))
 	pickup_area.connect("area_exited",  Callable(self, "_on_pickup_area_exited"))
 
-func _process(delta):
-	if is_charging:
-		charge_time += delta
-		var ratio = charge_time / max_charge_time
-		$charge_bar.value = min(ratio * 100, 100)
+	# 3) 设置蓄力条初始隐藏
+	charge_bar.visible = false
+	charge_bar.max_value = 100
+	charge_bar.value = 0
 
-		if ratio >= 1.0:
-			$charge_bar.modulate = Color(1, 0, 0)  # 红色
-		else:
-			$charge_bar.modulate = Color(1, 1, 1)  # 原始颜色（白）
-	elif Input.is_action_pressed("attack") and not attack_ip and not is_charging:
-		start_charge()
-	if Input.is_action_just_pressed("attack") and not attack_ip:
-		start_charge()
-	elif Input.is_action_just_released("attack") and is_charging:
-		release_charge()
-func start_charge():
-	is_charging = true
-	charge_time = 0.0
-	$charge_bar.visible = true
-	$charge_bar.value = 0
-func _on_pickup_area_entered(area: Area2D) -> void:
-	# area 应该是掉落物场景里的那个子 Area2D
-	var drop = area.get_parent()
-	if drop is ItemDrop:
-		nearby_drops.append(drop)
-		
+	# —— 新增：初始化 HitBox 的形状 & 信号 —— 
+	var rect = RectangleShape2D.new()
+	rect.extents = hitbox_halfsize
+	hitbox_shape.shape = rect
 
-func _on_pickup_area_exited(area: Area2D) -> void:
-	var drop = area.get_parent()
-	if drop is ItemDrop:
-		nearby_drops.erase(drop)
-		drop.show_label(false)
-		itemselect=null
-func _unhandled_input(event):
-	if event.is_action_pressed("pickup_item"):
-		print(itemselect)
-	if event.is_action_pressed("pickup_item") and itemselect!=null:
-		itemselect.pickup()
-		nearby_drops.erase(itemselect)
-		itemselect.show_label(false)
-		itemselect=null
-func _refresh_drop_labels():
-	if nearby_drops.size() == 0:
-		itemselect = null
-		return
-	# 找到最近的一个
-	var nearest = nearby_drops[0]
-	var best_d2 = (nearest.global_position - global_position).length_squared()
-	for d in nearby_drops:
-		var d2 = (d.global_position - global_position).length_squared()
-		if d2 < best_d2:
-			best_d2 = d2
-			nearest = d
-	# 只让最近的显示名称
-	for d in nearby_drops:
-		d.show_label(d == nearest)
-	itemselect=nearest
-func release_charge():
-	is_charging = false
-	$charge_bar.visible = false
+	# 一开始让 HitBox 不检测
+	hitbox_area.monitoring   = false
+	hitbox_area.monitorable  = false
 
-	if charge_time >= max_charge_time:
-		perform_heavy_attack()
-	else:
-		handle_attack()
-func perform_heavy_attack():
-	attack_ip = true
-	print("💥 重击释放！")
-	PlayAnim("%s_thump_attack" % (current_dir if current_dir == "up" or current_dir == "down" else "side"))
-	check_attack_hit_sector()  # 可替换为专属重击范围逻辑
-func _physics_process(delta):
-	handle_movement()
+	# 绑定 HitBox 的 body_entered 信号，用于“检测到敌人进入红色矩形时掉血”
+	hitbox_area.connect("body_entered", Callable(self, "_on_HitBox_body_entered"))
+
+	# 首次让 HitBox 放到“朝下”位置
+	_update_hitbox_offset()
+
+	# 4) 直接切到初始状态 IDLE
+	change_state(States.IDLE)
+	print(">>> After change_state, current_state_type=", current_state_type)
+
+
+
+func _physics_process(delta: float) -> void:
+	# 由状态机接管：调用当前状态的 physics_update
+	if current_state:
+		current_state.physics_update(delta)
+
+	# 统一执行移动
 	move_and_slide()
+
+	# 每帧都需要刷新拾取提示
 	_refresh_drop_labels()
+
+	# 刷新血条
 	update_health_bar()
-	current_camera()
-	
-	if global.player_health <= 0:
-		global.player_alive = false
-		global.player_health = 0
-		print("💀 玩家死亡")
-		queue_free()
+
+	# 如果血量 <= 0，且当前没在 DEAD，就切 Dead
+	if global.player_health <= 0 and current_state_type != States.DEAD:
+		change_state(States.DEAD)
+
+
+
+func _process(delta: float) -> void:
+	# 由状态机接管：调用当前状态的 process
+	if current_state:
+		current_state.process(delta)
+
+
+
+func change_state(new_state_type: int) -> void:
+	if current_state_type == new_state_type:
+		return
+	# 先调用 exit
+	if current_state:
+		current_state.exit(str(current_state_type))
+	# 更新状态引用与编号
+	current_state_type = new_state_type
+	current_state = states[new_state_type]
+	# 如果要切 HEAVY_ATTACK，需要先标记 is_heavy = true
+	if new_state_type == States.HEAVY_ATTACK:
+		states[States.HEAVY_ATTACK].is_heavy = true
+	# 进入时调用 enter
+	current_state.enter(str(current_state_type))
+
+
+
+# —— 以下为之前散落的功能，作为状态机的“被调用者”或“辅助函数”保留在这里 —— #
+
+func PlayAnim(anim_name: String, force_play := false) -> void:
+	if anim_player == null:
+		print(">>> ERROR: anim_player is null!")
+		return
+	if not force_play and anim_player.current_animation == anim_name:
+		return
+	anim_player.speed_scale = 1.5 if is_charging else 2.5
+	for key in sprite_groups.keys():
+		sprite_groups[key].visible = (key == current_action_group())
+	set_flip_by_direction()
+	anim_player.play(anim_name)
+
+
+
 func current_action_group() -> String:
 	if attack_ip:
 		return "attack"
@@ -127,177 +166,100 @@ func current_action_group() -> String:
 	else:
 		return "idle"
 
-func set_flip_by_direction():
-	var flip := current_dir == "left"
+
+
+func set_flip_by_direction() -> void:
+	var flip = current_dir == "left"
 	var group = sprite_groups[current_action_group()]
 	for child in group.get_children():
 		if child is Sprite2D:
 			child.flip_h = flip
 
-func PlayAnim(anim_name: String, force_play := false):
-	if not force_play and $AnimPlayer.current_animation == anim_name:
+
+
+func _on_pickup_area_entered(area: Area2D) -> void:
+	var drop = area.get_parent()
+	if drop is ItemDrop:
+		nearby_drops.append(drop)
+
+
+
+func _on_pickup_area_exited(area: Area2D) -> void:
+	var drop = area.get_parent()
+	if drop is ItemDrop:
+		nearby_drops.erase(drop)
+		drop.show_label(false)
+		if itemselect == drop:
+			itemselect = null
+
+
+
+func _refresh_drop_labels() -> void:
+	if nearby_drops.is_empty():
+		itemselect = null
 		return
-	$AnimPlayer.speed_scale = 1.5 if is_charging else 2.5
-	for key in sprite_groups.keys():
-		sprite_groups[key].visible = (key == current_action_group())
-	set_flip_by_direction()
-	print("play: " + anim_name)
+	var nearest = nearby_drops[0]
+	var best_d2 = (nearest.global_position - global_position).length_squared()
+	for d in nearby_drops:
+		var d2 = (d.global_position - global_position).length_squared()
+		if d2 < best_d2:
+			best_d2 = d2
+			nearest = d
+	for d in nearby_drops:
+		d.show_label(d == nearest)
+	itemselect = nearest
 
-	$AnimPlayer.play(anim_name)
 
-func player():
-	pass
-
-func handle_movement():
-	if attack_ip:
-		velocity = Vector2.ZERO
-		moving = false
-		return
-
-	moving = false
-	velocity = Vector2.ZERO
-	if is_charging:
-		move_speed = charge_move_speed
-	else:
-		move_speed = speed
-	var previous_dir = current_dir
-
-# 检查输入
-	if Input.is_action_pressed("ui_right"):
-		current_dir = "right"
-		velocity.x = move_speed
-		moving = true
-		PlayAnim("side_run", current_dir != previous_dir)
-	elif Input.is_action_pressed("ui_left"):
-		current_dir = "left"
-		velocity.x = -move_speed
-		moving = true
-		PlayAnim("side_run", current_dir != previous_dir)
-	elif Input.is_action_pressed("ui_down"):
-		current_dir = "down"
-		velocity.y = move_speed
-		moving = true
-		PlayAnim("down_run", current_dir != previous_dir)
-	elif Input.is_action_pressed("ui_up"):
-		current_dir = "up"
-		velocity.y = -move_speed
-		moving = true
-		PlayAnim("up_run", current_dir != previous_dir)
-	if not moving and not attack_ip:
-		if current_dir == "left" or current_dir == "right":
-			PlayAnim("side_idle")
-		else:
-			PlayAnim("%s_idle" % current_dir)
-
-func handle_attack():
-	attack_ip = true
-	attack_index = (attack_index + 1) % 2
-
-	var anim_name = "%s_%s_attack" % [
-		current_dir if current_dir == "up" or current_dir == "down" else "side",
-		"first" if attack_index == 0 else "second"
-	]
-	print("▶️ 播放普通攻击动画: ", anim_name)
-	PlayAnim(anim_name)
-
-	var shape = $PlayerHitBox/HitCollision.shape
-	if shape is CircleShape2D:
-		match current_dir:
-			"right":
-				$PlayerHitBox/HitCollision.position = Vector2(40, 20)
-				shape.radius = 40
-			"left":
-				$PlayerHitBox/HitCollision.position = Vector2(-40, 20)
-				shape.radius = 40
-			"down":
-				$PlayerHitBox/HitCollision.position = Vector2(20, 40)
-				shape.radius = 30
-			"up":
-				$PlayerHitBox/HitCollision.position = Vector2(-20, -40)
-				shape.radius = 30
-
-func _on_AnimPlayer_animation_finished(anim_name):
-	if anim_name.ends_with("attack"):
-		attack_ip = false
-		if current_dir == "left" or current_dir == "right":
-			PlayAnim("side_idle")
-		else:
-			PlayAnim("%s_idle" % current_dir)
-
-func _on_attack_cooldown_timeout():
-	global.player_current_attack = false
-	attack_ip = false
-	$PlayerHitBox.monitoring = false
-	$attack_cooldown.stop()
-
-func take_damage(amount: int):
-	global.player_health -= amount
-	print("⚠️ 玩家受击, 当前血量: ", global.player_health)
-	if global.player_health < 0:
-		global.player_health = 0
-	update_health_bar()
-
-func update_health_bar():
-	var bar = $healthBar
-	bar.max_value = global.player_max_health
-	bar.value = global.player_health
-	bar.visible = global.player_health < global.player_max_health
-
-func _on_regen_timer_timeout():
-	if global.player_health < global.player_max_health:
-		global.player_health += global.player_regen_rate
-		if global.player_health > global.player_max_health:
-			global.player_health = global.player_max_health
-	update_health_bar()
 
 func get_attack_direction() -> Vector2:
 	match current_dir:
 		"right": return Vector2.RIGHT
-		"left": return Vector2.LEFT
-		"up": return Vector2.UP
-		"down": return Vector2.DOWN
-		_: return Vector2.ZERO
-
-func current_camera():
-	if global.current_scene in ["world", "hometown"]:
-		$Camera2D.enabled = true
-		$cliffsidecamera.enabled = false
-	elif global.current_scene == "cliffside":
-		$Camera2D.enabled = false
-		$cliffsidecamera.enabled = true
-
-func check_attack_hit_sector():
-	print("⚔️ 开始检测扇形命中")
-	var origin = global_position
-	var attack_dir = get_attack_direction()
-	var half_angle_rad = deg_to_rad(attack_angle_degrees / 2)
-
-	for node in get_tree().get_nodes_in_group("Enemy"):
-		if node == self:
-			continue
-		if node.has_method("enemy") and node.has_method("take_damage"):
-			var to_enemy = node.global_position - origin
-			var distance = to_enemy.length()
-
-			if distance > attack_radius:
-				continue
-
-			var angle = attack_dir.angle_to(to_enemy.normalized())
-			if abs(angle) <= half_angle_rad:
-				node.take_damage(20)
-				print("💥 命中敌人: ", node.name)
+		"left":  return Vector2.LEFT
+		"up":    return Vector2.UP
+		"down":  return Vector2.DOWN
+		_:       return Vector2.ZERO
 
 
-func _on_anim_player_animation_finished(anim_name):
-	if anim_name.ends_with("attack") or anim_name.ends_with("thump_attack"):
-		attack_ip = false
 
-		# ✅ 动画刚结束时，如果仍在按着攻击键，立刻进入蓄力状态
-		if Input.is_action_pressed("attack"):
-			start_charge()
-		else:
-			# 回到 idle 状态
-			if current_dir == "left" or current_dir == "right":
-				PlayAnim("side_idle")
-			else:
-				PlayAnim("%s_idle" % current_dir)
+func take_damage(amount: int) -> void:
+	global.player_health -= amount
+	if global.player_health < 0:
+		global.player_health = 0
+	update_health_bar()
+	print("⚠️ 玩家受击, 当前血量: ", global.player_health)
+
+
+
+func update_health_bar() -> void:
+	health_bar.max_value = global.player_max_health
+	health_bar.value = global.player_health
+	health_bar.visible = global.player_health < global.player_max_health
+
+
+
+# —— 新增：根据 current_dir 更新 HitBox (红色矩形) 的偏移 —— #
+func _update_hitbox_offset() -> void:
+	match current_dir:
+		"right":
+			hitbox_area.position = Vector2(hitbox_offset, 0)
+			hitbox_area.rotation_degrees = 0
+		"left":
+			hitbox_area.position = Vector2(-hitbox_offset, 0)
+			hitbox_area.rotation_degrees = 0
+		"down":
+			hitbox_area.position = Vector2(0, hitbox_offset)
+			hitbox_area.rotation_degrees = 0
+		"up":
+			hitbox_area.position = Vector2(0, -hitbox_offset)
+			hitbox_area.rotation_degrees = 0
+		_:
+			hitbox_area.position = Vector2(0, hitbox_offset)
+			hitbox_area.rotation_degrees = 0
+
+
+
+# —— 新增：当 HitBox 检测到碰撞时，调用此函数让敌人掉血 —— #
+func _on_HitBox_body_entered(body: Node) -> void:
+	if body.is_in_group("Enemy") and body.has_method("take_damage"):
+		body.take_damage(50)
+		print("💥 击中敌人:", body.name)
