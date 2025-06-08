@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://cirpe05ppiv0a"]
+
+[ext_resource type="Script" uid="uid://dg1wmsukdrqre" path="res://main_menu.gd" id="1_l6cm7"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l6cm7")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1152, 648)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MenuContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_top = 211.0
+offset_right = 1152.0
+offset_bottom = 644.0
+size_flags_horizontal = 4
+size_flags_vertical = 3
+
+[node name="NewGameButton" type="Button" parent="MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "New Game"
+
+[node name="LoadGameButton" type="Button" parent="MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Load Ganme"
+
+[node name="OptionsButton" type="Button" parent="MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="MenuContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Quit"

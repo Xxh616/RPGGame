@@ -1,7 +1,7 @@
 # res://scripts/Inventory.gd
 extends Node
 class_name Inventory
-
+signal inventory_updated
 # —— 信号 —— 
 signal item_added(item_id: String, slot_idx: int)
 signal item_removed(item_id: String, slot_idx: int)
@@ -38,6 +38,7 @@ func _ready() -> void:
 	for i in slots.size():
 		slots[i] = null
 	print("Loaded items:", item_db.keys())
+	emit_signal("inventory_updated")
 	
 
 # —— 获取资源 —— 
@@ -101,42 +102,50 @@ func remove_item_by_slot(slot_idx: int, count: int = 1) -> bool:
 	var target_id: String = slots[slot_idx].item_id
 	var remaining := count
 
+	var actually_removed := 0  # 用来记录总共真正移除了多少个
+
 	# 2) 从指定槽开始取
 	var e = slots[slot_idx]
 	if e and e.count > 0:
 		var to_remove = min(e.count, remaining)
 		e.count -= to_remove
 		remaining -= to_remove
+		actually_removed += to_remove
 		emit_signal("item_removed", e.item_id, slot_idx)
 		if e.count == 0:
 			# 把这一格清空
 			slots[slot_idx] = null
 		if remaining == 0:
+			# **移除成功**，要发 “inventory_updated”
+			emit_signal("inventory_updated")
 			return true
-
 
 	# 3) 如果还没取完，就继续往后找“同样 ID 的槽”取
 	for i in range(slot_idx + 1, slots.size()):
 		if remaining == 0:
 			break
 		e = slots[i]
-		# 这里改成用 target_id 比较，而不是 slots[slot_idx].item_id
 		if e != null and e.item_id == target_id:
 			var to_remove2 = min(e.count, remaining)
 			e.count -= to_remove2
 			remaining -= to_remove2
+			actually_removed += to_remove2
 			emit_signal("item_removed", e.item_id, i)
 			if e.count == 0:
 				slots[i] = null
-	
 
 	# 4) 如果最终还有剩余没拿完，就回滚之前已经删除掉的那部分
 	if remaining > 0:
 		# 用之前记录的 target_id 回滚
-		add_item_by_id(target_id, count - remaining)
+		# 回滚数量 = “真正删除的” actually_removed
+		add_item_by_id(target_id, actually_removed)
 		return false
 
+	# —— 如果能走到这里，说明“剩余”已经等于 0，删除彻底完成 —— #
+	# 发一个 inventory_updated 信号，让 UI 刷新
+	emit_signal("inventory_updated")
 	return true
+
 
 
 func discard_equip_slot(equip_idx: int) -> bool:
@@ -244,3 +253,29 @@ func get_items_by_type(t: int) -> Array:
 		})
 		print("get_items_by_type(", t, ") → ", result)
 	return result
+func organize_inventory() -> void:
+	# —— 1) 把所有非空格子捞出来 —— #
+	var items_list := []      # 临时存放所有 { "item_id":…, "count":… } 这种字典
+	for entry in slots:
+		if entry != null:
+			items_list.append(entry)
+
+	# （可选）如果想让不同类型/不同道具排列有固定顺序，可以在这里对 items_list 排序
+	# 例如，按 item_id 字母序：
+	# items_list.sort_custom(self, "_sort_by_item_id")
+	# 下面示例里我们**不**进行排序，保持原来的插入顺序即可
+
+	# —— 2) 清空 slots 数组里的所有格子 —— #
+	for i in range(slots.size()):
+		slots[i] = null
+
+	# —— 3) 依次把 items_list 重新填回去 —— #
+	for j in range(items_list.size()):
+		if j < slots.size():
+			slots[j] = items_list[j]
+		else:
+			# 如果 items_list 比 slots.length 还大，就跳出（一般不会发生）
+			break
+
+	# —— 4) 发信号，让界面去更新 —— #
+	emit_signal("inventory_updated")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpw6giiij8afk"]
+
+[ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_qo4e3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygu5k"]
+atlas = ExtResource("1_qo4e3")
+region = Rect2(188, 146, 24, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kk0ac"]
+content_margin_left = 40.0
+content_margin_top = 10.0
+content_margin_right = 40.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_ygu5k")
+
+[node name="KeyBindRow" type="HBoxContainer"]
+offset_right = 180.0
+offset_bottom = 43.0
+theme_override_constants/separation = 100
+
+[node name="LabelActionName" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Label"
+
+[node name="LabelDefaultKey" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "K"
+
+[node name="ButtonRebind" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_styles/normal = SubResource("StyleBoxTexture_kk0ac")
+text = "I"

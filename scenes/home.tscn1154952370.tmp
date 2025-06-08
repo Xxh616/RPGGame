@@ -467,7 +467,7 @@ offset_bottom = 8.0
 grow_horizontal = 0
 theme_override_styles/normal = SubResource("StyleBoxTexture_e42qu")
 
-[node name="InnerMargin" parent="CanvasLayer/Control" instance=ExtResource("18_snnha")]
+[node name="InnerMargin" parent="CanvasLayer" instance=ExtResource("18_snnha")]
 visible = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]

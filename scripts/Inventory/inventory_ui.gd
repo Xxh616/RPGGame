@@ -52,6 +52,7 @@ func _bind_inventory_signals() -> void:
 	inventory.connect("item_removed", Callable(self, "_on_inventory_changed"))
 	inventory.connect("item_equipped",   Callable(self, "_on_inventory_changed"))
 	inventory.connect("item_unequipped", Callable(self, "_on_inventory_changed"))
+	inventory.connect("inventory_updated", Callable(self, "_on_inventory_updated"))
 
 func _show_context_menu_at_mouse(slot_idx: int) -> void:
 	context_menu.clear()
@@ -139,7 +140,6 @@ func _on_item_slot_right_clicked(idx: int) -> void:
 	# 再弹出菜单
 	_show_context_menu_at_mouse(idx)
 func _on_item_slot_clicked(slot_idx: int) -> void:
-	print("🔔 点中了背包格子：", slot_idx)
 	var sid = inventory.get_slot_id(slot_idx)
 	if sid == "":
 		return  # 空槽直接忽略
@@ -172,6 +172,8 @@ func _on_weapon_slot_clicked(_idx: int) -> void:
 	_refresh_ui()
 func _on_inventory_changed(item_id: String, index: int)-> void:
 	_refresh_ui()
+func _on_inventory_updated()-> void:
+	_refresh_ui()
 func _on_weapon_slot_right_clicked(_idx: int) -> void:
 	last_slot_idx = -1    # 装备槽用 -1 标记
 	_show_context_menu_at_mouse(-1)
@@ -179,14 +181,16 @@ func _on_weapon_slot_right_clicked(_idx: int) -> void:
 
 func _refresh_ui() -> void:
 	if global.player_status <= 0:
-		attack_add_button.disabled=true
-		defense_add_button.disabled=true
+		attack_add_button.disabled  = true
+		defense_add_button.disabled = true
 	else:
-		attack_add_button.disabled=false
-		defense_add_button.disabled=false
-	attack_label.text  = "%d"%global.player_attack
-	defense_label.text = "%d"%global.player_defense
-	statpoints_label.text="%d"%global.player_status
+		attack_add_button.disabled  = false
+		defense_add_button.disabled = false
+
+	attack_label.text     = "%d" % global.player_attack
+	defense_label.text    = "%d" % global.player_defense
+	statpoints_label.text = "%d" % global.player_status
+
 	# —— 装备槽
 	var id = inventory.equipment[0]
 	if id != "":
@@ -197,12 +201,14 @@ func _refresh_ui() -> void:
 		var e = empty_item as Item
 		weapon_slot.set_item(e.id, e.icon, 0)
 
-	# —— 背包格子 —— （保持不变） …
-	for i in inventory.max_slots:
+	# —— 背包格子 —— 
+	# 这里原来写成 “for i in inventory.max_slots:” 会导致 i 取得一个数值而不是索引范围
+	# 正确写法：for i in range(inventory.max_slots):
+	for i in range(inventory.max_slots):
 		var slot = item_slots[i]
 		var sid  = inventory.get_slot_id(i)
 		var cnt  = inventory.get_count_by_slot(i)
-		if sid != "":
+		if sid != "" and cnt!=0:
 			var it = inventory.get_item_resource(sid)
 			slot.set_item(sid, it.icon, cnt)
 		else:
@@ -243,4 +249,10 @@ func _apply_attack_potion_buff(itm: Item) -> void:
 
 	# 3) 到时撤销增益
 	global.player_attack -= bonus
+	_refresh_ui()
+
+
+func _on_organize_pressed() -> void:
+	# 调用 Inventory 单例直接整理数据
+	inventory_autoload.organize_inventory()
 	_refresh_ui()

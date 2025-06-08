@@ -412,3 +412,4 @@ text = "Organize"
 [connection signal="pressed" from="InventoryMargin/VBoxSplit/TopMargin/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/AttackMargin/AttackAddButton" to="." method="_on_attack_add_button_pressed"]
 [connection signal="pressed" from="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox/AttributeMargin/AttributeVBox/DefenseMargin/DefenseAddButton" to="." method="_on_defense_add_button_pressed"]
+[connection signal="pressed" from="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/RightMargin/RightVBox/FunctionButtonMargin/Organize" to="." method="_on_organize_pressed"]

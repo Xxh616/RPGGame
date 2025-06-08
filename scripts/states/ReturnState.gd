@@ -1,19 +1,19 @@
-# ReturnState.gd
+# res://scripts/states/ReturnState.gd
 extends State
 
 func enter(prev_state:String) -> void:
-	owner.play_animation("run")  # 返回时也可以用跑步动画
+	owner.play_animation("walk")
 
 func physics_update(delta: float) -> void:
-	# 返回到最近的巡逻点或 idle 点
-	var return_target = owner.patrol_points[owner.patrol_index]
-	var dir = (return_target - owner.global_position).normalized()
+	# 这里假设你把回家的目标存到 owner.return_point
+	var dir = (owner.return_point - owner.global_position).normalized()
 	owner.velocity = dir * owner.config.speed
 	owner.move_and_slide()
 
-	# 距离足够近后，回到巡逻状态
-	if owner.global_position.distance_to(return_target) < 8.0:
-		owner.change_state(owner.States.PATROL)
+	# 到家后切 IDLE 或 PATROL
+	if owner.global_position.distance_to(owner.return_point) < 5.0:
+		owner.change_state(owner.States.IDLE)
+		return
 
-func process(delta: float) -> void:
-	pass
+	# —— 保证每帧都调用：让 play_animation() 根据 velocity.x<0 翻转 —— 
+	owner.play_animation("walk")

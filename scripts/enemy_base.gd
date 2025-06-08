@@ -8,7 +8,7 @@ class_name EnemyBase
 
 # —— 在 Inspector 里拖入玩家节点的 NodePath —— 
 @export var player_path: NodePath
-
+var return_point: Vector2 = Vector2.ZERO
 # —— 状态枚举 —— 
 enum States {
 	IDLE,
@@ -52,7 +52,7 @@ func _ready() -> void:
 
 	# —— 2. 如果配置里给了初始位置，就把自身移动到该坐标 —— 
 	position = config.initial_position
-
+	return_point = position
 	# —— 3. 把 AnimatedSprite2D 的 frames 换成配置里的 SpriteFrames —— 
 	if anim_sprite and config.sprite_frames:
 		anim_sprite.frames = config.sprite_frames

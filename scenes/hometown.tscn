@@ -1,11 +1,24 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfl5wqpwtc00h"]
+[gd_scene load_steps=13 format=3 uid="uid://dfl5wqpwtc00h"]
 
-[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/FirtLevel.tres" id="1_7xnwq"]
+[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/hometown.tres" id="1_7xnwq"]
 [ext_resource type="Script" uid="uid://dd7y7cttda5ob" path="res://scripts/hometown.gd" id="1_bg7lc"]
 [ext_resource type="PackedScene" uid="uid://cc3pjfk4qvxry" path="res://scenes/Inventory/inventory_ui.tscn" id="4_vd6oj"]
+[ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="5_hgxh7"]
 [ext_resource type="Script" uid="uid://c2lfq18dq23vm" path="res://scripts/Hometwon_to_Home.gd" id="6_vd6oj"]
+[ext_resource type="PackedScene" uid="uid://k3lcggpycug7" path="res://scenes/inner_margin.tscn" id="6_wylva"]
 [ext_resource type="Script" uid="uid://byjs6sxc7syc1" path="res://scripts/Hometown_to_Firstlevel.gd" id="7_hgxh7"]
 [ext_resource type="PackedScene" uid="uid://bb0yoc2888fyf" path="res://scenes/player.tscn" id="13_uhdvq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wylva"]
+atlas = ExtResource("5_hgxh7")
+region = Rect2(97, 193, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oubgv"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+texture = SubResource("AtlasTexture_wylva")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7xnwq"]
 size = Vector2(629.5, 700)
@@ -43,6 +56,27 @@ visible = false
 offset_right = 1152.0
 offset_bottom = 650.0
 player_node = NodePath("../../player")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme_override_styles/normal = SubResource("StyleBoxTexture_oubgv")
+
+[node name="InnerMargin" parent="CanvasLayer" instance=ExtResource("6_wylva")]
+visible = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -82,3 +116,5 @@ shape = SubResource("RectangleShape2D_hgxh7")
 [node name="Label" type="Label" parent="TransitionPoint2"]
 offset_right = 40.0
 offset_bottom = 23.0
+
+[connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]
