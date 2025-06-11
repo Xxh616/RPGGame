@@ -1,6 +1,6 @@
 # res://scripts/playerstates/AttackState.gd
 extends PlayerState
-class_name PlayerAttackState
+
 
 # 标记是否本次为重击
 var is_heavy := false    

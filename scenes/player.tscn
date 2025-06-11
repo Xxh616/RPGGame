@@ -1270,26 +1270,31 @@ visible = false
 texture = ExtResource("2_3v2ag")
 hframes = 6
 vframes = 3
+frame = 12
 
 [node name="Shirt" type="Sprite2D" parent="idle"]
 texture = ExtResource("3_jej6c")
 hframes = 6
 vframes = 3
+frame = 12
 
 [node name="Pants" type="Sprite2D" parent="idle"]
 texture = ExtResource("4_f1ej7")
 hframes = 6
 vframes = 3
+frame = 12
 
 [node name="Hands" type="Sprite2D" parent="idle"]
 texture = ExtResource("5_oprun")
 hframes = 6
 vframes = 3
+frame = 12
 
 [node name="Hair" type="Sprite2D" parent="idle"]
 texture = ExtResource("6_a8ls1")
 hframes = 6
 vframes = 3
+frame = 12
 
 [node name="Sword" type="Sprite2D" parent="idle"]
 visible = false

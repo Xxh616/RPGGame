@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://c7hbu1fvkj51q"]
+
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="1_jep2x"]
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_wh7e2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7gat5"]
+atlas = ExtResource("1_wh7e2")
+region = Rect2(192, 192, 16, 16)
+
+[resource]
+script = ExtResource("1_jep2x")
+id = "Magic_ora"
+name = "Magic Ora"
+icon = SubResource("AtlasTexture_7gat5")
+max_stack = 1
+description = ""
+type = 3
+attack = 0
+defense = 0
+buff_duration = 0.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

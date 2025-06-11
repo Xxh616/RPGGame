@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bctdt16rdmxc1"]
+[gd_scene load_steps=71 format=3 uid="uid://bctdt16rdmxc1"]
 
 [ext_resource type="Script" uid="uid://cj0ujfgqynolt" path="res://scripts/enemy_base.gd" id="1_0vv4s"]
 [ext_resource type="Texture2D" uid="uid://cyje23itho6cw" path="res://art/character/enmey/Goblin/Goblin_Thief.png" id="2_hx7kh"]
@@ -520,13 +520,17 @@ radius = 5.09902
 [sub_resource type="CircleShape2D" id="CircleShape2D_q3g0h"]
 radius = 59.0762
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0vv4s"]
+size = Vector2(18, 22)
+
 [node name="EnemyBase" type="CharacterBody2D"]
 script = ExtResource("1_0vv4s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_tjgje")
-animation = &"die_right"
+animation = &"attack_right"
+frame_progress = 0.589796
 speed_scale = 0.7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -536,6 +540,12 @@ shape = SubResource("CircleShape2D_4yait")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetcetionArea"]
 shape = SubResource("CircleShape2D_q3g0h")
+
+[node name="AttackArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_0vv4s")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 
@@ -548,3 +558,6 @@ offset_top = -17.0
 offset_right = 124.0
 scale = Vector2(0.1, 0.1)
 show_percentage = false
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]

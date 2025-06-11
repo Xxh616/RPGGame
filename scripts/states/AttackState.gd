@@ -1,35 +1,67 @@
-# AttackState.gd
+# res://scripts/states/AttackState.gd
 extends State
+class_name PlayerAttackState
 
-# 攻击间隔与定时器（可用来控制连续攻击的节奏）
-var can_attack := true
-var attack_cooldown := 1.0  # 攻击动画时长 + 冷却
-var timer := 0.0
+var attack_cooldown := 1.0  # 动画 + 冷却 总时长
+var timer := 0.0            # 累计时间
 
-func enter(prev_state:String) -> void:
+func _init(_owner) -> void:
+	owner = _owner
+
+func enter(prev_state: String) -> void:
 	timer = 0.0
-	can_attack = true
-	owner.play_animation("attack")  # 播放攻击动画
+	# —— 2) 更新并打开攻击区 —— 
+	owner.update_attack_area()
+	owner.attack_area.monitoring  = true
+	owner.attack_area.monitorable = true
+	var to_player = owner.player.global_position - owner.global_position
+	if abs(to_player.x) > abs(to_player.y):
+		owner.last_facing_dir ="right" if to_player.x > 0  else "left"
+	else:
+		owner.last_facing_dir = "down" if to_player.y > 0 else "up"
+
+	# —— 3) 播攻击动画 —— 
+	owner.play_animation("attack")
+
 
 func physics_update(delta: float) -> void:
-	# 如果玩家跑出攻击范围，返回 chase
-	if not owner.is_player_in_attack_range():
-		owner.change_state(owner.States.CHASE)
-		return
+	# 攻击期间禁止移动
+	owner.velocity = Vector2.ZERO
 
-	# 如果正在攻击动画中，就不移动；利用 timer 来判定何时击中玩家
 	timer += delta
-	if timer >= 0.5 and can_attack:
-		# 假设动画播放到 0.5s 时，判定为击中
-		owner.player.take_damage(10)  # 示例：给玩家减血 10 点
-		can_attack = false
 
-	# 当整段攻击动画结束（或冷却结束），准备下一次攻击/切回追击
+	# —— 在 0.5 秒时尝试命中一次 —— 
+	if timer >= 0.5 and timer - delta < 0.5:
+		if owner.attack_valid:
+			owner.player.take_damage(10)
+		# 不管是否命中，这次触发后就不再重复
+		owner.attack_valid = false
+
+	# —— 当前攻击周期结束（动画+冷却） —— 
 	if timer >= attack_cooldown:
 		timer = 0.0
-		can_attack = true
-		# 动画可以自动循环或重播
-		owner.play_animation("attack")
+
+		# 先关闭本轮的攻击区检测
+		owner.attack_area.monitoring  = false
+		owner.attack_area.monitorable = false
+
+		# 决定下一步：如果玩家仍在判定区，就连击；否则回 Chase
+		if owner.attack_valid:
+			# 连击下一轮：再对齐攻击区、重新打开检测、播放动画
+			owner.update_attack_area()
+			owner.attack_area.monitoring  = true
+			owner.attack_area.monitorable = true
+			owner.attack_valid = false
+			owner.play_animation("attack")
+		else:
+			owner.change_state(owner.States.CHASE)
 
 func process(delta: float) -> void:
+	# 攻击状态无需在 process 里做额外逻辑
 	pass
+
+func exit(next_state: String) -> void:
+	# 离开攻击状态时，一定关闭攻击区
+	owner.attack_area.call_deferred("set_monitoring", false)
+	owner.attack_area.call_deferred("set_monitorable", false)
+	

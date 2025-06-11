@@ -3,7 +3,7 @@ extends Control    # 或 MarginContainer（根据你具体用的节点类型而�
 
 # 如果你上面把弹窗的根节点改成 PopupPanel 或 WindowDialog，就要 extends PopupPanel/WindowDialog
 
-@onready var close_button    = $CloseButton
+@onready var close_button    = $MarginContainer/CloseButton
 @onready var btn_return_menu = $VBoxContainer/Button      # “Return to Main Menu”
 @onready var btn_settings    = $VBoxContainer/Button2     # “Settings”
 @onready var btn_quit        = $VBoxContainer/Button3     # “Quit”
@@ -43,7 +43,3 @@ func _on_Settings_pressed():
 func _on_Quit_pressed():
 	SaveGame.save_game()
 	get_tree().quit()
-
-
-func _on_close_button_pressed() -> void:
-	hide()

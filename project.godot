@@ -59,6 +59,7 @@ GOGOGO={
 [layer_names]
 
 2d_render/layer_1="Cave_Walls"
+2d_navigation/layer_1="navigation"
 
 [rendering]
 

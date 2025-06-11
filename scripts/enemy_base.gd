@@ -1,7 +1,16 @@
 # res://scripts/EnemyBase.gd
 extends CharacterBody2D
 class_name EnemyBase
+# —— 新增字段：攻击区偏移与大小 —— #
+@export var attack_offset : Vector2 = Vector2(15, 5) # 攻击区中心与角色中心的距离
+@export var attack_halfsize  : Vector2  = Vector2(20,10)  # 攻击区矩形半宽半高
 
+# —— 缓存 AttackArea 与它的 CollisionShape2D —— #
+@onready var attack_area  := $AttackArea           as Area2D
+@onready var attack_shape := $AttackArea/CollisionShape2D as CollisionShape2D
+
+# —— 新增状态：是否允许伤害判定 —— #
+var attack_valid : bool = false
 
 # —— 在 Inspector 里拖入配置 Resource（EnemyConfig.tres） —— 
 @export var config: EnemyConfig
@@ -70,10 +79,12 @@ func _ready() -> void:
 	add_to_group("Enemy")
 
 	# —— 6. 拿到玩家引用 —— 
-	if player_path != null and has_node(player_path):
-		player = get_node(player_path) as Node2D
+	if player != null:
+		pass
+	elif player_path != null and has_node(player_path):
+		player = get_node(player_path) as CharacterBody2D
 	else:
-		push_error("EnemyBase.gd: 请在 Inspector 里为 player_path 指向一个有效的 Player 节点！")
+		push_error("EnemyBase.gd: 无法找到玩家引用！请检查 spawner 中的 player_path 或直接给 player 赋值。")
 
 	# —— 7. 从 config 里复制巡逻点列表 —— 
 	patrol_points = config.patrol_points.duplicate(true)
@@ -87,6 +98,11 @@ func _ready() -> void:
 	states[States.ATTACK] = preload("res://scripts/states/AttackState.gd").new(self)
 	states[States.RETURN] = preload("res://scripts/states/ReturnState.gd").new(self)
 	states[States.DEAD]   = preload("res://scripts/states/DeadState.gd").new(self)
+	# 1) 设定 CollisionShape2D 的初始大小
+
+	# 2) 先关掉监测
+	attack_area.monitoring  = false
+	attack_area.monitorable = false
 
 	# —— 9. 切换到初始状态 IDLE —— 
 	current_state_type = -1   # 确保第一次 change_state 能够生效
@@ -127,7 +143,7 @@ func _physics_process(delta: float) -> void:
 
 	# —— 4) 更新血条显示 —— 
 	update_healthbar()
-
+	update_attack_area()
 
 func _process(delta: float) -> void:
 	# 调用当前状态脚本的普通帧更新（如果有需要）
@@ -164,10 +180,12 @@ func is_player_in_chase_range() -> bool:
 		return false
 	return global_position.distance_to(player.global_position) <= config.chase_range
 
+# EnemyBase.gd
 func is_player_in_attack_range() -> bool:
 	if player == null:
 		return false
 	return global_position.distance_to(player.global_position) <= config.attack_range
+
 
 func is_player_lost_sight() -> bool:
 	# 玩家跑出追击范围 1.25 倍后算失去视野
@@ -225,8 +243,11 @@ func play_animation(state: String) -> void:
 
 			last_facing_dir = dir_name
 		else:
+			if last_facing_dir=="left":
+				dir_name="right"
 			# velocity 为零时，保持之前朝向
-			dir_name = last_facing_dir
+			else:
+				dir_name = last_facing_dir
 
 		anim_name = "%s_%s" % [state, dir_name]
 
@@ -294,3 +315,27 @@ func _spawn_drops() -> void:
 			# 挂到父节点, 并放到“敌人中心 + offset”位置
 			get_parent().add_child(drop_instance)
 			drop_instance.global_position = global_position + drop_data.offset
+func update_attack_area() -> void:
+	# 先更新 shape.extents（如果你想动态改尺寸也在这里做）
+	var rect = attack_shape.shape as RectangleShape2D
+	rect.extents = attack_halfsize
+	
+	# 根据 last_facing_dir 移动 Area2D 的 position
+	match last_facing_dir:
+		"up":
+			attack_area.position = Vector2(0, -attack_offset.y)
+		"down":
+			attack_area.position = Vector2(0,  attack_offset.y)
+		"right":
+			attack_area.position = Vector2( attack_offset.x, 0)
+		"left":
+			attack_area.position = Vector2(-attack_offset.x, 0)
+	# 保持旋转不变
+	attack_area.rotation_degrees = 0
+func _on_attack_area_body_entered(body: Node) -> void:
+	if body == player:
+		attack_valid = true
+
+func _on_attack_area_body_exited(body: Node) -> void:
+	if body == player:
+		attack_valid = false

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://drrvwoecap5c0"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_1jv1x"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="1_krqsq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7bsk"]
+atlas = ExtResource("1_1jv1x")
+region = Rect2(146, 80, 12, 16)
+
+[resource]
+script = ExtResource("1_krqsq")
+id = "Attribute_potion"
+name = "Attribute Potion"
+icon = SubResource("AtlasTexture_m7bsk")
+max_stack = 2
+description = ""
+type = 1
+attack = 0
+defense = 0
+buff_duration = 0.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

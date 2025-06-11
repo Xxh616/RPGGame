@@ -1,69 +1,84 @@
-# res://scripts/Spawner.gd
 extends Node2D
 
-# —— Inspector 可设 —— 
-@export var slime_scene: PackedScene = preload("res://scenes/slime_base.tscn")
-@export var configs: Array[SlimeConfig] = [
-	preload("res://configs/Small_Slime_Red.tres")
-]
-@export var spawn_area_node: NodePath    # 拖入 SpawnArea 的节点路径
-@export var respawn_delay: float = 5.0   # 击杀后延迟补一只
-@export var initial_count: int = 15      # 一开始生成数量
-@export var max_count: int = 22          # 最大存活数
-@export var resume_count: int = 15       # 降到此数才恢复刷怪
+# DynamicSpawner.gd
+# 在玩家视野外动态刷怪，并为每个生成的敌人基于其出生位置随机生成巡逻点列表
 
-# —— 内部状态 —— 
-var alive_count: int = 0
+@export var enemy_scene: PackedScene               # 通用的 Enemy.tscn（挂载 EnemyBase）
+@export var enemy_configs: Array[EnemyConfig] = [] # EnemyConfig 资源列表
+@export var player_path: NodePath                 # 场景中玩家节点的路径
+@export var max_enemies: int = 5                  # 同时允许的最大怪物数
+@export var spawn_interval: float = 3.0           # 刷新间隔（秒）
+@export var spawn_distance_min: float = 300.0     # 刷新距离下限（像素）
+@export var spawn_distance_max: float = 600.0     # 刷新距离上限（像素）
+@export var patrol_point_count: int = 3           # 每个敌人生成为圆上的巡逻点数量
+@export var patrol_radius: float = 80         # 巡逻半径（相对于出生点）
 
-# —— 缓存引用 —— 
-@onready var spawn_area: Area2D = get_node(spawn_area_node)
-@onready var spawn_timer: Timer = $spawn_timer
+var _timer: float = 0.0
 
 func _ready() -> void:
+	_timer = spawn_interval
 	randomize()
-	spawn_timer.connect("timeout", Callable(self, "_on_spawn_timer_timeout"))
-	# 初始批量生成
-	for i in initial_count:
-		_spawn_slime()
 
-func _on_spawn_timer_timeout() -> void:
-	# 定时器超时后尝试补怪
-	_spawn_slime()
+func _process(delta: float) -> void:
+	var enemies = get_tree().get_nodes_in_group("Enemy")
+	if enemies.size() < max_enemies:
+		_timer -= delta
+		if _timer <= 0.0:
+			_spawn_enemy()
+			_timer = spawn_interval
+	else:
+		_timer = spawn_interval
 
-func _spawn_slime() -> void:
-	# 如果已达上限，不再刷
-	if alive_count >= max_count:
+func _spawn_enemy() -> void:
+	# 获取并传递玩家引用
+	var player_node = get_node_or_null(player_path) as Node2D
+	if player_node == null:
+		push_warning("DynamicSpawner: 无法通过 player_path 找到玩家节点")
 		return
 
-	# 1) 随机挑一个配置
-	var cfg = configs[randi() % configs.size()]
-	# 2) 实例化 SlimeBase
-	var slime: SlimeBase = slime_scene.instantiate()
-	slime.config = cfg
+	# 计算随机生成位置（环形区域）
+	var player_pos = player_node.global_position
+	var angle = randf() * TAU
+	var distance = randf_range(spawn_distance_min, spawn_distance_max)
+	var spawn_pos = player_pos + Vector2(cos(angle), sin(angle)) * distance
 
-	# 3) 随机在区域内定位
-	var shape = spawn_area.get_node("CollisionShape2D").shape
-	if shape is RectangleShape2D:
-		var ext = shape.extents
-		var center = spawn_area.global_position
-		slime.position = center + Vector2(
-			randf_range(-ext.x, ext.x),
-			randf_range(-ext.y, ext.y)
-		)
-	else:
-		slime.position = spawn_area.global_position
+	# 实例化通用 Enemy 场景，并转换类型
+	var enemy_node = enemy_scene.instantiate()
+	if not enemy_node is EnemyBase:
+		push_error("DynamicSpawner: 实例化的 scene 不是 EnemyBase 类型！")
+		return
+	var enemy = enemy_node as EnemyBase
 
-	# 4) 加入场景并监听死亡
-	add_child(slime)
-	alive_count += 1
-	slime.connect("died", Callable(self, "_on_slime_died"))
+	# 随机分配配置资源
+	if enemy_configs.size() > 0:
+		enemy.config = enemy_configs[randi() % enemy_configs.size()]
 
-func _on_slime_died() -> void:
-	# 某只死亡，存活数减
-	alive_count -= 1
-	# 停掉定时器
-	spawn_timer.stop()
-	# 如果存活数降到 resume_count 以下，才开始延迟补怪
-	if alive_count <= resume_count:
-		await get_tree().create_timer(respawn_delay).timeout
-		spawn_timer.start()
+	# 直接传递玩家引用，确保 EnemyBase.player 有值
+	enemy.player = player_node
+
+	# 设置出生点和返回点
+	enemy.position = spawn_pos
+	enemy.return_point = spawn_pos
+
+	# 生成随机巡逻点列表，基于出生位置的圆上
+	var patrols: Array[Vector2] = []
+	for i in range(patrol_point_count):
+		var a = randf() * TAU
+		patrols.append(spawn_pos + Vector2(cos(a), sin(a)) * patrol_radius)
+	enemy.patrol_points = patrols
+
+	# 添加到场景树并设置全局位置
+	add_child(enemy)
+	enemy.global_position = spawn_pos
+
+	# 如果 EnemyBase 有手动初始函数，可调用
+	if enemy.has_method("initialize_from_config"):
+		enemy.initialize_from_config()
+
+# 使用说明：
+# 1. 确保 EnemyBase.gd 在 _ready() 内执行 add_to_group("Enemy").
+# 2. 在 Inspector 中设置:
+#    - Enemy Scene: 拖入 Enemy.tscn
+#    - Enemy Configs: 拖入一个或多个 EnemyConfig.tres
+#    - Player Path: 选中玩家节点
+#    - max_enemies, spawn_interval, spawn_distance_min/max, patrol_point_count, patrol_radius
