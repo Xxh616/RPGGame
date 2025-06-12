@@ -1,6 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://cirpe05ppiv0a"]
+[gd_scene load_steps=11 format=3 uid="uid://cirpe05ppiv0a"]
 
 [ext_resource type="Script" uid="uid://dg1wmsukdrqre" path="res://main_menu.gd" id="1_l6cm7"]
+[ext_resource type="Texture2D" uid="uid://cf5t1ynqic0ok" path="res://art/BackGround/Mainmenu.png" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="3_bqqt6"]
+[ext_resource type="PackedScene" uid="uid://50njmo1yu1bu" path="res://scenes/settings_control.tscn" id="4_wu84c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ln24"]
+atlas = ExtResource("3_bqqt6")
+region = Rect2(65, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rtw2f"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_8ln24")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqqt6"]
+atlas = ExtResource("3_bqqt6")
+region = Rect2(33, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wu84c"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_bqqt6")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu84c"]
+atlas = ExtResource("3_bqqt6")
+region = Rect2(1, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8ln24"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_wu84c")
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -12,6 +48,8 @@ custom_minimum_size = Vector2(1152, 648)
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+texture = ExtResource("2_ekxnf")
+expand_mode = 5
 
 [node name="MenuContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -25,19 +63,47 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wu84c")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ln24")
 text = "New Game"
 
 [node name="LoadGameButton" type="Button" parent="MenuContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Load Ganme"
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wu84c")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ln24")
+text = "Load Game"
 
 [node name="OptionsButton" type="Button" parent="MenuContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wu84c")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ln24")
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="MenuContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wu84c")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rtw2f")
+theme_override_styles/normal = SubResource("StyleBoxTexture_8ln24")
 text = "Quit"
+
+[node name="Control" parent="." instance=ExtResource("4_wu84c")]
+visible = false
+layout_mode = 1
+offset_left = 257.0
+offset_top = 100.0
+offset_right = 917.0
+offset_bottom = 584.0

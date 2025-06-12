@@ -55,7 +55,6 @@ func set_detail(_icon: Texture2D, _name: String, _recipe: CraftRecipe) -> void:
 	# 如果没有材料，就把箭头按钮隐藏，否者显示“▼”
 	if count_mat > 0:
 		arrow_button.visible = true
-		arrow_button.text = "▼"
 	else:
 		arrow_button.visible = false
 
@@ -112,7 +111,6 @@ func _on_arrow_pressed() -> void:
 	# 如果当前 popup 已经可见，就收起并换箭头图标
 	if materials_popup.visible:
 		materials_popup.hide()
-		arrow_button.text = "▼"
 		return
 
 	# 1) 清空以前残留的 Label
@@ -146,7 +144,7 @@ func _on_arrow_pressed() -> void:
 	materials_popup.popup(Rect2(popup_pos, Vector2.ZERO))
 
 	# 最后把箭头换成“向上”，表示下次点一下是收起
-	arrow_button.text = "▲"
+	
 
 
 # 点击“合成”时，向父界面发出 craft_requested(signal)

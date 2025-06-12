@@ -20,7 +20,7 @@ var action_data := [
 	{ "action_name":  "pickup_item",      "display_name": "拾取物品",   "default_key": "T" },
 	{ "action_name":  "toggle_storage",   "display_name": "打开储存箱", "default_key": "Y" },
 	{ "action_name":  "toggle_synthesis", "display_name": "打开合成台", "default_key": "M" },
-	{ "action_name":  "GOGOGO",           "display_name": "GOGOGO 模式","default_key": "G" }
+	{ "action_name":  "GOGOGO",           "display_name": "切换场景","default_key": "G" }
 ]
 
 # ————————————————————————————————————————————————————————————————————————————————

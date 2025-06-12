@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=4 uid="uid://g86qtkaces83"]
 
 [ext_resource type="Script" uid="uid://dd7y7cttda5ob" path="res://scripts/hometown.gd" id="1_385i6"]
-[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/FirtLevel.tres" id="2_ab8ao"]
+[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/hometown.tres" id="2_ab8ao"]
 [ext_resource type="PackedScene" uid="uid://bb0yoc2888fyf" path="res://scenes/player.tscn" id="2_snglc"]
 [ext_resource type="Script" uid="uid://dsoywu2847jl0" path="res://scripts/FirstLevel_to_HomeTown.gd" id="3_385i6"]
 [ext_resource type="PackedScene" uid="uid://cc3pjfk4qvxry" path="res://scenes/Inventory/inventory_ui.tscn" id="5_qndhv"]

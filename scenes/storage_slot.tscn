@@ -119,6 +119,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_nj1lx")
+expand_mode = 2
 
 [node name="Label" type="Label" parent="SlotVBox/IconMargin"]
 layout_mode = 2
@@ -138,7 +139,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 5
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 15
 text = "HealthPotion"
 
 [node name="CountSelectMargin" type="MarginContainer" parent="SlotVBox"]

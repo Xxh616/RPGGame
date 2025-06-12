@@ -1,9 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://k3lcggpycug7"]
+[gd_scene load_steps=28 format=3 uid="uid://k3lcggpycug7"]
 
 [ext_resource type="Script" uid="uid://cqmlju8p8e5mi" path="res://scripts/inner_margin.gd" id="1_ol35a"]
 [ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="2_r2esv"]
 [ext_resource type="Texture2D" uid="uid://ds2k6hkw2g7du" path="res://art/Inventory/UI_Icons.png" id="3_mromm"]
+[ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="4_mromm"]
 [ext_resource type="PackedScene" uid="uid://50njmo1yu1bu" path="res://scenes/settings_control.tscn" id="4_r2esv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cukl"]
+atlas = ExtResource("3_mromm")
+region = Rect2(177, 81, 14, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f2jlo"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_4cukl")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5c35c"]
+atlas = ExtResource("3_mromm")
+region = Rect2(161, 81, 15, 15)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pk1ns"]
+texture = SubResource("AtlasTexture_5c35c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e8gb2"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+texture = SubResource("AtlasTexture_4cukl")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qj6xr"]
 atlas = ExtResource("3_mromm")
@@ -15,6 +41,102 @@ content_margin_top = 10.0
 content_margin_right = 10.0
 content_margin_bottom = 10.0
 texture = SubResource("AtlasTexture_qj6xr")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ln24"]
+atlas = ExtResource("4_mromm")
+region = Rect2(65, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mromm"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_8ln24")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bqqt6"]
+atlas = ExtResource("4_mromm")
+region = Rect2(33, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ocb2f"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_bqqt6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t5k3r"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_8ln24")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wu84c"]
+atlas = ExtResource("4_mromm")
+region = Rect2(1, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qj6xr"]
+content_margin_left = 12.0
+content_margin_top = 10.0
+content_margin_right = 12.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_wu84c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2gkvf"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_8ln24")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_52yi8"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_bqqt6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3buvv"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_8ln24")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7dcsy"]
+content_margin_left = 13.0
+content_margin_top = 10.0
+content_margin_right = 13.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_wu84c")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mtn70"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_8ln24")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_civtd"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_bqqt6")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j1a14"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_8ln24")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wf7pe"]
+content_margin_left = 13.0
+content_margin_top = 10.0
+content_margin_right = 13.0
+content_margin_bottom = 15.0
+texture = SubResource("AtlasTexture_wu84c")
 
 [node name="InnerMargin" type="Control"]
 layout_mode = 3
@@ -50,6 +172,10 @@ grow_horizontal = 0
 
 [node name="CloseButton" type="Button" parent="MarginContainer"]
 layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_f2jlo")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pk1ns")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e8gb2")
 theme_override_styles/normal = SubResource("StyleBoxTexture_p65id")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
@@ -60,24 +186,44 @@ anchor_bottom = 1.0
 offset_top = 26.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
 alignment = 1
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-text = "Return to Main Menu"
+focus_mode = 0
+theme_override_constants/outline_size = 5
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_mromm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_ocb2f")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_t5k3r")
+theme_override_styles/normal = SubResource("StyleBoxTexture_qj6xr")
+text = "Main Menu"
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_constants/outline_size = 5
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_2gkvf")
+theme_override_styles/hover = SubResource("StyleBoxTexture_52yi8")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_3buvv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_7dcsy")
 text = "Settings"
 
 [node name="Button3" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+focus_mode = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_mtn70")
+theme_override_styles/hover = SubResource("StyleBoxTexture_civtd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_j1a14")
+theme_override_styles/normal = SubResource("StyleBoxTexture_wf7pe")
 text = "Quit"
 
 [node name="SettingsControl" parent="." instance=ExtResource("4_r2esv")]

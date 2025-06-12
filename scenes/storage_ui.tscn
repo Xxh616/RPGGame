@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://cbwxpl1ykiqax"]
+[gd_scene load_steps=59 format=3 uid="uid://cbwxpl1ykiqax"]
 
 [ext_resource type="Script" uid="uid://nvhki4tff7qo" path="res://scripts/storage_ui.gd" id="1_gmwuy"]
 [ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_il841"]
@@ -125,6 +125,23 @@ content_margin_bottom = 5.0
 texture = SubResource("AtlasTexture_gmwuy")
 modulate_color = Color(0.393086, 0.393086, 0.393085, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_be87y"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(132, 178, 7, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_77d8p"]
+texture = SubResource("AtlasTexture_be87y")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5p6ai"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(116, 178, 7, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kr36s"]
+texture = SubResource("AtlasTexture_5p6ai")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1whwe"]
+texture = SubResource("AtlasTexture_be87y")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_cv31b"]
 atlas = ExtResource("6_be87y")
 region = Rect2(100, 194, 7, 13)
@@ -145,6 +162,23 @@ content_margin_left = 18.0
 content_margin_right = 14.0
 texture = SubResource("AtlasTexture_f17uf")
 modulate_color = Color(0.393086, 0.393086, 0.393085, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6lfi"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(181, 178, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rgu48"]
+texture = SubResource("AtlasTexture_s6lfi")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7xnv"]
+atlas = ExtResource("3_7rr1a")
+region = Rect2(165, 178, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rqj4s"]
+texture = SubResource("AtlasTexture_r7xnv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ecot6"]
+texture = SubResource("AtlasTexture_s6lfi")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7ayp"]
 atlas = ExtResource("6_be87y")
@@ -500,6 +534,9 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7rr1a")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_77d8p")
+theme_override_styles/hover = SubResource("StyleBoxTexture_kr36s")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_1whwe")
 theme_override_styles/normal = SubResource("StyleBoxTexture_2vd7v")
 
 [node name="MarginContainer2" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer"]
@@ -523,6 +560,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 focus_mode = 0
 theme_override_styles/disabled = SubResource("StyleBoxTexture_m67tv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rgu48")
+theme_override_styles/hover = SubResource("StyleBoxTexture_rqj4s")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_ecot6")
 theme_override_styles/normal = SubResource("StyleBoxTexture_df4qe")
 
 [node name="MarginContainer4" type="MarginContainer" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer"]

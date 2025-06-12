@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://f7nap1ru2r03"]
+[gd_scene load_steps=47 format=3 uid="uid://f7nap1ru2r03"]
 
 [ext_resource type="Script" uid="uid://c5wll4u6ajkan" path="res://scripts/synthesis_ui.gd" id="1_cv31b"]
 [ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_pq8ws"]
@@ -38,6 +38,23 @@ region = Rect2(145, 81, 14, 15)
 content_margin_left = 46.0
 texture = SubResource("AtlasTexture_mrsas")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mbf6i"]
+atlas = ExtResource("4_a0q36")
+region = Rect2(65, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d7rfm"]
+texture = SubResource("AtlasTexture_mbf6i")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_brypr"]
+atlas = ExtResource("4_a0q36")
+region = Rect2(33, 209, 30, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7o5xd"]
+texture = SubResource("AtlasTexture_brypr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7d6r2"]
+texture = SubResource("AtlasTexture_mbf6i")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_amj3r"]
 atlas = ExtResource("4_a0q36")
 region = Rect2(1, 209, 30, 14)
@@ -49,6 +66,53 @@ content_margin_right = 10.0
 content_margin_bottom = 20.0
 texture = SubResource("AtlasTexture_amj3r")
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kj73l"]
+texture = SubResource("AtlasTexture_mbf6i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pvt1k"]
+texture = SubResource("AtlasTexture_brypr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i3s1b"]
+texture = SubResource("AtlasTexture_mbf6i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ubhod"]
+texture = SubResource("AtlasTexture_mbf6i")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6t0b4"]
+texture = SubResource("AtlasTexture_brypr")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wp2ew"]
+texture = SubResource("AtlasTexture_mbf6i")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hdxn"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(132, 162, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0p6ab"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = SubResource("AtlasTexture_7hdxn")
+modulate_color = Color(0.396889, 0.396889, 0.396889, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w4cn"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(132, 178, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_amj3r"]
+texture = SubResource("AtlasTexture_4w4cn")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dxrj"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(116, 178, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7hdxn"]
+texture = SubResource("AtlasTexture_2dxrj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbf6i"]
+texture = SubResource("AtlasTexture_4w4cn")
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_cv31b"]
 atlas = ExtResource("6_tidid")
 region = Rect2(100, 194, 7, 13)
@@ -59,6 +123,35 @@ content_margin_top = 5.0
 content_margin_right = 10.0
 content_margin_bottom = 5.0
 texture = SubResource("AtlasTexture_cv31b")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq0kl"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(181, 162, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vqkxq"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+texture = SubResource("AtlasTexture_oq0kl")
+modulate_color = Color(0.396889, 0.396889, 0.396889, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0p6ab"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(181, 178, 7, 13)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oq0kl"]
+texture = SubResource("AtlasTexture_0p6ab")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqkxq"]
+atlas = ExtResource("3_cv31b")
+region = Rect2(165, 178, 7, 12)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6px3k"]
+texture = SubResource("AtlasTexture_vqkxq")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sq1w1"]
+texture = SubResource("AtlasTexture_0p6ab")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u7ayp"]
 atlas = ExtResource("6_tidid")
@@ -144,7 +237,11 @@ theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 20
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_d7rfm")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7o5xd")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_7d6r2")
 theme_override_styles/normal = SubResource("StyleBoxTexture_2dxrj")
 text = "Weapon"
 
@@ -155,7 +252,11 @@ theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer2"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 20
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_kj73l")
+theme_override_styles/hover = SubResource("StyleBoxTexture_pvt1k")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_i3s1b")
 theme_override_styles/normal = SubResource("StyleBoxTexture_2dxrj")
 text = "Consumable"
 
@@ -166,7 +267,11 @@ theme_override_constants/margin_right = 10
 
 [node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer3"]
 layout_mode = 2
+focus_mode = 0
 theme_override_font_sizes/font_size = 20
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_ubhod")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6t0b4")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_wp2ew")
 theme_override_styles/normal = SubResource("StyleBoxTexture_2dxrj")
 text = "Special props"
 
@@ -238,6 +343,11 @@ size_flags_horizontal = 3
 [node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
+theme_override_styles/disabled = SubResource("StyleBoxTexture_0p6ab")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_amj3r")
+theme_override_styles/hover = SubResource("StyleBoxTexture_7hdxn")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_mbf6i")
 theme_override_styles/normal = SubResource("StyleBoxTexture_a0q36")
 
 [node name="MarginContainer2" type="MarginContainer" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer"]
@@ -259,6 +369,11 @@ size_flags_horizontal = 3
 [node name="Button" type="Button" parent="TopButtonVBox/ButtomMargin/HBoxContainer/RightMargin/VBoxContainer/MarginContainer/HBoxContainer/MarginContainer3"]
 layout_mode = 2
 size_flags_horizontal = 0
+focus_mode = 0
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vqkxq")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_oq0kl")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6px3k")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_sq1w1")
 theme_override_styles/normal = SubResource("StyleBoxTexture_awyyq")
 
 [connection signal="pressed" from="TopButtonVBox/ButtomMargin/HBoxContainer/LeftMargin/LeftVBox/MarginContainer/Button" to="." method="_on_weapon_button_pressed"]

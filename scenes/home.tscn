@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://f72spoyq55tl"]
+[gd_scene load_steps=40 format=3 uid="uid://f72spoyq55tl"]
 
 [ext_resource type="Script" uid="uid://b4teklbw611ei" path="res://scripts/home.gd" id="1_aish6"]
 [ext_resource type="Texture2D" uid="uid://yagan5v5mpbo" path="res://art/map_resources/House/Objects/Indoor_Decor.png" id="1_u4wd2"]
@@ -351,11 +351,28 @@ size = Vector2(30, 37)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpgsi"]
 size = Vector2(33, 22)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wylva"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_oubgv"]
 atlas = ExtResource("17_aish6")
-region = Rect2(97, 193, 14, 14)
+region = Rect2(129, 209, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_aish6"]
+texture = SubResource("AtlasTexture_oubgv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5vqhb"]
+atlas = ExtResource("17_aish6")
+region = Rect2(113, 209, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_snnha"]
+texture = SubResource("AtlasTexture_5vqhb")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e42qu"]
+texture = SubResource("AtlasTexture_oubgv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wylva"]
+atlas = ExtResource("17_aish6")
+region = Rect2(97, 209, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ppa51"]
 content_margin_left = 20.0
 content_margin_top = 20.0
 content_margin_right = 20.0
@@ -465,7 +482,11 @@ anchor_right = 1.0
 offset_left = -8.0
 offset_bottom = 8.0
 grow_horizontal = 0
-theme_override_styles/normal = SubResource("StyleBoxTexture_e42qu")
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_aish6")
+theme_override_styles/hover = SubResource("StyleBoxTexture_snnha")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_e42qu")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ppa51")
 
 [node name="InnerMargin" parent="CanvasLayer/Control" instance=ExtResource("18_snnha")]
 visible = false

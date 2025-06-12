@@ -1,14 +1,32 @@
-[gd_scene load_steps=18 format=3 uid="uid://dble4r6wqwie0"]
+[gd_scene load_steps=24 format=3 uid="uid://dble4r6wqwie0"]
 
 [ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_4v4lx"]
 [ext_resource type="Script" uid="uid://cwprl6y00glen" path="res://scripts/item_detail.gd" id="1_r4opd"]
 [ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_sbljv"]
 [ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="2_sbljv"]
+[ext_resource type="Texture2D" uid="uid://ds2k6hkw2g7du" path="res://art/Inventory/UI_Icons.png" id="4_d52og"]
 [ext_resource type="Texture2D" uid="uid://bljrxkc58kxgr" path="res://art/Inventory/UI_ALL.png" id="4_shp6i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7hdxn"]
 atlas = ExtResource("1_4v4lx")
 region = Rect2(178, 64, 13, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1jjhy"]
+atlas = ExtResource("4_d52og")
+region = Rect2(83, 179, 10, 9)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q24e7"]
+texture = SubResource("AtlasTexture_1jjhy")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r23ot"]
+atlas = ExtResource("4_d52og")
+region = Rect2(67, 179, 10, 9)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6wuq7"]
+texture = SubResource("AtlasTexture_r23ot")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f7kp4"]
+texture = SubResource("AtlasTexture_1jjhy")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iqvu1"]
 atlas = ExtResource("4_shp6i")
@@ -146,6 +164,10 @@ justification_flags = 162
 [node name="Button" type="Button" parent="HBoxContainer/MarginContainer2/NamePathVBox/PathMargin/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_q24e7")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6wuq7")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_f7kp4")
 theme_override_styles/normal = SubResource("StyleBoxTexture_64ojw")
 
 [node name="MarginContainer3" type="MarginContainer" parent="HBoxContainer"]
