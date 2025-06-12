@@ -9,7 +9,7 @@ region = Rect2(49, 49, 14, 14)
 
 [resource]
 script = ExtResource("1_o6nvt")
-id = "Power_Gem"
+id = "Power Gem"
 name = "Power Gem"
 icon = SubResource("AtlasTexture_3wwfe")
 max_stack = 1
@@ -17,5 +17,6 @@ description = ""
 type = 2
 attack = 0
 defense = 0
+visible_increase = 0.0
 buff_duration = 0.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

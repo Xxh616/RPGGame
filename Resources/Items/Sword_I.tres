@@ -9,7 +9,7 @@ region = Rect2(1, 114, 13, 13)
 
 [resource]
 script = ExtResource("1_5ex07")
-id = "Sword_I"
+id = "Sword I"
 name = "Sword I"
 icon = SubResource("AtlasTexture_bsdqo")
 max_stack = 1
@@ -17,5 +17,6 @@ description = "\"增加5点攻击力\""
 type = 0
 attack = 5
 defense = 0
+visible_increase = 0.0
 buff_duration = 10.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

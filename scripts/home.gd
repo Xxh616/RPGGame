@@ -17,11 +17,16 @@ func _physics_process(delta: float) -> void:
 		or storage_ui.visible
 	)
 func _ready():
+	inventory_autoload.add_item("Night_vision_potion",1)
 	# 确保本场景已经初始化完成，才去做存档恢复
 	call_deferred("_deferred_load")
 	var restored := KeyConfig.load_user_bindings()
 func _deferred_load():
 	SaveGame.load_game()
+	global.player_health=global.player_max_health
+	if global.player_alive==false:
+		global.player_alive=true
+		show_rebirth_message()
 
 func _unhandled_input(event):
 	# 当玩家按下 “toggle_inventory” 的按键时，切换 InventoryUI 的可见性
@@ -31,3 +36,10 @@ func _unhandled_input(event):
 # 假设这是某个按钮的信号回调——点击后切换 InnerMargin 的可见性
 func _on_button_pressed() -> void:
 	inner_margin.visible = not inner_margin.visible
+func show_rebirth_message() -> void:
+	var label = $Label
+	label.text = "你已重生回到小屋"
+	label.visible=true
+	# 2 秒后自动消失
+	await get_tree().create_timer(2.0).timeout
+	label.visible = false

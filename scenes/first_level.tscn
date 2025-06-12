@@ -58,6 +58,13 @@ tile_set = ExtResource("2_ab8ao")
 
 [node name="player" parent="." instance=ExtResource("2_snglc")]
 position = Vector2(137, 526)
+speed = null
+charge_move_speed = null
+max_charge_time = null
+attack_radius = null
+attack_angle_degrees = null
+hitbox_offset = null
+hitbox_halfsize = null
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(5, 5)

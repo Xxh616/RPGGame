@@ -6,11 +6,11 @@
 script = ExtResource("1_c3yyo")
 result_id = "Sword_Ultimate"
 needs = {
-"Fusion_Gem": 1,
-"Sword_Defense": 1,
-"Sword_Power": 1,
-"Sword_Speed": 1,
-"Ultimate_Scroll": 1
+"Defense Sword": 1,
+"Fusion Gem": 1,
+"Power Sword": 1,
+"Speed Sword": 1,
+"Ultimate Scroll": 1
 }
 category = "Weapon"
 metadata/_custom_type_script = "uid://bshgtc407b4ld"

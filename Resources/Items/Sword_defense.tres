@@ -9,7 +9,7 @@ region = Rect2(32, 128, 16, 16)
 
 [resource]
 script = ExtResource("2_25eca")
-id = "Sword_Defense"
+id = "Defense Sword"
 name = "Defense Sword"
 icon = SubResource("AtlasTexture_uqlhh")
 max_stack = 1
@@ -17,5 +17,6 @@ description = ""
 type = 0
 attack = 80
 defense = 50
+visible_increase = 0.0
 buff_duration = 0.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

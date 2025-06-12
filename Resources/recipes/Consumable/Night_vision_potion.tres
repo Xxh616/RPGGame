@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CraftRecipe" load_steps=2 format=3 uid="uid://uq5n481uacb8"]
+
+[ext_resource type="Script" uid="uid://bshgtc407b4ld" path="res://scripts/CraftRecipe.gd" id="1_8dtks"]
+
+[resource]
+script = ExtResource("1_8dtks")
+result_id = "Night Vision Potion"
+needs = {
+"Night-Eye Mushroom": 7,
+"Slime vial": 4
+}
+category = "Consumable"
+metadata/_custom_type_script = "uid://bshgtc407b4ld"

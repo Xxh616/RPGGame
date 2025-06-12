@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CraftRecipe" load_steps=2 format=3 uid="uid://82x0phf5141b"]
+
+[ext_resource type="Script" uid="uid://bshgtc407b4ld" path="res://scripts/CraftRecipe.gd" id="1_jvhun"]
+
+[resource]
+script = ExtResource("1_jvhun")
+result_id = "Magic Book"
+needs = {
+"Arcane Spirit Paper": 10,
+"Magic Stone": 3
+}
+category = "Special"
+metadata/_custom_type_script = "uid://bshgtc407b4ld"

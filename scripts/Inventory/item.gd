@@ -21,4 +21,5 @@ enum ItemType {
 @export var type: ItemType = ItemType.Misc
 @export var attack:int=0
 @export var defense:int=0
+@export var visible_increase:float=0
 @export var buff_duration: float = 10.0

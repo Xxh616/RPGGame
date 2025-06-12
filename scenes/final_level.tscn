@@ -501,6 +501,13 @@ player_path = NodePath("../player")
 
 [node name="player" parent="." instance=ExtResource("8_1ppc5")]
 position = Vector2(111, 400)
+speed = null
+charge_move_speed = null
+max_charge_time = null
+attack_radius = null
+attack_angle_degrees = null
+hitbox_offset = null
+hitbox_halfsize = null
 
 [node name="Camera2D" type="Camera2D" parent="player"]
 zoom = Vector2(4, 4)

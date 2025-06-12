@@ -4,11 +4,11 @@
 
 [resource]
 script = ExtResource("1_owb50")
-result_id = "Sword_Defense"
+result_id = "Defense Sword"
 needs = {
-"Defense_Gem": 1,
-"Sword_III": 1,
-"Third-grade ore": 30
+"Defense Gem": 5,
+"Ore III": 20,
+"Sword III": 1
 }
 category = "Weapon"
 metadata/_custom_type_script = "uid://bshgtc407b4ld"

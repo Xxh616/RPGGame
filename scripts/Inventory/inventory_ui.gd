@@ -96,8 +96,19 @@ func _on_context_menu_id_pressed(id: int) -> void:
 			var sid = inventory.get_slot_id(last_slot_idx)
 			if sid != "":
 				var itm = inventory.get_item_resource(sid)
-				if itm and itm.id == "health_potion":
+				if itm and itm.id == "attack_potion":
 					_apply_attack_potion_buff(itm)
+				if itm and itm.id == "defense_potion":
+					_apply_attack_potion_buff(itm)
+				if itm and itm.id == "Night_vision_potion":
+					_apply_attack_potion_buff(itm)
+				if itm and itm.id == "Attribute_potion":
+					global.player_status+=1
+				if itm and itm.id =="health_potion":
+					if global.player_health+20 >=global.player_max_health:
+						global.player_health=global.player_max_health
+					else:
+						global.player_health+=20
 			inventory.use_item_by_slot(last_slot_idx)
 		3:
 			# 区分装备槽（-1）和背包槽（>=0）
@@ -239,9 +250,13 @@ func _on_defense_add_button_pressed() -> void:
 func _apply_attack_potion_buff(itm: Item) -> void:
 	var bonus   = itm.attack
 	var duration = itm.buff_duration
-
+	var defense =itm.defense
+	var increase_visible=itm.visible_increase
 	# 1) 立即加上
 	global.player_attack += bonus
+	global.player_attack += defense
+	global.visible_range.x=global.visible_range.x*increase_visible
+	global.visible_range.y=global.visible_range.y*increase_visible
 	_refresh_ui()
 
 	# 2) 异步等待
@@ -249,6 +264,9 @@ func _apply_attack_potion_buff(itm: Item) -> void:
 
 	# 3) 到时撤销增益
 	global.player_attack -= bonus
+	global.player_defense-=defense
+	global.visible_range.x=global.visible_range.x/increase_visible
+	global.visible_range.y=global.visible_range.y/increase_visible
 	_refresh_ui()
 
 

@@ -12,6 +12,8 @@ var player_attack: int = 1
 var player_defense: int = 1
 var player_status: int = 5
 var first_enter_game=true
+var visible_range=Vector2(0.107,0.1)
+
 # 🌍 场景管理
 var current_scene: String = "hometown"
 var transition_scene: bool = false

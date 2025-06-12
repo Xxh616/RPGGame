@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource("1_6et27")
-result_id = "defense_potion"
+result_id = "Defense Potion"
 needs = {
 "Slime vial": 3,
-"Yulingcao": 6
+"Yu ling cao": 4
 }
 category = "Consumable"
 metadata/_custom_type_script = "uid://bshgtc407b4ld"

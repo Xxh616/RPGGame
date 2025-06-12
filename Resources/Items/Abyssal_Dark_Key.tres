@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dpl7ech8fy1k4"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_dey2q"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="1_xj2gu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhc8x"]
+atlas = ExtResource("1_dey2q")
+region = Rect2(176, 52, 16, 8)
+
+[resource]
+script = ExtResource("1_xj2gu")
+id = "Abyssal Dark Key"
+name = "Abyssal Dark Key"
+icon = SubResource("AtlasTexture_fhc8x")
+max_stack = 1
+description = ""
+type = 3
+attack = 0
+defense = 0
+visible_increase = 0.0
+buff_duration = 0.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

@@ -9,13 +9,14 @@ region = Rect2(178, 64, 13, 16)
 
 [resource]
 script = ExtResource("1_o30qj")
-id = "health_potion"
+id = "Health Potion"
 name = "Health Potion"
 icon = SubResource("AtlasTexture_1db67")
 max_stack = 2
-description = "恢复 50 点生命。"
+description = "恢复 20 点生命。"
 type = 1
-attack = 100
+attack = 0
 defense = 0
-buff_duration = 10.0
+visible_increase = 0.0
+buff_duration = 0.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

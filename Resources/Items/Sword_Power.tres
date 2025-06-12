@@ -3,19 +3,20 @@
 [ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_8nlbb"]
 [ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_5bpuq"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uqlhh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jvfd4"]
 atlas = ExtResource("1_8nlbb")
-region = Rect2(16, 112, 16, 16)
+region = Rect2(16, 128, 16, 16)
 
 [resource]
 script = ExtResource("2_5bpuq")
-id = "Sword_Fire"
-name = "Sword Fire"
-icon = SubResource("AtlasTexture_uqlhh")
+id = "Power Sword"
+name = "Power Sword"
+icon = SubResource("AtlasTexture_jvfd4")
 max_stack = 1
 description = ""
 type = 4
 attack = 0
 defense = 0
+visible_increase = 0.0
 buff_duration = 10.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

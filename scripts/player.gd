@@ -43,7 +43,8 @@ var itemselect: ItemDrop = null
 @onready var sprite_groups := {
 	"idle":   $idle,
 	"run":    $run,
-	"attack": $attack
+	"attack": $attack,
+	"dead":$dead
 }
 @onready var anim_player   := $AnimPlayer
 @onready var charge_bar    := $charge_bar
@@ -123,6 +124,7 @@ func _physics_process(delta: float) -> void:
 
 	# 如果血量 <= 0，且当前没在 DEAD，就切 Dead
 	if global.player_health <= 0 and current_state_type != States.DEAD:
+		
 		change_state(States.DEAD)
 
 
@@ -168,6 +170,8 @@ func PlayAnim(anim_name: String, force_play := false) -> void:
 
 
 func current_action_group() -> String:
+	if current_state_type == States.DEAD:
+		return "dead"
 	if attack_ip:
 		return "attack"
 	elif moving:

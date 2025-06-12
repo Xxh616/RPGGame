@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bb0yoc2888fyf"]
+[gd_scene load_steps=44 format=3 uid="uid://bb0yoc2888fyf"]
 
 [ext_resource type="Script" uid="uid://drfn4t3ilpdkk" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://de26s6ujrn8bi" path="res://art/character/player/Base/Player_Base_Idle.png" id="2_3v2ag"]
@@ -17,6 +17,11 @@
 [ext_resource type="Texture2D" uid="uid://0o3mvd3l21of" path="res://art/character/player/Clothes/pants/Pants_Blue_Running.png" id="15_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://082c5o0f7u4x" path="res://art/character/player/Hand/Hands_Bare_Running.png" id="16_60mlk"]
 [ext_resource type="Texture2D" uid="uid://c8r0yrl7bsasi" path="res://art/character/player/Hair/Medium_Hair_Brown_Running.png" id="17_i4ail"]
+[ext_resource type="Texture2D" uid="uid://v4wb67babmbx" path="res://art/character/player/Base/Player_Base_Death.png" id="18_i4ail"]
+[ext_resource type="Texture2D" uid="uid://b0y3yxn10onjn" path="res://art/character/player/Clothes/shirt/Shirt_Green_Death.png" id="19_a38lo"]
+[ext_resource type="Texture2D" uid="uid://bhmim7v4sum7t" path="res://art/character/player/Clothes/pants/Pants_Blue_Death.png" id="20_4ni07"]
+[ext_resource type="Texture2D" uid="uid://5o17b1bs7cqm" path="res://art/character/player/Hand/Hands_Bare_Death.png" id="21_l71n6"]
+[ext_resource type="Texture2D" uid="uid://doqamwy6i5525" path="res://art/character/player/Hair/Medium_Hair_Brown_Death.png" id="22_a38lo"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
 radius = 5.0
@@ -29,78 +34,6 @@ radius = 15.0
 
 [sub_resource type="Animation" id="Animation_fulsm"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("attack/Sword:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [18]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("run/Body:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("run/Shirt:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("run/Pants:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("run/Hands:frame")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("run/Hair:frame")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [5]
-}
 
 [sub_resource type="Animation" id="Animation_31cv2"]
 resource_name = "down_first_attack"
@@ -1186,6 +1119,71 @@ tracks/5/keys = {
 "values": [48, 49, 50, 51]
 }
 
+[sub_resource type="Animation" id="Animation_ujl30"]
+resource_name = "dead"
+length = 2.2
+step = 0.55
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("dead/Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.55, 1.1, 1.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("dead/Shirt:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.55, 1.1, 1.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("dead/Pants:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.55, 1.1, 1.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("dead/Hands:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.55, 1.1, 1.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("dead/Hair:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.55, 1.1, 1.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wqfne"]
 _data = {
 &"RESET": SubResource("Animation_fulsm"),
@@ -1195,6 +1193,7 @@ _data = {
 &"attack_side_second": SubResource("Animation_jej6c"),
 &"attack_up_first": SubResource("Animation_a38lo"),
 &"attack_up_second": SubResource("Animation_wqfne"),
+&"dead": SubResource("Animation_ujl30"),
 &"idle_down": SubResource("Animation_l71n6"),
 &"idle_side": SubResource("Animation_4ni07"),
 &"idle_up": SubResource("Animation_ke2ow"),
@@ -1211,6 +1210,13 @@ y_sort_enabled = true
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_g2els")
+speed = null
+charge_move_speed = null
+max_charge_time = null
+attack_radius = null
+attack_angle_degrees = null
+hitbox_offset = null
+hitbox_halfsize = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 5)
@@ -1270,31 +1276,26 @@ visible = false
 texture = ExtResource("2_3v2ag")
 hframes = 6
 vframes = 3
-frame = 12
 
 [node name="Shirt" type="Sprite2D" parent="idle"]
 texture = ExtResource("3_jej6c")
 hframes = 6
 vframes = 3
-frame = 12
 
 [node name="Pants" type="Sprite2D" parent="idle"]
 texture = ExtResource("4_f1ej7")
 hframes = 6
 vframes = 3
-frame = 12
 
 [node name="Hands" type="Sprite2D" parent="idle"]
 texture = ExtResource("5_oprun")
 hframes = 6
 vframes = 3
-frame = 12
 
 [node name="Hair" type="Sprite2D" parent="idle"]
 texture = ExtResource("6_a8ls1")
 hframes = 6
 vframes = 3
-frame = 12
 
 [node name="Sword" type="Sprite2D" parent="idle"]
 visible = false
@@ -1304,36 +1305,37 @@ vframes = 9
 frame = 48
 
 [node name="attack" type="Node2D" parent="."]
+visible = false
 
 [node name="Body" type="Sprite2D" parent="attack"]
 texture = ExtResource("7_qfm1y")
 hframes = 4
 vframes = 9
-frame = 16
+frame = 28
 
 [node name="Shirt" type="Sprite2D" parent="attack"]
 texture = ExtResource("8_fulsm")
 hframes = 4
 vframes = 9
-frame = 16
+frame = 28
 
 [node name="Pants" type="Sprite2D" parent="attack"]
 texture = ExtResource("9_4r5pv")
 hframes = 4
 vframes = 9
-frame = 16
+frame = 28
 
 [node name="Hands" type="Sprite2D" parent="attack"]
 texture = ExtResource("10_60mlk")
 hframes = 4
 vframes = 9
-frame = 16
+frame = 28
 
 [node name="Hair" type="Sprite2D" parent="attack"]
 texture = ExtResource("11_i4ail")
 hframes = 4
 vframes = 9
-frame = 16
+frame = 28
 
 [node name="Sword" type="Sprite2D" parent="attack"]
 texture = ExtResource("12_a38lo")
@@ -1379,6 +1381,28 @@ visible = false
 texture = ExtResource("12_a38lo")
 hframes = 6
 vframes = 9
+
+[node name="dead" type="Node2D" parent="."]
+
+[node name="Body" type="Sprite2D" parent="dead"]
+texture = ExtResource("18_i4ail")
+hframes = 4
+
+[node name="Shirt" type="Sprite2D" parent="dead"]
+texture = ExtResource("19_a38lo")
+hframes = 4
+
+[node name="Pants" type="Sprite2D" parent="dead"]
+texture = ExtResource("20_4ni07")
+hframes = 4
+
+[node name="Hands" type="Sprite2D" parent="dead"]
+texture = ExtResource("21_l71n6")
+hframes = 4
+
+[node name="Hair" type="Sprite2D" parent="dead"]
+texture = ExtResource("22_a38lo")
+hframes = 4
 
 [connection signal="body_entered" from="PlayerHitBox" to="." method="_on_PlayerHitBox_body_entered"]
 [connection signal="body_exited" from="PlayerHitBox" to="." method="_on_PlayerHitBox_body_exited"]

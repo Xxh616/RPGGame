@@ -9,7 +9,7 @@ region = Rect2(192, 112, 16, 16)
 
 [resource]
 script = ExtResource("2_tat3q")
-id = "Sword_Ultimate"
+id = "Ultimate Sword"
 name = "Ultimate Sword"
 icon = SubResource("AtlasTexture_uqlhh")
 max_stack = 1
@@ -17,5 +17,6 @@ description = ""
 type = 0
 attack = 90
 defense = 0
+visible_increase = 0.0
 buff_duration = 10.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

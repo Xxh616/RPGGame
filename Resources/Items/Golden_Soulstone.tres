@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://yhio3cj2c1po"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_5stts"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_5uhsb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abtws"]
+atlas = ExtResource("1_5stts")
+region = Rect2(16, 98, 16, 13)
+
+[resource]
+script = ExtResource("2_5uhsb")
+id = "Golden Soulstone"
+name = "Golden Soulstone"
+icon = SubResource("AtlasTexture_abtws")
+max_stack = 3
+description = ""
+type = 2
+attack = 0
+defense = 0
+visible_increase = 0.0
+buff_duration = 0.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

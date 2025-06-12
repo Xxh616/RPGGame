@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_24ifc")
-result_id = "health_potion"
+result_id = "Health Potion"
 needs = {
 "Blood spirit grass": 5,
 "Slime vial": 3

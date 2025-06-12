@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://dnchbo7jbslbv"]
+[gd_scene load_steps=32 format=3 uid="uid://dnchbo7jbslbv"]
 
 [ext_resource type="Texture2D" uid="uid://dssm2ci5qfinj" path="res://art/map_resources/secondLevel/Cave/Cave_Door.png" id="1_5k5cp"]
+[ext_resource type="Script" uid="uid://b8plu882tq7qn" path="res://scenes/second_level.gd" id="1_b4pep"]
 [ext_resource type="Texture2D" uid="uid://btl5kcdjwy3l2" path="res://art/map_resources/secondLevel/Cave/Cave_Floor.png" id="2_fpriq"]
 [ext_resource type="Texture2D" uid="uid://hns8of613c3v" path="res://art/map_resources/secondLevel/Cave/Cave_Floor_Decoration.png" id="3_b4pep"]
 [ext_resource type="Texture2D" uid="uid://bxetr2t3s4dhc" path="res://art/map_resources/secondLevel/Cave/Cave_Floor_Middle.png" id="4_ft22a"]
@@ -10,6 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://bwnr02skmjg6n" path="res://art/map_resources/ThirdLevel/Stairs_Down_SingleFrame.png" id="8_fjvil"]
 [ext_resource type="PackedScene" uid="uid://bb0yoc2888fyf" path="res://scenes/player.tscn" id="9_7lry3"]
 [ext_resource type="Texture2D" uid="uid://bxsp1sxcm7phq" path="res://art/light_gradient_clean.png" id="10_fpriq"]
+[ext_resource type="PackedScene" uid="uid://cc3pjfk4qvxry" path="res://scenes/Inventory/inventory_ui.tscn" id="12_muexr"]
+[ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="13_8clkh"]
+[ext_resource type="PackedScene" uid="uid://k3lcggpycug7" path="res://scenes/inner_margin.tscn" id="14_fjvil"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rse2e"]
 texture = ExtResource("1_5k5cp")
@@ -175,10 +179,37 @@ sources/5 = SubResource("TileSetAtlasSource_enfa2")
 sources/6 = SubResource("TileSetAtlasSource_xefxx")
 sources/8 = SubResource("TileSetAtlasSource_m52xl")
 
-[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fpriq"]
-polygon = PackedVector2Array(32, 208, 112, 209, 180, 209, 224, 209, 259, 209, 310, 209, 338, 209, 349, 209, 351, 212, 352, 240, 349, 240, 345, 240, 345, 232, 345, 224, 345, 222, 343, 216, 340, 213, 335, 214, 330, 215, 325, 215, 155, 215, 32, 215)
+[sub_resource type="AtlasTexture" id="AtlasTexture_wylva"]
+atlas = ExtResource("13_8clkh")
+region = Rect2(129, 209, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7lry3"]
+texture = SubResource("AtlasTexture_wylva")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oubgv"]
+atlas = ExtResource("13_8clkh")
+region = Rect2(113, 209, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o3yns"]
+texture = SubResource("AtlasTexture_oubgv")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iojxj"]
+texture = SubResource("AtlasTexture_wylva")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kxlbc"]
+atlas = ExtResource("13_8clkh")
+region = Rect2(97, 209, 14, 14)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_paren"]
+content_margin_left = 20.0
+content_margin_top = 20.0
+content_margin_right = 20.0
+content_margin_bottom = 20.0
+texture = SubResource("AtlasTexture_kxlbc")
 
 [node name="SecondLevel" type="Node2D"]
+script = ExtResource("1_b4pep")
+inventory_ui_path = NodePath("CanvasLayer/InventoryUi")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.0142752, 0.0142752, 0.0142751, 1)
@@ -195,10 +226,6 @@ layer_2/tile_data = PackedInt32Array(851970, 65537, 5, 851971, 65537, 5, 851972,
 layer_3/name = "Objects"
 layer_3/tile_data = PackedInt32Array(1245227, 5, 4, 1376299, 8, 0)
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
-visibility_layer = 15
-occluder = SubResource("OccluderPolygon2D_fpriq")
-
 [node name="player" parent="." instance=ExtResource("9_7lry3")]
 position = Vector2(150, 150)
 
@@ -211,7 +238,7 @@ limit_bottom = 635
 
 [node name="PointLight2D" type="PointLight2D" parent="player"]
 position = Vector2(-3.8147e-06, 0)
-scale = Vector2(0.514767, 0.482328)
+scale = Vector2(0.107, 0.1)
 blend_mode = 2
 texture = ExtResource("10_fpriq")
 
@@ -221,3 +248,36 @@ texture = ExtResource("10_fpriq")
 polygon = PackedVector2Array(35, 82, 68, 82, 100, 82, 151, 82, 188, 82, 214, 82, 248, 82, 276, 82, 304, 83, 329, 82, 342, 82, 352, 82, 353, 142, 357, 146, 425, 147, 490, 147, 553, 147, 617, 146, 625, 146, 625, 221, 627, 224, 630, 226, 648, 226, 663, 226, 672, 226, 672, 288, 677, 290, 683, 291, 752, 290, 753, 362, 753, 367, 749, 370, 746, 370, 742, 369, 642, 369, 641, 373, 641, 555, 640, 560, 636, 562, 409, 562, 170, 562, 36, 562, 34, 561, 32, 559, 31, 557, 31, 351, 31, 298, 31, 85, -18, 207, -21, 259, -26, 577, 11, 603, 140, 603, 364, 610, 495, 622, 589, 611, 671, 600, 714, 566, 914, 435, 988, 350, 925, 100, 855, 106, 742, 79, 567, 72, 349, 20, 271, -12, 232, -41, 175, -51, -24, -5, -71, 53, -59, 104, 31, 83)
 
 [node name="StaticBody2D2" type="StaticBody2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="InventoryUi" parent="CanvasLayer" instance=ExtResource("12_muexr")]
+visible = false
+offset_right = 1152.0
+offset_bottom = 650.0
+player_node = NodePath("../../player")
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+focus_mode = 0
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_7lry3")
+theme_override_styles/hover = SubResource("StyleBoxTexture_o3yns")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_iojxj")
+theme_override_styles/normal = SubResource("StyleBoxTexture_paren")
+
+[node name="InnerMargin" parent="CanvasLayer" instance=ExtResource("14_fjvil")]
+visible = false

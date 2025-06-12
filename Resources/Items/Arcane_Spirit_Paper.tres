@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://1hd87fu14td3"]
+
+[ext_resource type="Texture2D" uid="uid://bqwah2lwca82q" path="res://art/item/roguelikeitems.png" id="1_2wyon"]
+[ext_resource type="Script" uid="uid://chij6v1mtnjmj" path="res://scripts/Inventory/item.gd" id="2_u5k1y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_va656"]
+atlas = ExtResource("1_2wyon")
+region = Rect2(194, 161, 12, 15)
+
+[resource]
+script = ExtResource("2_u5k1y")
+id = " Arcane Spirit Paper"
+name = " Arcane Spirit Paper"
+icon = SubResource("AtlasTexture_va656")
+max_stack = 1
+description = ""
+type = 2
+attack = 0
+defense = 0
+visible_increase = 0.0
+buff_duration = 10.0
+metadata/_custom_type_script = "uid://chij6v1mtnjmj"

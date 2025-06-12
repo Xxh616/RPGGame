@@ -9,7 +9,7 @@ region = Rect2(65, 50, 13, 13)
 
 [resource]
 script = ExtResource("2_pfuyl")
-id = "Defense_Gem"
+id = "Defense Gem"
 name = "Defense Gem"
 icon = SubResource("AtlasTexture_j2nkm")
 max_stack = 1
@@ -17,5 +17,6 @@ description = ""
 type = 2
 attack = 0
 defense = 0
+visible_increase = 0.0
 buff_duration = 0.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

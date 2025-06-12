@@ -9,7 +9,7 @@ region = Rect2(112, 48, 17, 16)
 
 [resource]
 script = ExtResource("1_bu3en")
-id = "Attribute_stone"
+id = "Attribute Stone"
 name = "Attribute Stone"
 icon = SubResource("AtlasTexture_gtnyx")
 max_stack = 5
@@ -17,5 +17,6 @@ description = ""
 type = 2
 attack = 0
 defense = 0
+visible_increase = 0.0
 buff_duration = 0.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

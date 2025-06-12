@@ -9,13 +9,14 @@ region = Rect2(146, 64, 13, 16)
 
 [resource]
 script = ExtResource("2_q665w")
-id = "attack_potion"
-name = "Attack Potion"
+id = "Power Potion"
+name = "Power Potion"
 icon = SubResource("AtlasTexture_1db67")
 max_stack = 2
 description = "增加十点攻击力"
 type = 1
 attack = 10
 defense = 0
-buff_duration = 10.0
+visible_increase = 0.0
+buff_duration = 150.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

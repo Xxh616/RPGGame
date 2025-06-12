@@ -9,7 +9,7 @@ region = Rect2(130, 64, 13, 16)
 
 [resource]
 script = ExtResource("2_6oemj")
-id = "Night_vision_potion"
+id = "Night Vision Potion"
 name = "Night Vision Potion"
 icon = SubResource("AtlasTexture_tfrkq")
 max_stack = 2
@@ -17,5 +17,6 @@ description = ""
 type = 1
 attack = 0
 defense = 0
-buff_duration = 300.0
+visible_increase = 3.0
+buff_duration = 240.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"

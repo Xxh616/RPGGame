@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1_fkvjs")
-result_id = "health_potion"
+result_id = "Power Potion"
 needs = {
-"Lilingcao": 5,
+"Li ling cao": 4,
 "Slilme vial": 3
 }
 category = "Consumable"
