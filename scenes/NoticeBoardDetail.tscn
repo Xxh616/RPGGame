@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://c125udyftsnt6"]
+
+[ext_resource type="Texture2D" uid="uid://dowwr4xftnwam" path="res://art/Inventory/UI_Frames.png" id="1_oati1"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = 75.0
+offset_top = -5.0
+offset_right = 1054.0
+offset_bottom = 643.0
+texture = ExtResource("1_oati1")
+region_rect = Rect2(63, 15, 18, 18)
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 2
+patch_margin_bottom = 5
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 39.0
+offset_right = 1004.0
+offset_bottom = 582.0
+theme_override_constants/outline_size = 5
+text = "hello"
+autowrap_mode = 1

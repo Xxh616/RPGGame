@@ -533,6 +533,7 @@ size_flags_horizontal = 3
 [node name="Button" type="Button" parent="TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
+focus_mode = 0
 theme_override_styles/disabled = SubResource("StyleBoxTexture_7rr1a")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_77d8p")
 theme_override_styles/hover = SubResource("StyleBoxTexture_kr36s")

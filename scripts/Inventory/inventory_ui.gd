@@ -66,11 +66,11 @@ func _show_context_menu_at_mouse(slot_idx: int) -> void:
 			return
 		var itm = inventory.get_item_resource(sid)
 		if itm.type == Item.ItemType.Weapon:
-			context_menu.add_item("装备", 1)
+			context_menu.add_item("Equip", 1)
 		elif itm.type == Item.ItemType.Consumable:
-			context_menu.add_item("使用", 2)
+			context_menu.add_item("Use", 2)
 	context_menu.add_separator()
-	context_menu.add_item("丢弃", 3)
+	context_menu.add_item("Drop", 3)
 
 	var mp = get_viewport().get_mouse_position()
 	context_menu.popup(Rect2(mp, Vector2.ZERO))
@@ -96,15 +96,15 @@ func _on_context_menu_id_pressed(id: int) -> void:
 			var sid = inventory.get_slot_id(last_slot_idx)
 			if sid != "":
 				var itm = inventory.get_item_resource(sid)
-				if itm and itm.id == "attack_potion":
+				if itm and itm.id == "Power Potion":
 					_apply_attack_potion_buff(itm)
-				if itm and itm.id == "defense_potion":
+				if itm and itm.id == "Defense Potion":
 					_apply_attack_potion_buff(itm)
-				if itm and itm.id == "Night_vision_potion":
+				if itm and itm.id == "Night Vision Potion":
 					_apply_attack_potion_buff(itm)
-				if itm and itm.id == "Attribute_potion":
+				if itm and itm.id == "Attribute Potion":
 					global.player_status+=1
-				if itm and itm.id =="health_potion":
+				if itm and itm.id =="Health Potion":
 					if global.player_health+20 >=global.player_max_health:
 						global.player_health=global.player_max_health
 					else:

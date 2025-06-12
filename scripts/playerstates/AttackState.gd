@@ -25,14 +25,17 @@ func enter(prev_state: String) -> void:
 	if is_heavy:
 		# 重击动画: thump_attack_down / thump_attack_side / thump_attack_up
 		var anim_name = "thump_attack_%s" % base_dir
+		owner.thumpornot=true
 		owner.PlayAnim(anim_name, true)
+		
 	else:
 		# 普通连击：第 1 段 or 第 2 段
 		owner.attack_index = (owner.attack_index + 1) % 2
 		var suffix = "first" if owner.attack_index == 0  else "second"
 		var anim_name = "attack_%s_%s" % [base_dir, suffix]
+		owner.thumpornot=false
 		owner.PlayAnim(anim_name, true)
-
+		
 
 	# —— 2) 刚一进攻，就把 HitBox 移到当前朝向并打开监测 —— 
 	owner._update_hitbox_offset()

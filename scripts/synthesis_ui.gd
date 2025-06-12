@@ -53,7 +53,8 @@ func _ready() -> void:
 	# 5) 默认先显示 Weapon 第 1 页
 	_select_category("Weapon")
 	_refresh_page()
-
+func _process(delta: float) -> void:
+	pass
 # -------------------------------------------------------
 func _load_all_recipes() -> void:
 	var base_dir = DirAccess.open(recipes_base_path)
@@ -185,7 +186,7 @@ func _refresh_page() -> void:
 
 	prev_page_btn.disabled = (current_page <= 0)
 	next_page_btn.disabled = (current_page >= max_pages - 1)
-	page_label.text = "第 %d / %d 页" % [ current_page+1, max_pages ]
+	page_label.text = " %d / %d " % [ current_page+1, max_pages ]
 
 	for i in range(ITEMS_PER_PAGE):
 		var detail_node = detail_nodes[i] as ItemDetail  # 你的 ItemDetail 类型

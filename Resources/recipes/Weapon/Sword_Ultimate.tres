@@ -4,12 +4,11 @@
 
 [resource]
 script = ExtResource("1_c3yyo")
-result_id = "Sword_Ultimate"
+result_id = "Ultimate Sword"
 needs = {
 "Defense Sword": 1,
 "Fusion Gem": 1,
 "Power Sword": 1,
-"Speed Sword": 1,
 "Ultimate Scroll": 1
 }
 category = "Weapon"

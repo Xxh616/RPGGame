@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var max_charge_time := 1.5
 @export var attack_radius := 60
 @export var attack_angle_degrees := 90
-
+var thumpornot=false
 # HitBox 的配置：偏移距离 + 矩形半宽半高（请根据自己美术图尺寸调节）
 @export var hitbox_offset := 12                  # 矩形中心距离角色中心的像素偏移
 @export var hitbox_halfsize := Vector2(23.5, 29)          # 矩形半宽(30)半高(40)，整块尺寸 = (60×80)
@@ -235,7 +235,8 @@ func get_attack_direction() -> Vector2:
 
 
 func take_damage(amount: int) -> void:
-	global.player_health -= amount
+	var factor=100.0/(100.0+global.player_defense)
+	global.player_health -=(amount*factor)
 	if global.player_health < 0:
 		global.player_health = 0
 	update_health_bar()
@@ -274,5 +275,9 @@ func _update_hitbox_offset() -> void:
 # —— 新增：当 HitBox 检测到碰撞时，调用此函数让敌人掉血 —— #
 func _on_HitBox_body_entered(body: Node) -> void:
 	if body.is_in_group("Enemy") and body.has_method("take_damage"):
-		body.take_damage(50)
+		var factor = (100.0 + global.player_attack)/100.0
+		if thumpornot:
+			body.take_damage(50*factor+0.2*global.player_attack)
+		else:
+			body.take_damage(20*factor)
 		print("💥 击中敌人:", body.name)

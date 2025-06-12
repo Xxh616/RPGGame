@@ -62,12 +62,13 @@ func _do_damage(cur:int) -> void:
 	# 遍历判定区内的 bodies，只对 player_node 造成一次伤害
 	for body in owner.attack_area.get_overlapping_bodies():
 		if body == owner.player_node and body.has_method("take_damage"):
+			var factor=(100+owner.attack)/100
 			if cur==3:
-				body.take_damage(20)
+				body.take_damage(65*factor)
 				player_has_attack=true
 				break  # 每个攻击帧只命中一次
 			elif cur==4 and !player_has_attack:
-				body.take_damage(5)
+				body.take_damage(50*factor)
 				player_has_attack=true
 				break
 func _on_attack_done() -> void:

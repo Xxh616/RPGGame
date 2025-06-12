@@ -15,12 +15,12 @@ extends Control
 #                     "M"  对应 KEY_M
 #                     "G"  对应 KEY_G
 var action_data := [
-	{ "action_name":  "attack",           "display_name": "攻击",       "default_key": "E" },
-	{ "action_name":  "toggle_inventory", "display_name": "打开背包",   "default_key": "I" },
-	{ "action_name":  "pickup_item",      "display_name": "拾取物品",   "default_key": "T" },
-	{ "action_name":  "toggle_storage",   "display_name": "打开储存箱", "default_key": "Y" },
-	{ "action_name":  "toggle_synthesis", "display_name": "打开合成台", "default_key": "M" },
-	{ "action_name":  "GOGOGO",           "display_name": "切换场景","default_key": "G" }
+	{ "action_name":  "attack",           "display_name": "Attack",       "default_key": "E" },
+	{ "action_name":  "toggle_inventory", "display_name": "Inventory",   "default_key": "I" },
+	{ "action_name":  "pickup_item",      "display_name": "Pickup",   "default_key": "T" },
+	{ "action_name":  "toggle_storage",   "display_name": "StorageBox", "default_key": "Y" },
+	{ "action_name":  "toggle_synthesis", "display_name": "SynthesisTable", "default_key": "M" },
+	{ "action_name":  "GOGOGO",           "display_name": "Transmit","default_key": "G" }
 ]
 
 # ————————————————————————————————————————————————————————————————————————————————

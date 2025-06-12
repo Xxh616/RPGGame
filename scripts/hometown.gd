@@ -5,7 +5,7 @@ extends Node2D
 
 # 缓存几个会用到的 UI 节点
 @onready var inventory_ui = get_node(inventory_ui_path) as Control
-@onready var inner_margin  = $CanvasLayer/InnerMargin   as Control
+@onready var inner_margin  = $CanvasLayer/Control/InnerMargin  as Control
 @onready var hud_control   = $CanvasLayer/Control       as Control
 
 func _physics_process(delta: float) -> void:

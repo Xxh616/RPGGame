@@ -33,7 +33,8 @@ func physics_update(delta: float) -> void:
 	# —— 在 0.5 秒时尝试命中一次 —— 
 	if timer >= 0.5 and timer - delta < 0.5:
 		if owner.attack_valid:
-			owner.player.take_damage(10)
+			var factor=(100+owner.config.attack)/100.0
+			owner.player.take_damage(20*factor)
 		# 不管是否命中，这次触发后就不再重复
 		owner.attack_valid = false
 

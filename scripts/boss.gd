@@ -35,7 +35,8 @@ var player_in_safe_zone: bool = false
 # —— 新增：血量系统 —— 
 @export var max_health: int = 100
 var health: int
-
+var attack=200
+var defense=300
 # 缓存血条控件（假设你用的是 ProgressBar 或 TextureProgress）
 @onready var health_bar := $healthBar
 # 最后一次面向方向，用于 Idle
@@ -122,8 +123,8 @@ func take_damage(amount: int) -> void:
 	# 如果已经死了，就不处理
 	if current_state_type == States.DEAD:
 		return
-
-	health = max(health - amount, 0)
+	var factor=100.0/(100+defense)
+	health = max(health - amount*factor, 0)
 	health_bar.value = health
    
 

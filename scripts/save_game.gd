@@ -89,6 +89,7 @@ func load_game() -> void:
 # 保存存档：只写 玩家数值、背包、储存箱
 # ==================================================
 func save_game() -> void:
+	global.has_load=false
 	# ------ 玩家数值 (Global) ------
 	if has_node("/root/global"):
 		var ps := {}
@@ -152,9 +153,9 @@ func clear_save() -> void:
 	# 3) 重置各单例到初始状态
 	# —— 全局属性
 	global.player_health  = global.player_max_health
-	global.player_attack  = 0
-	global.player_defense = 0
-	global.player_status  = 0
+	global.player_attack  = 1
+	global.player_defense = 1
+	global.player_status  = 5
 
 	# —— Inventory
 	inventory_autoload.slots.clear()

@@ -80,7 +80,7 @@ func _select_mode(to_storage: bool) -> void:
 func _update_mode_buttons() -> void:
 	# ** 不做任何 pressed、modulate、add_color_override 之类的操作 **
 	# 只更新最下方那个 Get 按钮的文字
-	get_btn.text = "取出" if is_storage_mode else "存入"
+	get_btn.text = "Get" if is_storage_mode else "Input"
 
 
 
@@ -163,7 +163,7 @@ func _refresh_page() -> void:
 	
 	prev_btn.disabled = (current_page <= 0)
 	next_btn.disabled = (current_page >= max_pages - 1)
-	page_label.text   = "第 %d / %d 页" % [current_page + 1, max_pages]
+	page_label.text   = " %d / %d " % [current_page + 1, max_pages]
 
 	for i in range(SLOTS_PER_PAGE):
 		var slot_node = slot_nodes[i] as StorageSlot

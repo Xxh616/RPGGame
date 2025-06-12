@@ -13,7 +13,8 @@ class_name EnemyBase
 var attack_valid : bool = false
 
 # —— 在 Inspector 里拖入配置 Resource（EnemyConfig.tres） —— 
-@export var config: EnemyConfig
+@export var configs: Array[EnemyConfig] = []     # 配置资源列表
+var config: EnemyConfig                         # 选中的当前配置
 
 # —— 在 Inspector 里拖入玩家节点的 NodePath —— 
 @export var player_path: NodePath
@@ -32,9 +33,9 @@ enum States {
 var states: Dictionary = {}          # 存放各个状态实例
 var current_state                   # 当前 State 对象引用
 var current_state_type: int = -1     # 当前状态类型（States 中的值）
-
+@export var initial_position: Vector2 = Vector2.ZERO
+@export var patrol_points: Array[Vector2] = []
 # —— 巡逻相关 —— 
-var patrol_points: Array[Vector2] = []   # 从 config 中读取的一组坐标
 var patrol_index: int = 0                # 当前正在前往的巡逻点索引
 
 # —— 属性与状态 —— 
@@ -53,6 +54,11 @@ var last_facing_dir: String = "down"     # 上一次朝向（"up"/"down"/"left"/
 
 
 func _ready() -> void:
+	if configs.size() > 0:
+		config = configs[randi() % configs.size()]
+	else:
+		push_error("EnemyBase: 未设置 configs 资源列表！")
+		return
 	print("加载了哥布林")
 	# —— 1. 校验 Config —— 
 	if config == null:
@@ -60,8 +66,8 @@ func _ready() -> void:
 		return
 
 	# —— 2. 如果配置里给了初始位置，就把自身移动到该坐标 —— 
-	position = config.initial_position
-	return_point = position
+	
+	return_point = initial_position
 	# —— 3. 把 AnimatedSprite2D 的 frames 换成配置里的 SpriteFrames —— 
 	if anim_sprite and config.sprite_frames:
 		anim_sprite.frames = config.sprite_frames
@@ -87,7 +93,6 @@ func _ready() -> void:
 		push_error("EnemyBase.gd: 无法找到玩家引用！请检查 spawner 中的 player_path 或直接给 player 赋值。")
 
 	# —— 7. 从 config 里复制巡逻点列表 —— 
-	patrol_points = config.patrol_points.duplicate(true)
 	# 如果 patrol_points 为空，PatrolState 里需要处理无巡逻点情况
 
 	# —— 8. 实例化各个状态脚本并缓存 —— 
@@ -197,8 +202,8 @@ func take_damage(amount: int) -> void:
 	
 	if is_invincible or current_state_type == States.DEAD:
 		return
-
-	health -= amount
+	var factor=100.0/(config.defense+100.0)
+	health -= amount*factor
 	if health < 0:
 		health = 0
 

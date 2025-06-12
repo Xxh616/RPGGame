@@ -16,7 +16,7 @@ extends Node2D
 @export var require_confirmation: bool = true
 
 # 提示文字内容（示例： "按 [E] 进入家乡小镇"）
-@export var confirm_text: String = "按 [g] 进入"
+@export var confirm_text: String = "Press [G] enter"
 
 # PromptLabel 的节点路径，如果你场景里加了一个 Label，就在 Inspector 里填写它的 NodePath
 @export var prompt_label_path: NodePath = ""

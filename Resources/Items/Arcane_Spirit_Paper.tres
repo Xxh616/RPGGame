@@ -9,8 +9,8 @@ region = Rect2(194, 161, 12, 15)
 
 [resource]
 script = ExtResource("2_u5k1y")
-id = " Arcane Spirit Paper"
-name = " Arcane Spirit Paper"
+id = "Arcane Spirit Paper"
+name = "Arcane Spirit Paper"
 icon = SubResource("AtlasTexture_va656")
 max_stack = 1
 description = ""
@@ -18,5 +18,5 @@ type = 2
 attack = 0
 defense = 0
 visible_increase = 0.0
-buff_duration = 10.0
+buff_duration = 0.0
 metadata/_custom_type_script = "uid://chij6v1mtnjmj"
