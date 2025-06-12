@@ -3,147 +3,172 @@
 
 extends Node
 
-# 存档文件路径，推荐用 user://
+# —— 存档文件路径 —— #
 const SAVE_PATH := "user://savegame.json"
 
-var custom_actions := [
-	"attack",
-	"toggle_inventory",
-	"pickup_item",
-	"toggle_storage",
-	"toggle_synthesis",
-	"GOGOGO"
-]
-# 存储用的全局字典
+# —— 加密参数 —— #
+const ENCRYPTION_PASSWORD := "3x7Mp9FdL2QkNzYvHgP1sRtVbJ4wAeCz"  # 32 字节随机口令
+const KEY_SIZE           := 32  # AES-256 需要 32 字节
+const IV_SIZE            := 16  # CBC 模式下 IV 长度固定 16 字节
+const BLOCK_SIZE         := 16  # AES 块大小
+
+# —— 全局变量 —— #
 var save_data : Dictionary = {}
 
+# —— 将口令字符串转成固定长度的密钥字节数组 —— #
+func _derive_key_bytes() -> PackedByteArray:
+	var key_bytes = ENCRYPTION_PASSWORD.to_utf8_buffer()
+	if key_bytes.size() < KEY_SIZE:
+		key_bytes.resize(KEY_SIZE)
+	elif key_bytes.size() > KEY_SIZE:
+		key_bytes = key_bytes.subarray(0, KEY_SIZE)
+	return key_bytes
 
-# ==================================================
-# 读取存档：只恢复玩家数值、背包、储存箱，不处理坐标
-# ==================================================
+# ========== 保存并加密 ========== #
+func save_game() -> void:
+	# —— 原存档数据填充 —— #
+	if has_node("/root/global"):
+		save_data["player_stats"] = {
+			"health":  global.player_health,
+			"attack":  global.player_attack,
+			"defense": global.player_defense,
+			"status":  global.player_status,
+		}
+	else:
+		save_data["player_stats"] = {}
+
+	if has_node("/root/inventory_autoload"):
+		save_data["inventory"] = inventory_autoload.slots.duplicate()
+		save_data["equipment"] = inventory_autoload.equipment.duplicate()
+	else:
+		save_data["inventory"] = []
+		save_data["equipment"] = []
+
+	if has_node("/root/StorageAutoload"):
+		var scopy = {}
+		for k in StorageAutoload.storage_counts.keys():
+			scopy[k] = StorageAutoload.storage_counts[k]
+		save_data["storage_box"] = scopy
+	else:
+		save_data["storage_box"] = {}
+
+	# —— JSON → 原始字节 —— #
+	var plaintext = JSON.stringify(save_data).to_utf8_buffer()
+
+	# —— PKCS#7 填充 —— #
+	var pad_len = BLOCK_SIZE - (plaintext.size() % BLOCK_SIZE)
+	if pad_len == 0:
+		pad_len = BLOCK_SIZE
+	for i in range(pad_len):
+		plaintext.append(pad_len)
+
+	# —— 派生密钥 & 随机 IV —— #
+	var key_bytes = _derive_key_bytes()
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	var iv = PackedByteArray()
+	iv.resize(IV_SIZE)
+	for i in range(IV_SIZE):
+		iv[i] = rng.randi_range(0, 255)
+
+	# —— AES-CBC 加密 —— #
+	var aes = AESContext.new()
+	aes.start(AESContext.MODE_CBC_ENCRYPT, key_bytes, iv)
+	var cipher = aes.update(plaintext)
+	aes.finish()
+
+	# —— IV + 密文 → Base64 —— #
+	var combined = iv + cipher
+	var b64 = Marshalls.raw_to_base64(combined)
+
+	# —— 写文件 —— #
+	var file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if not file:
+		push_error("SaveManager: 无法打开存档文件写入")
+		return
+	file.store_string(b64)
+	file.close()
+	print("SaveManager: 存档已加密并保存")
+
+# ========== 解密并加载 ========== #
 func load_game() -> void:
 	if not FileAccess.file_exists(SAVE_PATH):
-		print("SaveManager: 未找到存档，跳过读档。")
+		print("SaveManager: 未找到存档，跳过读档")
 		return
 
-	var file := FileAccess.open(SAVE_PATH, FileAccess.READ)
-	if file == null:
-		push_error("SaveManager: 打不开存档：" + SAVE_PATH)
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if not file:
+		push_error("SaveManager: 无法打开存档文件")
 		return
-
-	var text = file.get_as_text()
+	var b64 = file.get_as_text()
 	file.close()
 
-	var result = JSON.parse_string(text)
-	if result.has("error") and result["error"] != OK:
-		push_error("SaveManager: 解析 JSON 失败：" + result.error_string)
+	# —— Base64 → 二进制 —— #
+	var combined = Marshalls.base64_to_raw(b64)
+	if combined.size() < IV_SIZE:
+		push_error("SaveManager: 解密失败（数据太短）")
 		return
 
-	save_data = result
-	print("SaveManager: 已读取存档数据。")
+	# —— 拆 IV & 密文 —— #
+	var iv = combined.subarray(0, IV_SIZE)
+	var cipher = combined.subarray(IV_SIZE, combined.size())
 
-	# ------ 恢复玩家数值（Global 单例） ------
+	# —— 派生密钥 & 解密 —— #
+	var key_bytes = _derive_key_bytes()
+	var aes = AESContext.new()
+	aes.start(AESContext.MODE_CBC_DECRYPT, key_bytes, iv)
+	var decrypted_padded = aes.update(cipher)
+	aes.finish()
+
+	# —— 去除 PKCS#7 填充 —— #
+	var decrypted = decrypted_padded
+	if decrypted.size() > 0:
+		var pad = decrypted[decrypted.size() - 1]
+		if pad > 0 and pad <= BLOCK_SIZE and decrypted.size() >= pad:
+			decrypted = decrypted.subarray(0, decrypted.size() - pad)
+
+	# —— 字节 → JSON —— #
+	var json_str = decrypted.get_string_from_utf8()
+	var res = JSON.parse_string(json_str)
+	if res.has("error") and res["error"] != OK:
+		push_error("SaveManager: JSON 解析失败：" + res.error_string)
+		return
+	save_data = res
+	print("SaveManager: 存档已解密并加载")
+
+	# —— 按原逻辑恢复各单例数据 —— #
 	if save_data.has("player_stats"):
-		var stats = save_data["player_stats"]
-		if stats.has("health"):
-			global.player_health = stats["health"]
-		if stats.has("attack"):
-			global.player_attack = stats["attack"]
-		if stats.has("defense"):
-			global.player_defense = stats["defense"]
-		if stats.has("status"):
-			global.player_status = stats["status"]
-	else:
-		print("SaveManager: 存档里无 player_stats。")
+		var s = save_data["player_stats"]
+		if s.has("health"):  global.player_health  = s["health"]
+		if s.has("attack"):  global.player_attack  = s["attack"]
+		if s.has("defense"): global.player_defense = s["defense"]
+		if s.has("status"):  global.player_status  = s["status"]
 
-	# ------ 恢复背包 (Inventory 单例) ------
 	if save_data.has("inventory"):
 		inventory_autoload.slots.clear()
-		for entry in save_data["inventory"]:
-			inventory_autoload.slots.append(entry)
+		for e in save_data["inventory"]:
+			inventory_autoload.slots.append(e)
 		if save_data.has("equipment"):
 			inventory_autoload.equipment.clear()
 			for eq in save_data["equipment"]:
 				inventory_autoload.equipment.append(eq)
 		inventory_autoload.emit_signal("inventory_updated")
-	else:
-		print("SaveManager: 存档里无 inventory。")
 
-	# ------ 恢复储存箱 (Storage 单例) ------
 	if save_data.has("storage_box"):
 		StorageAutoload.storage_counts.clear()
-		for key in save_data["storage_box"].keys():
-			var cnt = save_data["storage_box"][key]
-			StorageAutoload.storage_counts[key] = cnt
-			print("   —— 恢复道具",key, "数量 =", cnt)
+		for k in save_data["storage_box"].keys():
+			StorageAutoload.storage_counts[k] = save_data["storage_box"][k]
 		StorageAutoload.fill_slots_from_counts()
-	else:
-		print("SaveManager: 存档里无 storage_box。")
-	# —— （F）恢复按键绑定 (InputMap) —— #
-	# —— （B）存按键绑定到 save_data["keybindings"] —— #
-	
-	
 
-
-# ==================================================
-# 保存存档：只写 玩家数值、背包、储存箱
-# ==================================================
-func save_game() -> void:
-	global.has_load=false
-	# ------ 玩家数值 (Global) ------
-	if has_node("/root/global"):
-		var ps := {}
-		ps["health"] = global.player_health
-		ps["defense"]=global.player_defense
-		ps["attack"]=global.player_attack
-		ps["status"]=global.player_status
-		save_data["player_stats"] = ps
-	else:
-		print("SaveManager: 无法写入玩家属性（缺少 Global 单例）。")
-		save_data["player_stats"] = {}
-
-	# ------ 背包 (Inventory) ------
-	if has_node("/root/inventory_autoload"):
-		save_data["inventory"] = inventory_autoload.slots.duplicate()
-		save_data["equipment"] = inventory_autoload.equipment.duplicate()
-	else:
-		print("SaveManager: 无法写入背包（缺少 Inventory 单例）。")
-		save_data["inventory"] = []
-		save_data["equipment"] = []
-
-	# ------ 储存箱 (Storage) ------
-	if has_node("/root/StorageAutoload"):
-		var scopy := {}
-		for k in StorageAutoload.storage_counts.keys():
-			scopy[k] = StorageAutoload.storage_counts[k]
-		save_data["storage_box"] = scopy
-	else:
-		print("SaveManager: 无法写入储存箱（缺少 Storage 单例）。")
-		save_data["storage_box"] = {}
-	# —— （D）存按键绑定 (InputMap) —— #
-	# 先调用一次上面写好的函数，把所有 action 对应的第一个 scancode 存进 save_data
-	
-		
-		
-	
-	# ------ 把 save_data 转 JSON 写盘 ------
-	var json_str := JSON.stringify(save_data)
-	var file := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
-	if file == null:
-		push_error("SaveManager: 无法打开存档文件：" + SAVE_PATH)
-		return
-
-	file.store_string(json_str)
-	file.close()
-	print("SaveManager: 存档已保存到", SAVE_PATH)
+# ========== 一键清档 ========== #
 func clear_save() -> void:
 	# 1) 删除存档文件
-	var dir := DirAccess.open("user://")
+	var dir = DirAccess.open("user://")
 	if dir:
 		if dir.remove("savegame.json") != OK:
 			push_error("SaveManager: 无法删除存档文件")
 		else:
-			print("SaveManager: 存档文件已删除。")
+			print("SaveManager: 存档文件已删除")
 	else:
 		push_error("SaveManager: 无法打开 user:// 目录")
 
@@ -172,5 +197,3 @@ func clear_save() -> void:
 	for i in range(StorageAutoload.max_slots):
 		StorageAutoload.slots[i] = null
 	StorageAutoload.emit_signal("storage_updated")
-	
-	
