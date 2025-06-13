@@ -13,56 +13,57 @@ const SLOTS_PER_PAGE := 14
 @onready var special_btn    = $TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/SpecialMargin/SpecialButton    as Button
 
 @onready var slot_container = $TopBottomMargin/BottomMargin/HBoxContainer/SlotMargin/GridContainer as GridContainer
-@onready var slot_nodes     : Array = []  # 存放 SLOTS_PER_PAGE 个 StorageSlot 实例
+@onready var slot_nodes     : Array = []  # Holds the SLOTS_PER_PAGE StorageSlot instances
 
 @onready var prev_btn   = $TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Button   as Button
 @onready var page_label = $TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer2/PageLabel as Label
 @onready var next_btn   = $TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer3/Button   as Button
 @onready var get_btn    = $TopBottomMargin/BottomMargin/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer4/Button   as Button
 
-# —— 状态字段 —— #
-var is_storage_mode : bool = true                # true=“从储藏箱取出”， false=“往储藏箱存入”
-var current_category := Item.ItemType.Misc       # 默认显示 “Misc” 类别
+# —— State fields —— #
+var is_storage_mode : bool = true                # true = “withdraw from storage”, false = “deposit into storage”
+var current_category := Item.ItemType.Misc       # Default to “Misc” category
 var current_page := 0
 var max_pages := 1
 
-# 存放“筛选后、分页后”本页要显示的 item 列表：
-# 每项是 Dictionary {"item_id":String, "count":int, "icon":Texture2D, "name":String}
+# Holds the list of items to display on the current page after filtering and paging:
+# Each entry is a Dictionary {"item_id":String, "count":int, "icon":Texture2D, "name":String}
 var page_items : Array = []
 
 func _ready() -> void:
-	# 1) 找到 GridContainer 里的每个 StorageSlot，并存到 slot_nodes 数组里
+	# 1) Find each StorageSlot in the GridContainer and store in slot_nodes
 	slot_nodes.clear()
 	for chi in slot_container.get_children():
 		if chi is StorageSlot:
 			slot_nodes.append(chi)
-	# slot_nodes 应该就是 SLOTS_PER_PAGE 个 StorageSlot 实例
-	# 2) 连接“Storage/Inventory”切换按钮
+	# slot_nodes should contain SLOTS_PER_PAGE StorageSlot instances
+
+	# 2) Connect Storage/Inventory toggle buttons
 	select_storage_btn.connect("pressed", Callable(self, "_on_storage_button_pressed"))
 	select_inventory_btn.connect("pressed", Callable(self, "_on_inventory_button_pressed"))
 
-	# 3) 连接类型筛选按钮
+	# 3) Connect category filter buttons
 	
 
-	# 4) 连接翻页按钮
+	# 4) Connect pagination buttons
 	prev_btn.connect("pressed", Callable(self, "_on_prev_pressed"))
 	next_btn.connect("pressed", Callable(self, "_on_next_pressed"))
 
-	# 5) 连接每个 StorageSlot 发出的 amount_changed 信号
+	# 5) Connect each StorageSlot’s amount_changed signal
 	for slot in slot_nodes:
 		slot.connect("amount_changed", Callable(self, "_on_slot_amount_changed"))
 	
-	# 6) 连接 GetButton
+	# 6) Connect the GetButton
 	get_btn.connect("pressed", Callable(self, "_on_get_pressed"))
 	
-	# 7) 初始化：默认选“取出模式”+“武器分类”
+	# 7) Initialize: default to “withdraw mode” + “Weapon category”
 	_update_mode_buttons()
-	_select_mode(true)    # true = storage 模式
+	_select_mode(true)    # true = storage mode
 	_on_category_button_pressed(Item.ItemType.Weapon)
 	
 
 
-#—————— 模式与分类切换回调 ——————
+#—————— Mode & category toggle callbacks ——————
 func _on_storage_button_pressed() -> void:
 	_select_mode(true)
 
@@ -78,13 +79,12 @@ func _select_mode(to_storage: bool) -> void:
 	_refresh_page()
 
 func _update_mode_buttons() -> void:
-	# ** 不做任何 pressed、modulate、add_color_override 之类的操作 **
-	# 只更新最下方那个 Get 按钮的文字
+	# ** No pressed/modulate/add_color_override operations here **
+	# Only update the text of the Get button at the bottom
 	get_btn.text = "Get" if is_storage_mode else "Input"
 
 
-
-# 统一的分类切换函数
+# Unified category switch function
 func _on_category_button_pressed(t: int) -> void:
 	if current_category == t:
 		return
@@ -93,7 +93,7 @@ func _on_category_button_pressed(t: int) -> void:
 	_refresh_page()
 
 
-#—————— 翻页 ——————
+#—————— Pagination ——————
 func _on_prev_pressed() -> void:
 	if current_page > 0:
 		current_page -= 1
@@ -105,14 +105,15 @@ func _on_next_pressed() -> void:
 		_refresh_page()
 
 
-#—————— 格子里「要转移数量」发生变化时回调（可选） ——————
+#—————— Callback when “transfer amount” in a slot changes (optional) ——————
 func _on_slot_amount_changed(item_id: String, new_amount: int) -> void:
-	# 目前不做更新提示，留空即可
+	# Currently no UI update needed
 	pass
 
 
-#—————— GetButton 被按下 —— 真正执行转移动作 ——————
+#—————— GetButton pressed — perform the actual transfer ——————
 func _on_get_pressed() -> void:
+	var removed_stack := []  # Array of { id, amt }
 	for slot in slot_nodes:
 		print("slot_id=%s"%slot.item_id)
 		var id = slot.item_id
@@ -120,41 +121,42 @@ func _on_get_pressed() -> void:
 		if id == "" or amt <= 0:
 			continue
 		if is_storage_mode:
-			# 从储藏箱取出 amt 件到背包
+			# Withdraw amt items from storage to inventory
 			if StorageAutoload.remove_item_by_id(id, amt):
-				inventory_autoload.add_item_by_id(id, amt)
+				if	inventory_autoload.add_item_by_id(id, amt) :
+					removed_stack.append({ "id": id, "amt": amt })
+				else:
+					StorageAutoload.add_item_by_id(id, amt)
+					push_warning("StorageUI: Inventory full, cannot withdraw %s × %d" % [id, amt])
 			else:
-				push_warning("StorageUI: 无法从储藏箱取出 %s × %d" % [id, amt])
+				push_warning("StorageUI: Failed to withdraw %s × %d from storage" % [id, amt])
 		else:
-			# 从背包取出 amt 件，存到储藏箱里
+			# Deposit amt items from inventory into storage
 			if inventory_autoload.remove_item(id, amt):
 				StorageAutoload.add_item_by_id(id, amt)
 			else:
-				push_warning("StorageUI: 背包中无法移出 %s × %d" % [id, amt])
+				push_warning("StorageUI: Failed to remove %s × %d from inventory" % [id, amt])
 	var store_list = StorageAutoload.get_items_by_type(current_category)
-	print_debug(">>> 操作后，仓库里 “类别 %s” 下的物品列表：" % str(current_category))
+	print_debug(">>> After operation, storage items in category %s:" % str(current_category))
 	for d in store_list:
 		print_debug("    %s  × %d" % [d["item_id"], d["count"]])
 
-	# 2) 打印当前“背包”里所有物品
+	# 2) Print all items in inventory
 	var inv_list = inventory_autoload.get_items_by_type(current_category)
-	print_debug(">>> 操作后，背包里 “类别 %s” 下的物品列表：" % str(current_category))
+	print_debug(">>> After operation, inventory items in category %s:" % str(current_category))
 	for d in inv_list:
 		print_debug("    %s  × %d" % [d["item_id"], d["count"]])
-	# 转移完毕 → 刷新界面
+	# After transfer → refresh UI
 	_refresh_page()
 
 
-#—————— 核心：刷新当前页显示内容 ——————
+#—————— Core: refresh current page display ——————
 func _refresh_page() -> void:
 	var all_items: Array = []
 	if is_storage_mode:
 		all_items = StorageAutoload.get_items_by_type(current_category)
-		
 	else:
 		all_items = inventory_autoload.get_items_by_type(current_category)
-		
-	
 
 	var total = all_items.size()
 	max_pages = int(ceil(float(total) / SLOTS_PER_PAGE))
@@ -178,12 +180,11 @@ func _refresh_page() -> void:
 				is_storage_mode
 			)
 		else:
-			# 只调用 clear_slot，让格子背景保持可见，内部空白
+			# Call clear_slot to keep the slot background visible but empty inside
 			slot_node._clear_slot()
 		
- 
 
-#—————— 四个分类按钮的回调 ——————
+#—————— Four category button callbacks ——————
 func _on_weapon_button_pressed() -> void:
 	if current_category == Item.ItemType.Weapon:
 		return
@@ -211,3 +212,7 @@ func _on_special_button_pressed() -> void:
 	current_category = Item.ItemType.Special
 	current_page = 0
 	_refresh_page()
+
+
+func _on_close_button_pressed() -> void:
+	hide()

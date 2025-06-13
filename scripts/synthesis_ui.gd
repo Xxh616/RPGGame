@@ -34,32 +34,31 @@ var max_pages := 1
 @onready var inventory = inventory_autoload
 
 func _ready() -> void:
-	# 1) 先把 recipes 目录下的所有 .tres 资源 load 进来
+	# 1) Load all .tres recipe resources under the recipes directory
 	_load_all_recipes()
-	# 2) 绑定翻页按钮
+	# 2) Connect pagination buttons
 	prev_page_btn.connect("pressed", Callable(self, "_on_PrevPage_pressed"))
 	next_page_btn.connect("pressed", Callable(self, "_on_NextPage_pressed"))
-	# 先打一下 detail_nodes 内容
+	# Debug-print detail_nodes
 	for i in range(detail_nodes.size()):
 		var dn = detail_nodes[i]
 		print(">>> detail_nodes[", i, "] = ", dn)
-	# 3) 绑定 5 个 ItemDetail 里自定义的 craft_requested 信号
+	# 3) Connect each ItemDetail's craft_requested signal
 	for dn in detail_nodes:
 		dn.connect("craft_requested", Callable(self, "_on_DetailCraft_requested"))
-
-	# 4) （手动已经在编辑器里连好了）分类按钮 pressed → 以下三个回调
-	#    所以这里不需要再写 connect 代码，直接实现回调体即可。
-
-	# 5) 默认先显示 Weapon 第 1 页
+	# 4) Category buttons are already connected in the editor, so just implement callbacks
+	# 5) Default to showing Weapon, page 1
 	_select_category("Weapon")
 	_refresh_page()
+
 func _process(delta: float) -> void:
 	pass
+
 # -------------------------------------------------------
 func _load_all_recipes() -> void:
 	var base_dir = DirAccess.open(recipes_base_path)
 	if base_dir == null:
-		push_error("找不到配方根目录：" + recipes_base_path)
+		push_error("Recipes root directory not found: " + recipes_base_path)
 		return
 
 	base_dir.list_dir_begin()
@@ -71,7 +70,7 @@ func _load_all_recipes() -> void:
 
 		var full_subdir = recipes_base_path + "/" + subdir_name
 		var sub_da = DirAccess.open(full_subdir)
-		# 只要能打开这个路径，就当作一个“目录”来遍历 .tres 文件
+		# Treat any openable folder as a category to scan for .tres files
 		if sub_da != null:
 			if not recipes_by_category.has(subdir_name):
 				recipes_by_category[subdir_name] = []
@@ -86,14 +85,14 @@ func _load_recipes_from_dir(category_name: String, dir_path: String) -> void:
 	da.list_dir_begin()
 	var fname = da.get_next()
 	while fname != "":
-		# 只对 .tres 资源文件进行加载
+		# Load only .tres resource files
 		if fname.to_lower().ends_with(".tres"):
 			var full_path = dir_path + "/" + fname
 			var r = ResourceLoader.load(full_path)
 			if r and r is CraftRecipe:
 				recipes_by_category[category_name].append(r)
 			else:
-				push_warning("“%s” 不是 CraftRecipe 资源" % full_path)
+				push_warning("%s is not a CraftRecipe resource" % full_path)
 		fname = da.get_next()
 	da.list_dir_end()
 
@@ -105,19 +104,15 @@ func _select_category(cat: String) -> void:
 	current_page = 0
 	_refresh_page()
 
-
-# -------------------------------------------------------
+# Category button callbacks
 func _on_weapon_button_pressed() -> void:
 	_select_category("Weapon")
-
 
 func _on_consumable_button_pressed() -> void:
 	_select_category("Consumable")
 
-
 func _on_special_button_pressed() -> void:
 	_select_category("Special")
-
 
 # -------------------------------------------------------
 func _on_PrevPage_pressed() -> void:
@@ -125,18 +120,16 @@ func _on_PrevPage_pressed() -> void:
 		current_page -= 1
 		_refresh_page()
 
-
 func _on_NextPage_pressed() -> void:
 	if current_page < max_pages - 1:
 		current_page += 1
 		_refresh_page()
 
-
 # -------------------------------------------------------
-# 当某行的“合成”被点时，会收到 craft_requested(recipe_idx)
+# Called when an ItemDetail line's craft button is pressed
 func _on_DetailCraft_requested(recipe_idx: int) -> void:
 	var chosen_recipe: CraftRecipe = null
-	# 从 recipes_by_category 中找出 instance_id 与 recipe_idx 匹配的那条
+	# Find the CraftRecipe instance matching the instance_id
 	for cat_name in recipes_by_category.keys():
 		for r in recipes_by_category[cat_name]:
 			if r.get_instance_id() == recipe_idx:
@@ -146,10 +139,10 @@ func _on_DetailCraft_requested(recipe_idx: int) -> void:
 			break
 
 	if chosen_recipe == null:
-		push_warning("找不到索引为 %d 的 CraftRecipe" % recipe_idx)
+		push_warning("Cannot find CraftRecipe with index %d" % recipe_idx)
 		return
 
-	# 检查背包材料是否都足够
+	# Check if player has enough materials
 	var can_craft = true
 	for mat_id in chosen_recipe.needs.keys():
 		var need_cnt = int(chosen_recipe.needs[mat_id])
@@ -157,24 +150,22 @@ func _on_DetailCraft_requested(recipe_idx: int) -> void:
 			can_craft = false
 			break
 	if not can_craft:
-		# 材料不足时弹个提示（假设你已经有一个 UI group 里 show_popup() 的方法）
-		get_tree().call_group("UI", "show_popup", "材料不足，无法合成！")
+		get_tree().call_group("UI", "show_popup", "Not enough materials to craft!")
 		return
 
-	# 扣除材料
+	# Deduct materials
 	for mat_id in chosen_recipe.needs.keys():
 		var need_cnt = int(chosen_recipe.needs[mat_id])
 		inventory.remove_item(mat_id, need_cnt)
 
-	# 加入合成结果
+	# Add crafted result
 	inventory.add_item(chosen_recipe.result_id, 1)
 
-	# 弹成功提示
-	get_tree().call_group("UI", "show_popup", "合成“%s”成功！" % chosen_recipe.result_id)
+	# Show success popup
+	get_tree().call_group("UI", "show_popup", "Crafted “%s” successfully!" % chosen_recipe.result_id)
 
-	# 刷新当前页的显示（因为有按钮状态要重新检查）
+	# Refresh the page to update button states
 	_refresh_page()
-
 
 # -------------------------------------------------------
 func _refresh_page() -> void:
@@ -189,25 +180,25 @@ func _refresh_page() -> void:
 	page_label.text = " %d / %d " % [ current_page+1, max_pages ]
 
 	for i in range(ITEMS_PER_PAGE):
-		var detail_node = detail_nodes[i] as ItemDetail  # 你的 ItemDetail 类型
+		var detail_node = detail_nodes[i] as ItemDetail
 		var global_idx = current_page * ITEMS_PER_PAGE + i
 		if global_idx < total:
 			var recipe_res : CraftRecipe = arr[global_idx]
-			# 拿到合成品资源 (只为了 icon 和 name)
+			# Get the result item's resource for icon and name
 			var item_res : Item = inventory.get_item_resource(recipe_res.result_id)
 			if item_res == null:
 				detail_node.clear_detail()
 				detail_node.visible = false
 				continue
 
-			# 第一行需要的 icon 和 name
+			# Prepare icon and name for this recipe
 			var icon_tex = item_res.icon
 			var item_name = item_res.name
 
-			# 给 ItemDetail 填充数据 —— 里面会自动塞材料列表到 PopupPanel
+			# Populate the ItemDetail control (it handles material popup internally)
 			detail_node.set_detail(icon_tex, item_name, recipe_res)
 
-			# 如果你想在这儿再额外设置 craft_button 状态也可以：
+			# Optionally manually set craft_button state here:
 			var ok = true
 			for mat_id in recipe_res.needs.keys():
 				var cnt = int(recipe_res.needs[mat_id])
@@ -220,3 +211,8 @@ func _refresh_page() -> void:
 		else:
 			detail_node.clear_detail()
 			detail_node.visible = false
+
+
+func _on_close_button_pressed() -> void:
+	hide()
+	

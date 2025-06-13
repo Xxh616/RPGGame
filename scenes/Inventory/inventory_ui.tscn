@@ -194,6 +194,7 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+slot_index = -1
 
 [node name="AttributeMargin" type="MarginContainer" parent="InventoryMargin/VBoxSplit/BottomMargin/HBoxSplit/LeftMargin/LeftVBox"]
 layout_mode = 2

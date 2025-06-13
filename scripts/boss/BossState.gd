@@ -2,7 +2,7 @@
 extends RefCounted
 class_name BossState
 
-var owner  # 会被 new(owner) 传进来
+var owner
 
 func _init(_owner) -> void:
 	owner = _owner

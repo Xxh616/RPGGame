@@ -1,21 +1,24 @@
-# PlayerState.gd
 extends RefCounted
-class_name PlayerState   # 把原来的 State 改为 PlayerState
+class_name PlayerState   # Rename original State to PlayerState
 
-# 每个 State 都会拿到一个 owner（也就是 Player 或 Goblin 本体），用于访问共享数据与方法
+# Each State is given an owner (the Player or Goblin instance) to access shared data and methods
 var owner
 
 func _init(_owner) -> void:
 	owner = _owner
 
 func enter(prev_state: String) -> void:
+	# Called when this state is entered; override in subclasses
 	pass
 
 func physics_update(delta: float) -> void:
+	# Called every physics frame; override for movement and physics-related logic
 	pass
 
 func process(delta: float) -> void:
+	# Called every idle frame; override for non-physics logic (e.g., UI updates)
 	pass
 
 func exit(next_state: String) -> void:
+	# Called when this state is exited; override for cleanup
 	pass

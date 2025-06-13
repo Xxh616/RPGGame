@@ -1,54 +1,53 @@
-# res://scripts/states/AttackState.gd
 extends State
 class_name PlayerAttackState
 
-var attack_cooldown := 1.0  # 动画 + 冷却 总时长
-var timer := 0.0            # 累计时间
+var attack_cooldown := 1.0  # Total duration for animation + cooldown
+var timer := 0.0            # Elapsed time
 
 func _init(_owner) -> void:
 	owner = _owner
 
 func enter(prev_state: String) -> void:
 	timer = 0.0
-	# —— 2) 更新并打开攻击区 —— 
+	# 2) Update and activate the attack area
 	owner.update_attack_area()
 	owner.attack_area.monitoring  = true
 	owner.attack_area.monitorable = true
 	var to_player = owner.player.global_position - owner.global_position
 	if abs(to_player.x) > abs(to_player.y):
-		owner.last_facing_dir ="right" if to_player.x > 0  else "left"
+		owner.last_facing_dir = "right" if to_player.x > 0 else "left"
 	else:
 		owner.last_facing_dir = "down" if to_player.y > 0 else "up"
 
-	# —— 3) 播攻击动画 —— 
+	# 3) Play attack animation
 	owner.play_animation("attack")
 
 
 func physics_update(delta: float) -> void:
-	# 攻击期间禁止移动
+	# Disable movement during attack
 	owner.velocity = Vector2.ZERO
 
 	timer += delta
 
-	# —— 在 0.5 秒时尝试命中一次 —— 
+	# Attempt to hit once at 0.5 seconds into the attack
 	if timer >= 0.5 and timer - delta < 0.5:
 		if owner.attack_valid:
-			var factor=(100+owner.config.attack)/100.0
-			owner.player.take_damage(20*factor)
-		# 不管是否命中，这次触发后就不再重复
+			var factor = (100 + owner.config.attack) / 100.0
+			owner.player.take_damage(20 * factor)
+		# Regardless of hit success, do not repeat this trigger
 		owner.attack_valid = false
 
-	# —— 当前攻击周期结束（动画+冷却） —— 
+	# When the current attack cycle (animation + cooldown) ends
 	if timer >= attack_cooldown:
 		timer = 0.0
 
-		# 先关闭本轮的攻击区检测
+		# First, disable monitoring for this attack cycle
 		owner.attack_area.monitoring  = false
 		owner.attack_area.monitorable = false
 
-		# 决定下一步：如果玩家仍在判定区，就连击；否则回 Chase
+		# Decide next action: if player still in range, chain attack; otherwise switch to Chase
 		if owner.attack_valid:
-			# 连击下一轮：再对齐攻击区、重新打开检测、播放动画
+			# For the next chain: realign attack area, re-enable monitoring, and replay animation
 			owner.update_attack_area()
 			owner.attack_area.monitoring  = true
 			owner.attack_area.monitorable = true
@@ -58,11 +57,10 @@ func physics_update(delta: float) -> void:
 			owner.change_state(owner.States.CHASE)
 
 func process(delta: float) -> void:
-	# 攻击状态无需在 process 里做额外逻辑
+	# No additional logic needed in process for attack state
 	pass
 
 func exit(next_state: String) -> void:
-	# 离开攻击状态时，一定关闭攻击区
+	# Ensure attack area is disabled when exiting the attack state
 	owner.attack_area.call_deferred("set_monitoring", false)
 	owner.attack_area.call_deferred("set_monitorable", false)
-	

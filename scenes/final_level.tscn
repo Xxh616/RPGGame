@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://biciltbb5l763"]
+[gd_scene load_steps=38 format=4 uid="uid://biciltbb5l763"]
 
 [ext_resource type="Script" uid="uid://dd7y7cttda5ob" path="res://scripts/hometown.gd" id="1_n0iek"]
 [ext_resource type="Texture2D" uid="uid://d0d8kuuthutln" path="res://art/map_resources/ThirdLevel/Dungeon_2.png" id="1_u2pc8"]
@@ -12,7 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://cc3pjfk4qvxry" path="res://scenes/Inventory/inventory_ui.tscn" id="9_q0j1x"]
 [ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="10_n0iek"]
 [ext_resource type="PackedScene" uid="uid://k3lcggpycug7" path="res://scenes/inner_margin.tscn" id="11_tyq1q"]
+[ext_resource type="PackedScene" uid="uid://c125udyftsnt6" path="res://scenes/NoticeBoardDetail.tscn" id="13_30uf7"]
 [ext_resource type="AudioStream" uid="uid://cndeilopng31p" path="res://audio/Clement Panchout _ LJ_Tel_HipHop.wav" id="13_tyq1q"]
+[ext_resource type="PackedScene" uid="uid://bubtpb2sakr5o" path="res://scenes/notice_board.tscn" id="14_t8uxg"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n0iek"]
 vertices = PackedVector2Array(726, 90, 726, 310, 267, 310, 267, 305, 10, 90, 10, 305)
@@ -568,7 +570,6 @@ position = Vector2(129.5, 375.5)
 shape = SubResource("RectangleShape2D_mei1o")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="InventoryUi" parent="CanvasLayer" instance=ExtResource("9_q0j1x")]
 visible = false
@@ -605,10 +606,18 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_76anu")
 [node name="InnerMargin" parent="CanvasLayer/Control" instance=ExtResource("11_tyq1q")]
 visible = false
 
+[node name="Control2" parent="CanvasLayer" instance=ExtResource("13_30uf7")]
+visible = false
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_tyq1q")
 volume_db = 20.0
 autoplay = true
+
+[node name="NoticeBoard" parent="AudioStreamPlayer" instance=ExtResource("14_t8uxg")]
+position = Vector2(170, 389)
+ui_panel_path = NodePath("../../CanvasLayer/Control2")
+content = "Face the ultimate powerful enemy! If you leave the battlefield and reach the step position, Death will no longer chase you, but it will return to the initial position and restore full health."
 
 [connection signal="body_entered" from="SafeZone" to="Boss" method="_on_safe_zone_enter"]
 [connection signal="body_exited" from="SafeZone" to="Boss" method="_on_safe_zone_exit"]

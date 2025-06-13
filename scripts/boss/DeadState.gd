@@ -2,25 +2,24 @@
 extends BossState
 class_name BossDeadState
 
-
-var has_queued_free: bool = false   # 是否已执行 queue_free()
+var has_queued_free: bool = false   # Whether queue_free() has already been executed
 
 func _init(_owner: Boss) -> void:
 	owner = _owner
 
 func enter(prev_state: String) -> void:
-	# 停止所有移动
+	# Stop all movement
 	owner.velocity = Vector2.ZERO
-	# 播放死亡动画（在 SpriteFrames 里，请务必取消 Loop）
+	# Play the death animation (ensure Loop is disabled in SpriteFrames)
 	owner.anim_sprite.play("dead")
 	has_queued_free = false
 
 func physics_update(delta: float) -> void:
-	# 死亡状态不需要物理更新
+	# No physics updates needed in the death state
 	pass
 
 func process(delta: float) -> void:
-	# 等待 death 动画播到最后一帧
+	# Wait until the 'dead' animation reaches its final frame
 	if has_queued_free:
 		return
 	if owner.anim_sprite.animation != "dead":
@@ -34,4 +33,5 @@ func process(delta: float) -> void:
 		owner.queue_free()
 
 func exit(next_state: String) -> void:
+	# Optional cleanup on exit (none needed here)
 	pass

@@ -1,12 +1,11 @@
-# res://scripts/CraftRecipe.gd
 extends Resource
 class_name CraftRecipe
 
-# 1) 合成出的物品 ID
+# 1) ID of the crafted item
 @export var result_id: String = ""
 
-# 2) 材料需求，用一个 Dictionary：键＝材料 item_id，值＝所需数量
+# 2) Material requirements: keys are material item IDs, values are required quantities
 @export var needs: Dictionary = {}
 
-# 3) 这个配方所属分类，可选值 “Weapon”、“Consumable”、“Special”…… 
+# 3) Category of this recipe (e.g., "Weapon", "Consumable", "Special", etc.)
 @export var category: String = ""

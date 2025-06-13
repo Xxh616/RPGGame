@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://f72spoyq55tl"]
+[gd_scene load_steps=45 format=4 uid="uid://f72spoyq55tl"]
 
 [ext_resource type="Script" uid="uid://b4teklbw611ei" path="res://scripts/home.gd" id="1_aish6"]
 [ext_resource type="Texture2D" uid="uid://yagan5v5mpbo" path="res://art/map_resources/House/Objects/Indoor_Decor.png" id="1_u4wd2"]
@@ -18,12 +18,15 @@
 [ext_resource type="PackedScene" uid="uid://cc3pjfk4qvxry" path="res://scenes/Inventory/inventory_ui.tscn" id="16_o7pnx"]
 [ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="17_aish6"]
 [ext_resource type="PackedScene" uid="uid://k3lcggpycug7" path="res://scenes/inner_margin.tscn" id="18_snnha"]
+[ext_resource type="PackedScene" uid="uid://c125udyftsnt6" path="res://scenes/NoticeBoardDetail.tscn" id="19_ppa51"]
 [ext_resource type="AudioStream" uid="uid://cgowr3gwe45qb" path="res://audio/Clement Panchout_ Village_ 2002.wav" id="19_snnha"]
+[ext_resource type="PackedScene" uid="uid://bubtpb2sakr5o" path="res://scenes/notice_board.tscn" id="20_e42qu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_reixx"]
 texture = ExtResource("1_u4wd2")
 0:2/size_in_atlas = Vector2i(1, 2)
 0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.02526, 8, -6.38498, -11.511, 5.48569, -10.7915, 6.20513, 3.0576, 6.20513, 12.9498, -5.84541, 12.77)
 0:1/size_in_atlas = Vector2i(2, 1)
 0:1/0 = 0
 3:2/0 = 0
@@ -31,6 +34,7 @@ texture = ExtResource("1_u4wd2")
 2:0/0 = 0
 0:0/size_in_atlas = Vector2i(2, 1)
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-13.5793, -6.1152, 13.0398, -5.39576, 14.2988, 0, 11.0613, 2.69788, 9.8023, 5.39576, 8, 3.95689, -0.0899277, 3.23745, -8, 4.49647, -10.3419, 3.95689, -10.5217, 2.87774, -13.5793, 2.33816)
 4:0/0 = 0
 4:0/0/texture_origin = Vector2i(0, 8)
 3:0/0 = 0
@@ -39,9 +43,12 @@ texture = ExtResource("1_u4wd2")
 5:1/0 = 0
 5:0/0 = 0
 5:0/0/texture_origin = Vector2i(0, 7)
+5:0/0/y_sort_origin = -15
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.2159, -6.47491, -1.79859, -5.57562, 3.23746, -5.2159, 5.39576, -8, 5.57562, -2.51802, -0.539576, -1.43887, -5.03605, -2.1583)
 5:2/0 = 0
 5:2/0/texture_origin = Vector2i(2, 11)
 5:2/0/z_index = 3
+5:2/0/y_sort_origin = 3
 4:2/0 = 0
 4:2/0/texture_origin = Vector2i(-8, -7)
 4:2/0/z_index = 3
@@ -55,15 +62,19 @@ texture = ExtResource("1_u4wd2")
 3:3/0 = 0
 2:4/size_in_atlas = Vector2i(1, 2)
 2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.84541, -1.07915, 6.02527, -1.07915, 5.84541, 8, 5.66555, 12.5901, -5.48569, 12.4103)
 3:5/size_in_atlas = Vector2i(2, 1)
 3:5/0 = 0
 3:5/0/texture_origin = Vector2i(0, 5)
 2:6/size_in_atlas = Vector2i(1, 2)
 2:6/0 = 0
+2:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.76625, 8, -3.50724, 4.67633, 3.32739, 4.49647, 4.5864, 8, 4.5864, 12.9498, -2.60795, 12.4103)
 3:6/size_in_atlas = Vector2i(1, 2)
 3:6/0 = 0
+3:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.76625, 8, -2.42809, 8, 1.16908, 8, 2.96767, 8, 2.96767, 12.9498, -2.60795, 12.4103)
 4:6/0 = 0
 4:7/0 = 0
+4:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-3.95689, 1.97845, 1.97845, 1.25901, 2.1583, 4.85619, -3.95689, 5.03605)
 5:5/0 = 0
 1:12/0 = 0
 1:2/size_in_atlas = Vector2i(1, 2)
@@ -84,15 +95,20 @@ texture = ExtResource("1_u4wd2")
 0:4/size_in_atlas = Vector2i(1, 2)
 0:4/0 = 0
 0:4/0/texture_origin = Vector2i(-7, -6)
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(4.5864, 11.511, 13.0398, 12.2304, 12.3203, 17.4463, 3.50725, 17.4463)
 1:4/size_in_atlas = Vector2i(1, 2)
 1:4/0 = 0
 1:4/0/texture_origin = Vector2i(0, -9)
+1:4/0/y_sort_origin = 13
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.66555, 14.7484, 5.84541, 14.3887, 5.48569, 19.6046, -5.48569, 19.9643)
 0:6/size_in_atlas = Vector2i(1, 2)
 0:6/0 = 0
 0:6/0/texture_origin = Vector2i(0, 8)
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.94611, -1.97845, 5.30584, -1.25901, 4.94612, 1.97844, 3.86696, 6.47491, -4.76625, 5.57562)
 1:6/size_in_atlas = Vector2i(1, 2)
 1:6/0 = 0
 1:6/0/texture_origin = Vector2i(8, -7)
+1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-14.1189, 13.1297, -9.44258, 12.4103, -6.20512, 12.2304, -3.32738, 12.9498, -2.96767, 18.1657, -13.7592, 17.6262)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uhids"]
 texture = ExtResource("2_w18ys")
@@ -326,6 +342,7 @@ texture = ExtResource("8_vc333")
 2:14/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_yxilm"]
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_reixx")
 sources/1 = SubResource("TileSetAtlasSource_uhids")
 sources/2 = SubResource("TileSetAtlasSource_gi00y")
@@ -342,12 +359,18 @@ region = Rect2(65, 2, 15, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vc333"]
 size = Vector2(23, 22.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snnha"]
+size = Vector2(14.625, 11)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hhep5"]
 atlas = ExtResource("1_u4wd2")
 region = Rect2(49, 48, 14, 31)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmjdo"]
 size = Vector2(30, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e42qu"]
+size = Vector2(14, 26)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpgsi"]
 size = Vector2(33, 22)
@@ -381,22 +404,38 @@ content_margin_bottom = 20.0
 texture = SubResource("AtlasTexture_wylva")
 
 [node name="Home" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_aish6")
 inventory_ui_path = NodePath("CanvasLayer/InventoryUi")
 
 [node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
 tile_set = SubResource("TileSet_yxilm")
 format = 2
-layer_0/name = "Floor"
-layer_0/tile_data = PackedInt32Array(0, 1, 0, 1, 1, 0, 2, 1, 0, 3, 1, 0, 4, 1, 0, 5, 1, 0, 6, 1, 0, 7, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 1, 0, 65540, 1, 0, 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 131079, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131078, 1, 0, 196608, 1, 0, 262144, 1, 0, 327681, 1, 0, 393217, 1, 0, 327680, 1, 0, 393216, 1, 0, 458752, 1, 0, 458753, 1, 0, 524289, 1, 0, 524290, 1, 0, 524291, 1, 0, 524292, 1, 0, 524293, 1, 0, 524294, 1, 0, 524295, 1, 0, 524296, 1, 0, 524301, 1, 0, 524302, 1, 0, 524297, 1, 0, 524298, 1, 0, 524299, 1, 0, 524300, 1, 0, 196609, 1, 0, 196610, 1, 0, 196611, 1, 0, 196612, 1, 0, 196613, 1, 0, 262150, 1, 0, 262151, 1, 0, 262152, 1, 0, 262153, 1, 0, 262154, 1, 0, 262155, 1, 0, 262156, 1, 0, 262157, 1, 0, 262158, 1, 0, 196614, 1, 0, 196615, 1, 0, 196616, 1, 0, 196617, 1, 0, 196618, 1, 0, 196619, 1, 0, 196620, 1, 0, 196621, 1, 0, 196622, 1, 0, 458766, 1, 0, 458765, 1, 0, 458764, 1, 0, 458763, 1, 0, 458762, 1, 0, 458761, 1, 0, 458760, 1, 0, 393223, 1, 0, 393222, 1, 0, 393221, 1, 0, 393220, 1, 0, 393219, 1, 0, 327682, 1, 0, 262145, 1, 0, 262146, 1, 0, 262147, 1, 0, 262148, 1, 0, 262149, 1, 0, 327683, 1, 0, 327684, 1, 0, 327685, 1, 0, 327686, 1, 0, 327687, 1, 0, 327688, 1, 0, 327689, 1, 0, 327690, 1, 0, 327693, 1, 0, 327694, 1, 0, 393218, 1, 0, 458754, 1, 0, 458755, 1, 0, 458756, 1, 0, 458757, 1, 0, 458758, 1, 0, 458759, 1, 0, 393224, 1, 0, 393225, 1, 0, 393226, 1, 0, 393230, 1, 0, 393229, 1, 0, 524288, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 131077, 1, 0, 327691, 1, 0, 393227, 1, 0, 327692, 1, 0, 393228, 1, 0, 8, 1, 0, 9, 1, 0, 10, 1, 0, 65546, 1, 0, 65547, 1, 0, 65548, 1, 0, 12, 1, 0, 13, 1, 0, 14, 1, 0, 65550, 1, 0, 131086, 1, 0, 131085, 1, 0, 131084, 1, 0, 131083, 1, 0, 131082, 1, 0, 131081, 1, 0, 131080, 1, 0, 65544, 1, 0, 65545, 1, 0, 65549, 1, 0, 11, 1, 0)
-layer_1/name = "Wall"
-layer_1/tile_data = PackedInt32Array(655366, 65539, 2, 655367, 65539, 2, 655368, 65539, 2, 655369, 65539, 2, 655370, 65539, 2, 655371, 65539, 2, 655372, 65539, 2, 655373, 65539, 2, 655374, 65539, 2, 655375, 131075, 2, 655365, 65539, 2, 655364, 65539, 2, 655363, 65539, 2, 655362, 65539, 2, 655361, 65539, 2, 655360, 65539, 2, 720895, 3, 2, 655359, 3, 1, 589823, 3, 1, 524287, 3, 1, 458751, 3, 1, 393215, 3, 1, 327679, 3, 1, 262143, 3, 1, 196607, 3, 1, 131071, 3, 1, 65535, 3, 1, -1, 3, 0, -65536, 65539, 0, -65535, 65539, 0, -65534, 65539, 0, -65533, 65539, 0, -65531, 65539, 0, -65530, 65539, 0, -65529, 65539, 0, 0, 196611, 3, 1, 196611, 3, 2, 196611, 3, 3, 196611, 3, -65532, 65539, 0, 4, 196611, 3, 5, 196611, 3, 6, 196611, 3, 7, 196611, 3, 65536, 196611, 3, 65537, 196611, 3, 65538, 196611, 3, 65540, 196611, 3, 65539, 196611, 3, 65541, 196611, 3, 65542, 196611, 3, 65543, 196611, 3, 131072, 196611, 3, 131074, 196611, 3, 131073, 196611, 3, 131075, 196611, 3, 131077, 196611, 3, 131078, 196611, 3, 131079, 196611, 3, 262159, 131075, 1, 327695, 131075, 1, 131087, 131075, 1, 393231, 131075, 1, 458767, 131075, 1, 524303, 131075, 1, 589839, 131075, 1, 196623, 131075, 1, 131081, 196611, 3, 131082, 196611, 3, 131083, 196611, 3, 131084, 196611, 3, 131085, 196611, 3, 131086, 196611, 3, -65527, 65539, 0, 9, 196611, 3, 65545, 196611, 3, -65526, 65539, 0, 10, 196611, 3, 65546, 196611, 3, -65525, 65539, 0, 11, 196611, 3, 65547, 196611, 3, -65524, 65539, 0, 12, 196611, 3, 65548, 196611, 3, -65523, 65539, 0, 13, 196611, 3, 65549, 196611, 3, -65522, 65539, 0, 14, 196611, 3, 65550, 196611, 3, -65528, 65539, 0, 8, 196611, 3, 65544, 196611, 3, 131080, 196611, 3, 15, 131075, 1, 65551, 131075, 1, -65521, 131075, 0)
-layer_2/name = "Decoration"
-layer_2/tile_data = PackedInt32Array(131076, 4, 0, 65540, 5, 0, 65538, 7, 6, 65542, 196608, 2, 131077, 131072, 6, 589824, 262144, 7, 458754, 0, 0, 393216, 0, 4, 524290, 0, 6, 393220, 65536, 6, 327682, 65536, 4, 196608, 327680, 0, 196609, 327680, 0, 131078, 196608, 6, 327680, 327680, 2, 262144, 131072, 9, 131081, 131072, 4, 131082, 131072, 4, 65548, 131079, 14, 196622, 0, 2)
-layer_3/name = "UperDeco"
-layer_3/tile_data = PackedInt32Array(458754, 196608, 8)
 
-[node name="Chest" type="Node2D" parent="."]
+[node name="Floor" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAABAAAAAQAAAAAAAAACAAAAAQAAAAAAAAADAAAAAQAAAAAAAAAEAAAAAQAAAAAAAAAFAAAAAQAAAAAAAAAGAAAAAQAAAAAAAAAHAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAABAAEAAQAAAAAAAAACAAEAAQAAAAAAAAADAAEAAQAAAAAAAAAEAAEAAQAAAAAAAAAFAAEAAQAAAAAAAAAGAAEAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAAAAIAAQAAAAAAAAABAAIAAQAAAAAAAAACAAIAAQAAAAAAAAADAAIAAQAAAAAAAAAEAAIAAQAAAAAAAAAGAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAQAAQAAAAAAAAABAAUAAQAAAAAAAAABAAYAAQAAAAAAAAAAAAUAAQAAAAAAAAAAAAYAAQAAAAAAAAAAAAcAAQAAAAAAAAABAAcAAQAAAAAAAAABAAgAAQAAAAAAAAACAAgAAQAAAAAAAAADAAgAAQAAAAAAAAAEAAgAAQAAAAAAAAAFAAgAAQAAAAAAAAAGAAgAAQAAAAAAAAAHAAgAAQAAAAAAAAAIAAgAAQAAAAAAAAANAAgAAQAAAAAAAAAOAAgAAQAAAAAAAAAJAAgAAQAAAAAAAAAKAAgAAQAAAAAAAAALAAgAAQAAAAAAAAAMAAgAAQAAAAAAAAABAAMAAQAAAAAAAAACAAMAAQAAAAAAAAADAAMAAQAAAAAAAAAEAAMAAQAAAAAAAAAFAAMAAQAAAAAAAAAGAAQAAQAAAAAAAAAHAAQAAQAAAAAAAAAIAAQAAQAAAAAAAAAJAAQAAQAAAAAAAAAKAAQAAQAAAAAAAAALAAQAAQAAAAAAAAAMAAQAAQAAAAAAAAANAAQAAQAAAAAAAAAOAAQAAQAAAAAAAAAGAAMAAQAAAAAAAAAHAAMAAQAAAAAAAAAIAAMAAQAAAAAAAAAJAAMAAQAAAAAAAAAKAAMAAQAAAAAAAAALAAMAAQAAAAAAAAAMAAMAAQAAAAAAAAANAAMAAQAAAAAAAAAOAAMAAQAAAAAAAAAOAAcAAQAAAAAAAAANAAcAAQAAAAAAAAAMAAcAAQAAAAAAAAALAAcAAQAAAAAAAAAKAAcAAQAAAAAAAAAJAAcAAQAAAAAAAAAIAAcAAQAAAAAAAAAHAAYAAQAAAAAAAAAGAAYAAQAAAAAAAAAFAAYAAQAAAAAAAAAEAAYAAQAAAAAAAAADAAYAAQAAAAAAAAACAAUAAQAAAAAAAAABAAQAAQAAAAAAAAACAAQAAQAAAAAAAAADAAQAAQAAAAAAAAAEAAQAAQAAAAAAAAAFAAQAAQAAAAAAAAADAAUAAQAAAAAAAAAEAAUAAQAAAAAAAAAFAAUAAQAAAAAAAAAGAAUAAQAAAAAAAAAHAAUAAQAAAAAAAAAIAAUAAQAAAAAAAAAJAAUAAQAAAAAAAAAKAAUAAQAAAAAAAAANAAUAAQAAAAAAAAAOAAUAAQAAAAAAAAACAAYAAQAAAAAAAAACAAcAAQAAAAAAAAADAAcAAQAAAAAAAAAEAAcAAQAAAAAAAAAFAAcAAQAAAAAAAAAGAAcAAQAAAAAAAAAHAAcAAQAAAAAAAAAIAAYAAQAAAAAAAAAJAAYAAQAAAAAAAAAKAAYAAQAAAAAAAAAOAAYAAQAAAAAAAAANAAYAAQAAAAAAAAAAAAgAAQAAAAAAAAAAAAkAAQAAAAAAAAABAAkAAQAAAAAAAAACAAkAAQAAAAAAAAADAAkAAQAAAAAAAAAEAAkAAQAAAAAAAAAFAAkAAQAAAAAAAAAGAAkAAQAAAAAAAAAHAAkAAQAAAAAAAAAIAAkAAQAAAAAAAAAJAAkAAQAAAAAAAAAKAAkAAQAAAAAAAAALAAkAAQAAAAAAAAAMAAkAAQAAAAAAAAANAAkAAQAAAAAAAAAOAAkAAQAAAAAAAAAFAAIAAQAAAAAAAAALAAUAAQAAAAAAAAALAAYAAQAAAAAAAAAMAAUAAQAAAAAAAAAMAAYAAQAAAAAAAAAIAAAAAQAAAAAAAAAJAAAAAQAAAAAAAAAKAAAAAQAAAAAAAAAKAAEAAQAAAAAAAAALAAEAAQAAAAAAAAAMAAEAAQAAAAAAAAAMAAAAAQAAAAAAAAANAAAAAQAAAAAAAAAOAAAAAQAAAAAAAAAOAAEAAQAAAAAAAAAOAAIAAQAAAAAAAAANAAIAAQAAAAAAAAAMAAIAAQAAAAAAAAALAAIAAQAAAAAAAAAKAAIAAQAAAAAAAAAJAAIAAQAAAAAAAAAIAAIAAQAAAAAAAAAIAAEAAQAAAAAAAAAJAAEAAQAAAAAAAAANAAEAAQAAAAAAAAALAAAAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_yxilm")
+
+[node name="Wall" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAAGAAoAAwABAAIAAAAHAAoAAwABAAIAAAAIAAoAAwABAAIAAAAJAAoAAwABAAIAAAAKAAoAAwABAAIAAAALAAoAAwABAAIAAAAMAAoAAwABAAIAAAANAAoAAwABAAIAAAAOAAoAAwABAAIAAAAPAAoAAwACAAIAAAAFAAoAAwABAAIAAAAEAAoAAwABAAIAAAADAAoAAwABAAIAAAACAAoAAwABAAIAAAABAAoAAwABAAIAAAAAAAoAAwABAAIAAAD//woAAwAAAAIAAAD//wkAAwAAAAEAAAD//wgAAwAAAAEAAAD//wcAAwAAAAEAAAD//wYAAwAAAAEAAAD//wUAAwAAAAEAAAD//wQAAwAAAAEAAAD//wMAAwAAAAEAAAD//wIAAwAAAAEAAAD//wEAAwAAAAEAAAD//wAAAwAAAAEAAAD/////AwAAAAAAAAAAAP//AwABAAAAAAABAP//AwABAAAAAAACAP//AwABAAAAAAADAP//AwABAAAAAAAFAP//AwABAAAAAAAGAP//AwABAAAAAAAHAP//AwABAAAAAAAAAAAAAwADAAMAAAABAAAAAwADAAMAAAACAAAAAwADAAMAAAADAAAAAwADAAMAAAAEAP//AwABAAAAAAAEAAAAAwADAAMAAAAFAAAAAwADAAMAAAAGAAAAAwADAAMAAAAHAAAAAwADAAMAAAAAAAEAAwADAAMAAAABAAEAAwADAAMAAAACAAEAAwADAAMAAAAEAAEAAwADAAMAAAADAAEAAwADAAMAAAAFAAEAAwADAAMAAAAGAAEAAwADAAMAAAAHAAEAAwADAAMAAAAAAAIAAwADAAMAAAACAAIAAwADAAMAAAABAAIAAwADAAMAAAADAAIAAwADAAMAAAAFAAIAAwADAAMAAAAGAAIAAwADAAMAAAAHAAIAAwADAAMAAAAPAAQAAwACAAEAAAAPAAUAAwACAAEAAAAPAAIAAwACAAEAAAAPAAYAAwACAAEAAAAPAAcAAwACAAEAAAAPAAgAAwACAAEAAAAPAAkAAwACAAEAAAAPAAMAAwACAAEAAAAJAAIAAwADAAMAAAAKAAIAAwADAAMAAAALAAIAAwADAAMAAAAMAAIAAwADAAMAAAANAAIAAwADAAMAAAAOAAIAAwADAAMAAAAJAP//AwABAAAAAAAJAAAAAwADAAMAAAAJAAEAAwADAAMAAAAKAP//AwABAAAAAAAKAAAAAwADAAMAAAAKAAEAAwADAAMAAAALAP//AwABAAAAAAALAAAAAwADAAMAAAALAAEAAwADAAMAAAAMAP//AwABAAAAAAAMAAAAAwADAAMAAAAMAAEAAwADAAMAAAANAP//AwABAAAAAAANAAAAAwADAAMAAAANAAEAAwADAAMAAAAOAP//AwABAAAAAAAOAAAAAwADAAMAAAAOAAEAAwADAAMAAAAIAP//AwABAAAAAAAIAAAAAwADAAMAAAAIAAEAAwADAAMAAAAIAAIAAwADAAMAAAAPAAAAAwACAAEAAAAPAAEAAwACAAEAAAAPAP//AwACAAAAAAA=")
+tile_set = SubResource("TileSet_yxilm")
+
+[node name="Decoration" type="TileMapLayer" parent="TileMap"]
+y_sort_enabled = true
+use_parent_material = true
+position = Vector2(-1, 0)
+tile_map_data = PackedByteArray("AAAEAAIABAAAAAAAAAAEAAEABQAAAAAAAAACAAEABwAAAAYAAAAGAAEAAAADAAIAAAAFAAIAAAACAAYAAAAAAAkAAAAEAAcAAAACAAcAAAAAAAAAAAAAAAYAAAAAAAQAAAACAAgAAAAAAAYAAAAEAAYAAAABAAYAAAACAAUAAAABAAQAAAAAAAMAAAAFAAAAAAABAAMAAAAFAAAAAAAGAAIAAAADAAYAAAAAAAUAAAAFAAIAAAAAAAQAAAACAAkAAAAJAAIAAAACAAQAAAAKAAIAAAACAAQAAAAMAAEABwACAA4AAAAOAAMAAAAAAAIAAAA=")
+tile_set = SubResource("TileSet_yxilm")
+
+[node name="UperDeco" type="TileMapLayer" parent="TileMap"]
+use_parent_material = true
+tile_map_data = PackedByteArray("AAACAAcAAAADAAgAAAA=")
+tile_set = SubResource("TileSet_yxilm")
+
+[node name="Chest" type="CharacterBody2D" parent="."]
 script = ExtResource("9_hhep5")
 chest_ui_path = NodePath("../CanvasLayer/Storage_UI")
 
@@ -409,6 +448,10 @@ texture = SubResource("AtlasTexture_cmjdo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Chest/Area2D"]
 position = Vector2(207, 53)
 shape = SubResource("RectangleShape2D_vc333")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chest"]
+position = Vector2(207, 48)
+shape = SubResource("RectangleShape2D_snnha")
 
 [node name="player" parent="." instance=ExtResource("8_ip4d6")]
 position = Vector2(108, 104)
@@ -428,19 +471,24 @@ limit_right = 243
 limit_bottom = 164
 editor_draw_limits = true
 
-[node name="SynthesisTable" type="Node2D" parent="."]
+[node name="SynthesisTable" type="CharacterBody2D" parent="."]
 script = ExtResource("11_ip4d6")
 synthesis_ui_path = NodePath("../CanvasLayer/Synthesis_UI")
 
 [node name="Sprite2D" type="Sprite2D" parent="SynthesisTable"]
-position = Vector2(7, 75)
+position = Vector2(7, 74)
 texture = SubResource("AtlasTexture_hhep5")
 
 [node name="Area2D" type="Area2D" parent="SynthesisTable"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SynthesisTable/Area2D"]
+visible = false
 position = Vector2(13, 75.5)
 shape = SubResource("RectangleShape2D_cmjdo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SynthesisTable"]
+position = Vector2(7, 73)
+shape = SubResource("RectangleShape2D_e42qu")
 
 [node name="TransitionPoint" type="Node2D" parent="."]
 script = ExtResource("12_gi00y")
@@ -453,8 +501,10 @@ position = Vector2(72.5, 57)
 shape = SubResource("RectangleShape2D_rpgsi")
 
 [node name="Label" type="Label" parent="TransitionPoint"]
-offset_right = 40.0
-offset_bottom = 23.0
+offset_left = 90.0
+offset_top = 45.0
+offset_right = 130.0
+offset_bottom = 68.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -475,6 +525,7 @@ offset_bottom = 650.0
 player_node = NodePath("../../player")
 
 [node name="Control" type="Control" parent="CanvasLayer"]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -499,9 +550,13 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_ppa51")
 [node name="InnerMargin" parent="CanvasLayer/Control" instance=ExtResource("18_snnha")]
 visible = false
 
+[node name="Control2" parent="CanvasLayer" instance=ExtResource("19_ppa51")]
+visible = false
+
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+visible = false
 polygon = PackedVector2Array(2, 39, 19, 39, 29, 40, 33, 43, 36, 44, 47, 45, 57, 45, 66, 45, 76, 45, 86, 43, 96, 44, 107, 44, 125, 45, 141, 44, 146, 44, 155, 45, 168, 45, 176, 45, 187, 45, 201, 44, 214, 43, 224, 43, 230, 43, 240, 44, 240, 159, 240, 161, 236, 161, 0, 160, 0, 45, -22, 72, -23, 116, -22, 165, 2, 174, 69, 181, 202, 179, 270, 174, 303, 137, 303, 71, 287, 17, 269, -27, 208, -36, 137, -39, 54, -38, -46, 9, -42, 34, -17, 37, -5, 30, -2, 39, -4, 46, 3, 34, 13, 35)
 
 [node name="Label" type="Label" parent="."]
@@ -515,5 +570,10 @@ offset_bottom = 81.0
 stream = ExtResource("19_snnha")
 volume_db = 20.0
 autoplay = true
+
+[node name="NoticeBoard" parent="." instance=ExtResource("20_e42qu")]
+position = Vector2(123, 64)
+ui_panel_path = NodePath("../CanvasLayer/Control2")
+content = "Here are some notes: Players can click the button in the top-right corner to perform various actions. When the player presses the attack button, they can charge up to deal greater damage. Attribute points (shown as stars in the inventory) can be spent to improve either attack or defense. The Night Vision Potion lets players see farther in dark areas. The Health Potion restores a certain amount of health. Strength and Defense Potions respectively boost attack power and defense—note that Night Vision and the Attack/Defense Potions are time-limited. To gather materials, follow the path to the left and defeat slimes (in later stages, you’ll get materials from other enemies as well). Default key bindings are: I to open the inventory, G to teleport, M to open a chest or crafting station, T to pick up items, and E to attack (press F again to close)."
 
 [connection signal="pressed" from="CanvasLayer/Control/Button" to="." method="_on_button_pressed"]

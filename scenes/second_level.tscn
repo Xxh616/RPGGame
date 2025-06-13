@@ -1,7 +1,7 @@
 [gd_scene load_steps=42 format=4 uid="uid://dnchbo7jbslbv"]
 
 [ext_resource type="Texture2D" uid="uid://dssm2ci5qfinj" path="res://art/map_resources/secondLevel/Cave/Cave_Door.png" id="1_5k5cp"]
-[ext_resource type="Script" uid="uid://b8plu882tq7qn" path="res://scenes/second_level.gd" id="1_b4pep"]
+[ext_resource type="Script" uid="uid://b8plu882tq7qn" path="res://scripts/second_level.gd" id="1_b4pep"]
 [ext_resource type="Texture2D" uid="uid://btl5kcdjwy3l2" path="res://art/map_resources/secondLevel/Cave/Cave_Floor.png" id="2_fpriq"]
 [ext_resource type="Texture2D" uid="uid://hns8of613c3v" path="res://art/map_resources/secondLevel/Cave/Cave_Floor_Decoration.png" id="3_b4pep"]
 [ext_resource type="Texture2D" uid="uid://bxetr2t3s4dhc" path="res://art/map_resources/secondLevel/Cave/Cave_Floor_Middle.png" id="4_ft22a"]
@@ -16,10 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://k3lcggpycug7" path="res://scenes/inner_margin.tscn" id="14_fjvil"]
 [ext_resource type="PackedScene" uid="uid://bctdt16rdmxc1" path="res://scenes/EnemyBase.tscn" id="15_paren"]
 [ext_resource type="Script" uid="uid://ck11jggb30c1f" path="res://scripts/EnemyConfig.gd" id="16_n22a1"]
-[ext_resource type="Resource" uid="uid://dn7rvlf18r5ug" path="res://scripts/Enemy/Orc/Orc 1.tres" id="17_oullg"]
-[ext_resource type="Resource" uid="uid://cs12h0x0428w5" path="res://scripts/Enemy/Orc/Orc 2.tres" id="18_xnaau"]
-[ext_resource type="Resource" uid="uid://mnkrmwaqqm20" path="res://scripts/Enemy/Orc/Orc 3.tres" id="19_xpalr"]
-[ext_resource type="Script" uid="uid://ctdmwh5cg8e2t" path="res://scenes/SecondLevel_to_FinalLevel.gd" id="20_paren"]
+[ext_resource type="Resource" uid="uid://dn7rvlf18r5ug" path="res://Enemy/Orc/Orc 1.tres" id="17_oullg"]
+[ext_resource type="Resource" uid="uid://cs12h0x0428w5" path="res://Enemy/Orc/Orc 2.tres" id="18_xnaau"]
+[ext_resource type="Resource" uid="uid://mnkrmwaqqm20" path="res://Enemy/Orc/Orc 3.tres" id="19_xpalr"]
+[ext_resource type="Script" uid="uid://ctdmwh5cg8e2t" path="res://scripts/SecondLevel_to_FinalLevel.gd" id="20_paren"]
 [ext_resource type="AudioStream" uid="uid://b0en5x4rsyd21" path="res://audio/Clement Panchout _ Dark _ 2004.wav" id="21_n22a1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rse2e"]

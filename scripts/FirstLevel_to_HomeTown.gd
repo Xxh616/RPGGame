@@ -1,42 +1,42 @@
-# res://Scripts/TransitionPoint.gd
 extends Node2D
 
-# —— 以下变量在 Inspector 里可以直接设置 —— 
-# 切换到哪个场景（文件路径）
-@export var target_scene_path: String = "res://scenes/hometown.tscn"  
+# The following variables can be set directly in the Inspector
+# The scene file path to switch to
+@export var target_scene_path: String = "res://scenes/hometown.tscn"
 
-# 切换后玩家要出现在新场景中的哪个坐标 （x, y）
-@export var spawn_x: float =776
+# The coordinates (x, y) where the player should appear in the new scene
+@export var spawn_x: float = 776
 @export var spawn_y: float = 150
 
-# 切换后玩家朝哪个方向（"up"/"down"/"left"/"right"），可选
+# The direction the player should face after transitioning ("up"/"down"/"left"/"right")
 @export var face_direction_after: String = "down"
 
-# 是否要玩家按下确认键才切换？（true = 进范围后还要按 E，false = 一碰撞即切换）
+# Whether the player must press a confirmation key to transition
+# (true = must press the key after entering area, false = transition on collision)
 @export var require_confirmation: bool = true
 
-# 提示文字内容（示例： "按 [E] 进入家乡小镇"）
+# The prompt text to display (e.g., "Press G to enter")
 @export var confirm_text: String = "按 G 进入"
 
-# PromptLabel 的节点路径，如果你场景里加了一个 Label，就在 Inspector 里填写它的 NodePath
+# The NodePath to a Label for showing the prompt; set this if you have a Label node
 @export var prompt_label_path: NodePath = ""
 
-# —— 私有变量 —— 
+# Private variables
 var player_in_area: bool = false
 var prompt_label: Label = null
 
 func _ready():
-	# 如果 Inspector 填了 prompt_label_path，就把它缓存并隐藏
+	# Cache and hide the prompt label if a valid path was provided
 	if prompt_label_path != null and has_node(prompt_label_path):
 		prompt_label = get_node(prompt_label_path)
 		prompt_label.visible = false
 
-	# 监听 Area2D 信号
+	# Connect Area2D signals
 	$Area2D.body_entered.connect(_on_body_entered)
 	$Area2D.body_exited.connect(_on_body_exited)
 
 func _on_body_entered(body):
-	# 只对名为 "player" 的节点触发（确保你的 Player 节点名字是 "player"）
+	# Only react if the body is the player (ensure your Player node implements a "player" method)
 	if body.has_method("player"):
 		player_in_area = true
 		if prompt_label:
@@ -54,25 +54,25 @@ func _process(delta):
 		return
 
 	if require_confirmation:
-		# 玩家进范围后，还要按确认键（ui_accept，一般就是 E）
+		# Require the player to press the confirmation action (e.g., "toggle_storage" or custom) to transition
 		if Input.is_action_just_pressed("GOGOGO"):
 			_do_scene_transition()
+	else:
+		# If no confirmation is required, transition immediately
+		_do_scene_transition()
 
 func _do_scene_transition():
-	# 隐藏提示文字
+	# Hide the prompt label
 	if prompt_label:
 		prompt_label.visible = false
 
-	# 先把下一场景的位置信息写入 Global
+	# Store the next scene spawn data in a global script or singleton
 	global.next_spawn_posx = spawn_x
 	global.next_spawn_posy = spawn_y
 	global.next_face_direction = face_direction_after
 
-	# 如果你要在切换后知道当前场景，也可以在这里更新 Global.current_scene = ...
-	# 但一般是新场景加载后再改，这里就不先改
-
-	# 执行场景切换
+	# Execute the scene change
 	if target_scene_path != "":
 		var err = get_tree().change_scene_to_file(target_scene_path)
 		if err != OK:
-			push_error("TransitionPoint: 无法加载场景 %s，错误码：%s" % [target_scene_path, str(err)])
+			push_error("TransitionPoint: Failed to load scene %s, error code: %s" % [target_scene_path, str(err)])

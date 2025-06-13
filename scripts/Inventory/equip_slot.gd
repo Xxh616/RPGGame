@@ -1,17 +1,16 @@
-# res://scripts/EquipSlot.gd
 extends ItemSlot
 class_name EquipSlot
 
-# 玩家点击装备槽时发出：参数是槽位索引 和 当前物品 ID（"" 表示脱装）
+# When the player clicks an equip slot, emit this signal with the slot index and the current item ID ("" means unequip)
 signal equip_changed(slot_index: int, item_id: String)
 
 func _ready() -> void:
-	# 调用父类 _ready()，以便初始化鼠标监听
+	# Call the parent _ready() to initialize mouse input listening
 	super._ready()
-	# 绑定自己的 slot_clicked 信号
+	# Connect our own slot_clicked signal to the handler
 	connect("slot_clicked", Callable(self, "_on_slot_clicked"))
 
 func _on_slot_clicked(clicked_index: int) -> void:
-	# 点击后发出 equip_changed，传递当前存的 item_id
-	# ItemSlot 已在 set_item() 里把 self.item_id 设值
+	# After clicking, emit equip_changed with the slot index and the stored item_id
+	# Note: ItemSlot already assigns self.item_id in set_item()
 	emit_signal("equip_changed", slot_index, item_id)

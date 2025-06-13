@@ -1,25 +1,24 @@
-# State.gd
 extends RefCounted
 class_name State
 
-# 由主脚本传入的引用，用来访问哥布林的属性、方法、场景树等
+# Reference passed in by the main script to access the goblin's properties, methods, and scene tree
 var owner
 
 func _init(_owner):
 	owner = _owner
 
-# 进入该状态时调用（可选，如播放一次动画）
-func enter(prev_state:String) -> void:
+# Called when entering this state (optional, e.g., play an animation)
+func enter(prev_state: String) -> void:
 	pass
 
-# 离开该状态时调用（可选，如重置参数）
-func exit(next_state:String) -> void:
+# Called when exiting this state (optional, e.g., reset parameters)
+func exit(next_state: String) -> void:
 	pass
 
-# 每帧更新时调用（物理相关逻辑写在这里）
+# Called every frame for physics-related logic
 func physics_update(delta: float) -> void:
 	pass
 
-# 每帧更新时调用（非物理，如播放动画、发送信号等）
+# Called every frame for non-physics logic, such as playing animations or sending signals
 func process(delta: float) -> void:
 	pass

@@ -583,6 +583,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_s1eky")
 theme_override_styles/normal = SubResource("StyleBoxTexture_8bn5r")
 text = "Get"
 
+[connection signal="pressed" from="TopBottomMargin/TopMargin/CloseButton" to="." method="_on_close_button_pressed"]
 [connection signal="pressed" from="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/WeaponMargin/WeaponButton" to="." method="_on_weapon_button_pressed"]
 [connection signal="pressed" from="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/ConsumableMargin/ConsumableButton" to="." method="_on_consumable_button_pressed"]
 [connection signal="pressed" from="TopBottomMargin/BottomMargin/HBoxContainer/ButtonIdentifyContainer/HBoxContainer/MaterialMargin/MaterialButton" to="." method="_on_material_button_pressed"]

@@ -1,6 +1,6 @@
-# res://scripts/Item.gd
 extends Resource
 class_name Item
+
 enum ItemType {
 	Weapon,
 	Consumable,
@@ -8,18 +8,23 @@ enum ItemType {
 	Special,
 	Misc
 }
-# 物品的唯一标识
+
+# Unique identifier for the item
 @export var id: String = ""
-# 在界面上显示的名称
+# Display name in the UI
 @export var name: String = ""
-# 格子里显示的图标
+# Icon texture shown in inventory slot
 @export var icon: Texture2D
-# 最大堆叠数
+# Maximum stack size
 @export var max_stack: int = 1
-# （可选）其它属性，比如描述、价值、类型、效果脚本……
+# Other attributes, such as description, value, type, or effect scripts
 @export var description: String = ""
 @export var type: ItemType = ItemType.Misc
-@export var attack:int=0
-@export var defense:int=0
-@export var visible_increase:float=0
+# Attack bonus provided by the item
+@export var attack: int = 0
+# Defense bonus provided by the item
+@export var defense: int = 0
+# Multiplier to increase visibility range (e.g., for night vision)
+@export var visible_increase: float = 0
+# Duration of the buff effect in seconds
 @export var buff_duration: float = 10.0

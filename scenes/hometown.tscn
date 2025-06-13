@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=4 uid="uid://dfl5wqpwtc00h"]
 
 [ext_resource type="Script" uid="uid://dd7y7cttda5ob" path="res://scripts/hometown.gd" id="1_bg7lc"]
-[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://scenes/Tilemap/hometown.tres" id="3_oubgv"]
+[ext_resource type="TileSet" uid="uid://b1hi70wxn4jkf" path="res://Tilemap/hometown.tres" id="3_oubgv"]
 [ext_resource type="PackedScene" uid="uid://cc3pjfk4qvxry" path="res://scenes/Inventory/inventory_ui.tscn" id="4_vd6oj"]
 [ext_resource type="Texture2D" uid="uid://boy0sa1mcrkwv" path="res://art/Inventory/UI_Buttons.png" id="5_hgxh7"]
 [ext_resource type="Script" uid="uid://c2lfq18dq23vm" path="res://scripts/Hometwon_to_Home.gd" id="6_vd6oj"]
@@ -10,13 +10,13 @@
 [ext_resource type="Script" uid="uid://byjs6sxc7syc1" path="res://scripts/Hometown_to_Firstlevel.gd" id="7_hgxh7"]
 [ext_resource type="PackedScene" uid="uid://bctdt16rdmxc1" path="res://scenes/EnemyBase.tscn" id="9_oubgv"]
 [ext_resource type="Script" uid="uid://ck11jggb30c1f" path="res://scripts/EnemyConfig.gd" id="10_qaaqd"]
-[ext_resource type="Resource" uid="uid://r2mdb8puo0hy" path="res://scripts/Enemy/Slime/Small_pink_slime.tres" id="11_jkwr2"]
-[ext_resource type="Resource" uid="uid://cm1rqc0of5yyb" path="res://scripts/Enemy/Slime/Small_red_slime.tres" id="12_5cby0"]
+[ext_resource type="Resource" uid="uid://r2mdb8puo0hy" path="res://Enemy/Slime/Small_pink_slime.tres" id="11_jkwr2"]
+[ext_resource type="Resource" uid="uid://cm1rqc0of5yyb" path="res://Enemy/Slime/Small_red_slime.tres" id="12_5cby0"]
 [ext_resource type="PackedScene" uid="uid://bb0yoc2888fyf" path="res://scenes/player.tscn" id="13_uhdvq"]
-[ext_resource type="Resource" uid="uid://8wyhl5mjcqwi" path="res://scripts/Enemy/Slime/Small_yellow_slime.tres" id="13_xryi5"]
-[ext_resource type="Resource" uid="uid://boyy2afuwst6s" path="res://scripts/Enemy/Slime/Big_pink_slime.tres" id="14_qju77"]
-[ext_resource type="Resource" uid="uid://dlu3rf6nw24bb" path="res://scripts/Enemy/Slime/Big_yellow_slime.tres" id="15_7uly5"]
-[ext_resource type="Resource" uid="uid://b27o6ab1aociw" path="res://scripts/Enemy/Slime/Big_red_slime.tres" id="16_do3a7"]
+[ext_resource type="Resource" uid="uid://8wyhl5mjcqwi" path="res://Enemy/Slime/Small_yellow_slime.tres" id="13_xryi5"]
+[ext_resource type="Resource" uid="uid://boyy2afuwst6s" path="res://Enemy/Slime/Big_pink_slime.tres" id="14_qju77"]
+[ext_resource type="Resource" uid="uid://dlu3rf6nw24bb" path="res://Enemy/Slime/Big_yellow_slime.tres" id="15_7uly5"]
+[ext_resource type="Resource" uid="uid://b27o6ab1aociw" path="res://Enemy/Slime/Big_red_slime.tres" id="16_do3a7"]
 [ext_resource type="PackedScene" uid="uid://bubtpb2sakr5o" path="res://scenes/notice_board.tscn" id="17_jkwr2"]
 [ext_resource type="AudioStream" uid="uid://cgowr3gwe45qb" path="res://audio/Clement Panchout_ Village_ 2002.wav" id="19_xryi5"]
 
@@ -227,7 +227,7 @@ patrol_points = Array[Vector2]([Vector2(398, 254), Vector2(365, 296)])
 [node name="NoticeBoard" parent="." instance=ExtResource("17_jkwr2")]
 position = Vector2(986, 279)
 ui_panel_path = NodePath("../CanvasLayer/Control2")
-content = "Here are some precautions:Players can click the button in the upper right corner to perform some operations2. When players press the attack button, they can charge up and deal higher damage3. Players' attribute points can be used to increase their attack power or defense power"
+content = "Here are some notes: Players can click the button in the top-right corner to perform various actions. When the player presses the attack button, they can charge up to deal greater damage. Attribute points (shown as stars in the inventory) can be spent to improve either attack or defense. The Night Vision Potion lets players see farther in dark areas. The Health Potion restores a certain amount of health. Strength and Defense Potions respectively boost attack power and defense—note that Night Vision and the Attack/Defense Potions are time-limited. To gather materials, follow the path to the left and defeat slimes (in later stages, you’ll get materials from other enemies as well). Default key bindings are: I to open the inventory, G to teleport, M to open a chest or crafting station, T to pick up items, and E to attack (press F again to close)."
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("19_xryi5")
