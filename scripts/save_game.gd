@@ -183,8 +183,8 @@ func clear_save() -> void:
 
 	
 	global.player_health  = global.player_max_health
-	global.player_attack  = 213
-	global.player_defense = 320
+	global.player_attack  = 10
+	global.player_defense = 10
 	global.player_status  = 5
 
 	# —— Inventory

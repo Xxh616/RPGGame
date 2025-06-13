@@ -19,16 +19,13 @@ func _physics_process(delta: float) -> void:
 	)
 
 func _ready():
+	if global.player_alive == false:
+		# If the player was marked dead, bring them back to life
+		global.player_alive = true
+		show_rebirth_message()
 	# Restore player health to max on scene load
 	global.player_health = global.player_max_health
 	if not global.has_load:
-		inventory_autoload.add_item("Ultimate Sword",1)
-		inventory_autoload.add_item("Power Potion",1)
-		inventory_autoload.add_item("Night Vision Potion",2)
-		StorageAutoload.add_item_by_id("Golden Soulstone",5)
-		StorageAutoload.add_item_by_id("Ore III",25)
-		StorageAutoload.add_item_by_id("Arcane Spirit Paper",10)
-		StorageAutoload.add_item_by_id("Magic Stone",3)
 		# Defer save-game loading until scene is fully initialized
 		call_deferred("_deferred_load")
 		var restored := KeyConfig.load_user_bindings()
@@ -37,10 +34,7 @@ func _ready():
 func _deferred_load():
 	SaveGame.load_game()
 	global.player_health = global.player_max_health
-	if global.player_alive == false:
-		# If the player was marked dead, bring them back to life
-		global.player_alive = true
-		show_rebirth_message()
+	
 
 func _unhandled_input(event):
 	# Toggle the Inventory UI when the "toggle_inventory" action is pressed
